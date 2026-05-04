@@ -5,10 +5,19 @@ import { useTheme } from '@/hooks/use-theme';
 import { useEffect, useState } from 'react';
 
 export const HUDOverlay = () => {
-  const { mode } = useTheme();
+  const { mode, isAutoMode } = useTheme();
   const [coords, setCoords] = useState({ lat: '33.3152', lng: '44.3661' });
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (mode === 'alert') {
+      setCoords({ lat: '33.3152', lng: '44.3661' });
+      return;
+    }
     const interval = setInterval(() => {
       setCoords({
         lat: (33.3152 + (Math.random() - 0.5) * 0.001).toFixed(4),
@@ -16,7 +25,7 @@ export const HUDOverlay = () => {
       });
     }, 2000);
     return () => clearInterval(interval);
-  }, []);
+  }, [mode]);
 
   const colorClass = mode === 'alert' ? 'text-brand-red' : 'text-brand-emerald';
   const borderClass = mode === 'alert' ? 'border-brand-red' : 'border-brand-emerald';
@@ -44,6 +53,11 @@ export const HUDOverlay = () => {
       <div className="absolute top-4 left-4 flex flex-col gap-1 p-2 bg-black/20 backdrop-blur-sm rounded border border-white/5">
         <div className={`text-[9px] tracking-[0.2em] opacity-80 ${colorClass}`}>CH_04 // GRID_SEC_BAGHDAD</div>
         <div className={`text-[12px] font-bold ${colorClass}`}>GPS: {coords.lat} N, {coords.lng} E</div>
+        {/* Tactical Mode Status */}
+        <div className={`text-[8px] font-bold mt-1 tracking-[0.2em] flex items-center gap-2 ${isAutoMode ? 'text-brand-red animate-pulse' : 'text-brand-emerald/70'}`}>
+          <div className={`w-1 h-1 rounded-full ${isAutoMode ? 'bg-brand-red shadow-[0_0_5px_rgba(239,68,68,0.8)]' : 'bg-brand-emerald'}`} />
+          SYSTEM: {isAutoMode ? 'ACTIVE' : 'STANDBY'}
+        </div>
       </div>
 
       <div className="absolute top-4 right-4 text-right flex flex-col gap-1 p-2 bg-black/20 backdrop-blur-sm rounded border border-white/5">
@@ -57,29 +71,25 @@ export const HUDOverlay = () => {
         <div className={`text-[9px] opacity-60 ${colorClass}`}>ENCRYPTED_LINK: ACTIVE</div>
       </div>
 
-      {/* Central Target Lock */}
+      {/* Central Target Lock — solid, non-moving frame */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40">
-        <motion.div
-          animate={{ scale: [1, 1.05, 1], opacity: [0.3, 0.6, 0.3] }}
-          transition={{ duration: 4, repeat: Infinity }}
-          className="relative w-full h-full"
-        >
-          <div className={`absolute top-0 left-0 w-6 h-6 border-t border-l ${borderClass}`} />
-          <div className={`absolute top-0 right-0 w-6 h-6 border-t border-r ${borderClass}`} />
-          <div className={`absolute bottom-0 left-0 w-6 h-6 border-b border-l ${borderClass}`} />
-          <div className={`absolute bottom-0 right-0 w-6 h-6 border-b border-r ${borderClass}`} />
-          <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full ${mode === 'alert' ? 'bg-brand-red' : 'bg-brand-emerald'}`} />
-        </motion.div>
+        <div className="relative w-full h-full transition-opacity duration-500" style={{ opacity: mode === 'alert' ? 1 : 0.4 }}>
+          <div className={`absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 transition-colors duration-500 ${borderClass}`} />
+          <div className={`absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 transition-colors duration-500 ${borderClass}`} />
+          <div className={`absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 transition-colors duration-500 ${borderClass}`} />
+          <div className={`absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 transition-colors duration-500 ${borderClass}`} />
+          <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full transition-colors duration-500 ${mode === 'alert' ? 'bg-brand-red' : 'bg-brand-emerald'}`} />
+        </div>
       </div>
 
       {/* Bottom Technical Logs */}
       <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end px-2">
         <div className={`text-[8px] opacity-40 leading-tight tracking-wider ${colorClass}`}>
-          STREAM_SIG // VX_{Math.floor(Math.random() * 900) + 100} <br />
+          STREAM_SIG // VX_{mounted ? Math.floor(Math.random() * 900) + 100 : '502'} <br />
           NODE // AL_NAHRAIN_AEOC
         </div>
         <div className={`text-[10px] font-bold tracking-widest ${colorClass}`}>
-          {new Date().toLocaleTimeString([], { hour12: false })}
+          {mounted ? new Date().toLocaleTimeString([], { hour12: false }) : '--:--:--'}
         </div>
       </div>
     </div>

@@ -60,4 +60,127 @@ body {
   .glow-red {
     box-shadow: 0 0 20px rgba(239, 68, 68, 0.2);
   }
+
+  /* Smooth Alert Border Pulse — professional, no shake */
+  @keyframes alert-border-pulse {
+    0%, 100% { border-color: rgba(239, 68, 68, 0.3); box-shadow: 0 0 10px rgba(239, 68, 68, 0.1); }
+    50% { border-color: rgba(239, 68, 68, 0.7); box-shadow: 0 0 20px rgba(239, 68, 68, 0.25); }
+  }
+
+  .alert-border {
+    animation: alert-border-pulse 3s ease-in-out infinite;
+    transition: all 0.5s ease-in-out;
+  }
+
+  /* Custom Map Markers */
+  .marker-pulse {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .marker-pulse::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px solid currentColor;
+    animation: map-pulse 2s infinite;
+    opacity: 0;
+  }
+
+  @keyframes map-pulse {
+    0% { transform: scale(1); opacity: 0.8; }
+    100% { transform: scale(3.5); opacity: 0; }
+  }
+
+  .marker-ops { color: #10b981; background: #10b981; }
+  .marker-incident { color: #ef4444; background: #ef4444; }
+  .marker-hospital { color: #3b82f6; background: #3b82f6; }
+
+  /* Leaflet Overrides */
+  .leaflet-container {
+    background: #0a0a0a !important;
+    font-family: var(--font-orbitron) !important;
+  }
+  
+  .leaflet-tile {
+    filter: brightness(0.6) contrast(1.2) saturate(0.5);
+  }
+
+  .leaflet-vignette {
+    box-shadow: inset 0 0 100px rgba(0,0,0,0.8);
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    z-index: 1000;
+  }
+
+  /* Tactical Tooltip Styling */
+  .tactical-tooltip.leaflet-tooltip {
+    background: rgba(0, 0, 0, 0.85) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    color: #e4e4e7 !important;
+    font-family: 'Orbitron', monospace !important;
+    font-size: 8px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.15em !important;
+    text-transform: uppercase !important;
+    padding: 4px 10px !important;
+    border-radius: 4px !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5) !important;
+  }
+
+  .tactical-tooltip.leaflet-tooltip::before {
+    border-top-color: rgba(0, 0, 0, 0.85) !important;
+  }
+
+  /* Leaflet Popup Override */
+  .leaflet-popup-content-wrapper {
+    background: rgba(10, 10, 10, 0.95) !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    border-radius: 8px !important;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.6) !important;
+  }
+
+  .leaflet-popup-tip {
+    background: rgba(10, 10, 10, 0.95) !important;
+  }
+
+  /* ── Routing Path Effects ── */
+  .route-amber-pulse {
+    stroke: #f59e0b !important;
+    animation: dash-pulse 2s linear infinite;
+    filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.6));
+  }
+
+  .route-red-glow {
+    stroke: #ef4444 !important;
+    filter: drop-shadow(0 0 12px rgba(239, 68, 68, 0.8));
+  }
+
+  @keyframes dash-pulse {
+    0% { stroke-opacity: 0.4; }
+    50% { stroke-opacity: 1; }
+    100% { stroke-opacity: 0.4; }
+  }
+
+  /* ── FORCE HIDE LEAFLET ROUTING UI (THE UI LEAK FIX) ── */
+  .leaflet-routing-container,
+  .leaflet-routing-container-hide,
+  .leaflet-routing-alternatives-container,
+  .leaflet-routing-error {
+    display: none !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
 }
+
+@import "leaflet/dist/leaflet.css";
+@import "leaflet-routing-machine/dist/leaflet-routing-machine.css";

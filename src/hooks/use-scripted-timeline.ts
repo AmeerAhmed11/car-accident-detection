@@ -3,53 +3,62 @@
 import { useEffect, useRef } from 'react';
 import { useTheme } from '@/hooks/use-theme';
 
-const CRASH_TIMESTAMP = 12.0;
-const MONITORING_COORDS = { lat: '33.2788', lng: '44.3839' }; // Al-Jadriya
+const CRASH_TIMESTAMP = 3.0;
+const MONITORING_COORDS = { lat: '33.3152', lng: '44.3661' }; // Baghdad Crash Site
 
 export function useScriptedTimeline(videoRef: React.RefObject<HTMLVideoElement | null>) {
-  const { mode, setMode } = useTheme();
-  const alertTriggered = useRef(false);
+  const { mode, setMode, isAutoMode, incidentStatus, setIncidentStatus } = useTheme();
+  const processedInCurrentLoop = useRef(false);
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
     const handleTimeUpdate = () => {
-      if (video.currentTime >= CRASH_TIMESTAMP && !alertTriggered.current && mode === 'monitoring') {
-        alertTriggered.current = true;
-        setMode('alert');
-        console.log(`[VISIONX AI] NODE 03: COLLISION DETECTED AT ${MONITORING_COORDS.lat}N, ${MONITORING_COORDS.lng}E`);
+      // Loop Prevention: Reset when video returns to start
+      if (video.currentTime < 0.5) {
+        processedInCurrentLoop.current = false;
+        // Also reset status to none if we were 'ignored' so it can trigger again next loop?
+        // User said: "disable the alert trigger for that specific video loop"
+        // This implies it should reset when the loop resets.
+        if (incidentStatus === 'ignored') setIncidentStatus('none');
+      }
+
+      if (!isAutoMode) return;
+
+      // Detection Trigger
+      if (video.currentTime >= CRASH_TIMESTAMP && !processedInCurrentLoop.current && incidentStatus === 'none') {
+        setIncidentStatus('detected');
       }
       
-      // Reset if video loops back to start
-      if (video.currentTime < 1 && alertTriggered.current) {
-        alertTriggered.current = false;
-        // Optional: Reset mode to monitoring when video loops? 
-        // For a demo, it's better to keep it in alert until manual reset or auto-pilot loop resets it.
+      // Mark as processed if user took action
+      if (incidentStatus === 'approved' || incidentStatus === 'ignored') {
+        processedInCurrentLoop.current = true;
       }
     };
 
     video.addEventListener('timeupdate', handleTimeUpdate);
     return () => video.removeEventListener('timeupdate', handleTimeUpdate);
-  }, [videoRef, mode, setMode]);
+  }, [videoRef, mode, setMode, isAutoMode, incidentStatus, setIncidentStatus]);
 
   // Manual Presenter Override: Shift + A
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.shiftKey && e.key.toUpperCase() === 'A') {
-        console.log('[VISIONX] MANUAL OVERRIDE: TRIGGERING ALERT MODE');
-        setMode('alert');
+        console.log('[VISIONX] MANUAL OVERRIDE: TRIGGERING DETECTION');
+        setIncidentStatus('detected');
       }
       if (e.shiftKey && e.key.toUpperCase() === 'R') {
         console.log('[VISIONX] MANUAL OVERRIDE: RESETTING SYSTEM');
         setMode('monitoring');
-        alertTriggered.current = false;
+        setIncidentStatus('none');
+        processedInCurrentLoop.current = false;
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [setMode]);
+  }, [setMode, setIncidentStatus]);
 
-  return { alertTriggered: alertTriggered.current };
+  return { isProcessed: processedInCurrentLoop.current };
 }
