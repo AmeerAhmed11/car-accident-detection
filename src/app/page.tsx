@@ -2,6 +2,7 @@
 
 import { useTheme } from "@/hooks/use-theme";
 import { useInactivity } from "@/hooks/use-inactivity";
+import { StorytellingOverlay } from "@/components/surveillance/storytelling-overlay";
 import { VideoFeedContainer } from "@/components/surveillance/video-feed-container";
 import { 
   Activity, 
@@ -35,8 +36,8 @@ export default function Home() {
   const [modalVideoError, setModalVideoError] = useState(false);
   const logEndRef = useRef<HTMLDivElement>(null);
 
-  // Phase 5: Kiosk Inactivity Loop (45s)
-  useInactivity(45000);
+  // Storytelling Mode: triggers autonomous demo after 30s of inactivity
+  useInactivity(30000);
 
   // Auto-scroll logs
   useEffect(() => {
@@ -154,7 +155,15 @@ export default function Home() {
             VIGILANCE (NORMAL)
           </span>
           <button 
-            onClick={() => setIsAutoMode(!isAutoMode)}
+            onClick={() => {
+              const nextAutoMode = !isAutoMode;
+              setIsAutoMode(nextAutoMode);
+              // Reset logic when switching back to Vigilance
+              if (!nextAutoMode) {
+                setMode('monitoring');
+                setIncidentStatus('none');
+              }
+            }}
             className={`group relative w-12 h-6 rounded-full transition-all duration-700 p-1 border ${isAutoMode ? 'bg-brand-red/10 border-brand-red/40 shadow-[0_0_15px_rgba(239,68,68,0.2)]' : 'bg-brand-emerald/10 border-brand-emerald/40 shadow-[0_0_15px_rgba(46,125,50,0.2)]'}`}
           >
             <motion.div 
@@ -607,6 +616,9 @@ export default function Home() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Cinematic Storytelling Mode Overlay — triggered after 30s idle */}
+      <StorytellingOverlay />
     </main>
   );
 }

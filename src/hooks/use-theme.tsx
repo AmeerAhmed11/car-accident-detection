@@ -11,6 +11,8 @@ interface ThemeContextType {
   toggleTheme: () => void;
   isAutoMode: boolean;
   setIsAutoMode: (auto: boolean) => void;
+  isStorytelling: boolean;
+  setIsStorytelling: (story: boolean) => void;
   incidentStatus: IncidentStatus;
   setIncidentStatus: (status: IncidentStatus) => void;
 }
@@ -20,6 +22,7 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [mode, setMode] = useState<ThemeMode>('monitoring');
   const [isAutoMode, setIsAutoMode] = useState(false);
+  const [isStorytelling, setIsStorytelling] = useState(false);
   const [incidentStatus, setIncidentStatus] = useState<IncidentStatus>('none');
 
   useEffect(() => {
@@ -38,6 +41,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       toggleTheme, 
       isAutoMode, 
       setIsAutoMode, 
+      isStorytelling,
+      setIsStorytelling,
       incidentStatus, 
       setIncidentStatus 
     }}>
