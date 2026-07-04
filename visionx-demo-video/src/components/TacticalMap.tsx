@@ -88,7 +88,11 @@ function RoutingController({ ops, incident, hospital, onRouteReady }: { ops: [nu
   return null;
 }
 
-const TacticalMap = () => {
+interface TacticalMapProps {
+  animationStartFrame?: number;
+}
+
+export const TacticalMap: React.FC<TacticalMapProps> = ({ animationStartFrame = 290 }) => {
   const frame = useCurrentFrame();
   const [handle] = useState(() => delayRender());
 
@@ -101,13 +105,11 @@ const TacticalMap = () => {
     }
   }, [mapReady, routeReady, handle]);
 
-  // Animate the routes drawing in:
-  // Route 1 (Green) draws from frame 290 to 330
-  // Route 2 (Blue) draws from frame 330 to 370
-  // Note: Since this is mounted when map appears, the local frame for the map is actually `frame` from the root.
-  // The path length is roughly 2000.
-  const route1Draw = interpolate(frame, [290, 330], [2000, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
-  const route2Draw = interpolate(frame, [330, 370], [2000, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
+  // Animate the routes drawing in
+  // Route 1 (Green) draws from animationStartFrame to animationStartFrame + 40
+  // Route 2 (Blue) draws from animationStartFrame + 40 to animationStartFrame + 80
+  const route1Draw = interpolate(frame, [animationStartFrame, animationStartFrame + 40], [2000, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
+  const route2Draw = interpolate(frame, [animationStartFrame + 40, animationStartFrame + 80], [2000, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
 
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative', overflow: 'hidden' }}>
@@ -146,4 +148,4 @@ const TacticalMap = () => {
   );
 };
 
-export default TacticalMap;
+

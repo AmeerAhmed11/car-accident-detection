@@ -12,10 +12,10 @@ import { Scene5Playground } from './scenes/Scene5Playground';
  * Total: 1950 frames @ 30 FPS = 65 seconds
  * 
  * Scene 1: The Crisis           | Frames 0–390    | 13s
- * Scene 2: The Reveal            | Frames 391–840  | 15s
- * Scene 3: Geospatial Routing    | Frames 841–1290 | 15s
- * Scene 4: Model Training        | Frames 1291–1590| 10s
- * Scene 5: AI Playground         | Frames 1591–1950| 12s
+ * Scene 2: The Reveal            | Frames 391–710  | ~10s
+ * Scene 3: Geospatial Routing    | Frames 711–1160 | 15s
+ * Scene 4: Model Training        | Frames 1161–1460| 10s
+ * Scene 5: AI Playground         | Frames 1461–1820| 12s
  */
 
 export const VisionXDemo: React.FC = () => {
@@ -38,23 +38,23 @@ export const VisionXDemo: React.FC = () => {
         <Scene1Crisis />
       </Sequence>
 
-      {/* Scene 2: The Reveal & Activation (391–840) */}
-      <Sequence from={391} durationInFrames={450}>
+      {/* Scene 2: The Reveal & Activation (391–710) */}
+      <Sequence from={391} durationInFrames={320}>
         <Scene2Reveal />
       </Sequence>
 
-      {/* Scene 3: Geospatial Map Routing (841–1290) */}
-      <Sequence from={841} durationInFrames={450}>
+      {/* Scene 3: Geospatial Map Routing (711–1160) */}
+      <Sequence from={711} durationInFrames={450}>
         <Scene3GeoRouting />
       </Sequence>
 
-      {/* Scene 4: Model Training & Calibration (1291–1590) */}
-      <Sequence from={1291} durationInFrames={300}>
+      {/* Scene 4: Model Training & Calibration (1161–1460) */}
+      <Sequence from={1161} durationInFrames={300}>
         <Scene4Training />
       </Sequence>
 
-      {/* Scene 5: Interactive AI Playground (1591–1950) */}
-      <Sequence from={1591} durationInFrames={360}>
+      {/* Scene 5: Interactive AI Playground (1461–1820) */}
+      <Sequence from={1461} durationInFrames={360}>
         <Scene5Playground />
       </Sequence>
     </AbsoluteFill>

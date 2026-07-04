@@ -1,5 +1,5 @@
 import React from 'react';
-import { AbsoluteFill, interpolate, useCurrentFrame } from 'remotion';
+import { AbsoluteFill, interpolate, useCurrentFrame, spring, useVideoConfig } from 'remotion';
 
 interface SceneTransitionProps {
   children: React.ReactNode;
@@ -15,8 +15,9 @@ export const SceneTransition: React.FC<SceneTransitionProps> = ({
   totalDuration,
 }) => {
   const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
 
-  // Handle fade-in
+  // Handle fade-in opacity
   const fadeInOpacity = fadeInDuration > 0
     ? interpolate(frame, [0, fadeInDuration], [0, 1], {
         extrapolateLeft: 'clamp',
@@ -24,7 +25,7 @@ export const SceneTransition: React.FC<SceneTransitionProps> = ({
       })
     : 1;
 
-  // Handle fade-out
+  // Handle fade-out opacity
   const fadeOutOpacity = fadeOutDuration > 0
     ? interpolate(
         frame,
@@ -34,8 +35,35 @@ export const SceneTransition: React.FC<SceneTransitionProps> = ({
       )
     : 1;
 
+  // Depth scaling: Zoom in slightly from 0.95 to 1 on entry (using spring)
+  const scaleIn = spring({
+    frame,
+    fps,
+    from: 0.95,
+    to: 1,
+    config: { damping: 14, mass: 0.5 },
+  });
+
+  // Depth scaling: Zoom out slightly from 1 to 1.05 on exit
+  const scaleOut = fadeOutDuration > 0 
+    ? interpolate(
+        frame,
+        [totalDuration - fadeOutDuration, totalDuration],
+        [1, 1.05],
+        { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
+      )
+    : 1;
+
+  const finalScale = (frame > totalDuration - fadeOutDuration && fadeOutDuration > 0) ? scaleOut : scaleIn;
+
   return (
-    <AbsoluteFill style={{ opacity: Math.min(fadeInOpacity, fadeOutOpacity) }}>
+    <AbsoluteFill 
+      style={{ 
+        opacity: Math.min(fadeInOpacity, fadeOutOpacity),
+        transform: `scale(${finalScale})`,
+        transformOrigin: 'center center'
+      }}
+    >
       {children}
     </AbsoluteFill>
   );

@@ -1,6 +1,7 @@
 import React from 'react';
 import { AbsoluteFill, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig, Img } from 'remotion';
 import { SceneTransition } from '../components/SceneTransition';
+import { useCinematicCamera } from '../hooks/useCinematicCamera';
 
 const CRISIS_IMAGES = [
   staticFile('10google2-jumbo.png'),
@@ -32,9 +33,22 @@ export const Scene1Crisis: React.FC = () => {
     extrapolateRight: 'clamp',
   });
 
-  // Ken Burns slow zoom on grid
-  const gridScale = interpolate(frame, [0, DURATION], [1, 1.12], {
-    extrapolateRight: 'clamp',
+  // Cinematic Slow Drift (Ken Burns effect but with physics depth)
+  const { transform: cameraTransform } = useCinematicCamera({
+    baseScale: 1.0,
+    damping: 100, // Very slow and smooth
+    mass: 5,
+    focuses: [
+      {
+        startFrame: 0,
+        endFrame: DURATION, // Continuously drifts throughout the scene
+        scaleDelta: 0.15,
+        rotateXDelta: 2,
+        rotateYDelta: -1.5,
+        xDelta: -20,
+        yDelta: 30,
+      }
+    ]
   });
 
   // Vignette overlay intensity increases
@@ -49,12 +63,13 @@ export const Scene1Crisis: React.FC = () => {
         <AbsoluteFill
           style={{
             opacity: gridOpacity,
-            transform: `scale(${gridScale})`,
+            transform: cameraTransform,
             display: 'grid',
             gridTemplateColumns: 'repeat(3, 1fr)',
             gridTemplateRows: 'repeat(3, 1fr)',
             gap: 3,
             padding: 40,
+            transformStyle: 'preserve-3d'
           }}
         >
           {CRISIS_IMAGES.map((src, i) => {

@@ -1,10 +1,13 @@
 import React from 'react';
 import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig, Img, staticFile, Video, Audio, Sequence } from 'remotion';
-import TacticalMap from '../components/TacticalMap';
 import { SceneTransition } from '../components/SceneTransition';
 import { AnimatedCursor } from '../components/AnimatedCursor';
+import { AlertPopup } from '../components/AlertPopup';
 
-const DURATION = 450; // frames 391–840
+import { useCinematicCamera } from '../hooks/useCinematicCamera';
+
+// Reduced duration since Map was moved to Scene 3
+const DURATION = 320; // frames 391–840
 
 // Cursor path keyframes (relative to scene start)
 const CURSOR_PATH = [
@@ -26,21 +29,30 @@ export const Scene2Reveal: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  // Cinematic 3D Camera Movements using Physics-based Springs for ultra-smooth transitions
-  // We use an overdamped spring config (high damping) to prevent ANY bouncing or jerking.
-  const smoothConfig = { damping: 40, mass: 2, stiffness: 80 };
-
-  const headerFocus = spring({ frame: frame - 60, fps, config: smoothConfig }) 
-                    - spring({ frame: frame - 150, fps, config: smoothConfig });
-                    
-  const popupFocus = spring({ frame: frame - 160, fps, config: smoothConfig }) 
-                   - spring({ frame: frame - 280, fps, config: smoothConfig });
-
-  const cameraScale = 1.05 + (headerFocus * 0.15) + (popupFocus * 0.1);
-  const cameraRotateX = 0 + (headerFocus * -2) + (popupFocus * 4);
-  const cameraRotateY = 0 + (headerFocus * 2) + (popupFocus * -2);
-  const cameraTranslateX = 0 + (headerFocus * 100) + (popupFocus * -30);
-  const cameraTranslateY = 0 + (headerFocus * 220) + (popupFocus * -120);
+  // Cinematic 3D Camera Movements using the new physics-based hook
+  const { transform: cameraTransform } = useCinematicCamera({
+    baseScale: 1.05,
+    focuses: [
+      {
+        startFrame: 60,
+        endFrame: 150,
+        scaleDelta: 0.15,
+        rotateXDelta: -2,
+        rotateYDelta: 2,
+        xDelta: 100,
+        yDelta: 220,
+      },
+      {
+        startFrame: 160,
+        endFrame: 280,
+        scaleDelta: 0.1,
+        rotateXDelta: 4,
+        rotateYDelta: -2,
+        xDelta: -30,
+        yDelta: -120,
+      },
+    ],
+  });
 
   // Dashboard enters with scale
   const dashboardScale = spring({
@@ -68,7 +80,7 @@ export const Scene2Reveal: React.FC = () => {
         {/* Main Dashboard Container */}
         <AbsoluteFill
           style={{
-            transform: `scale(${dashboardScale}) scale(${cameraScale}) translateX(${cameraTranslateX}px) translateY(${cameraTranslateY}px) rotateX(${cameraRotateX}deg) rotateY(${cameraRotateY}deg)`,
+            transform: `scale(${dashboardScale}) ${cameraTransform}`,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -124,35 +136,7 @@ export const Scene2Reveal: React.FC = () => {
               <Video src={staticFile('Node_04_High_Density_Monitoring.mp4')} muted style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 8 }} />
             </div>
 
-            {/* Background 3: Map View (Fades in at click 2: frame 280) */}
-            <Img 
-              src={staticFile('screenshot-1783164803069.png')} 
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                objectPosition: 'top center',
-                opacity: interpolate(frame, [280, 290], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' })
-              }}
-            />
 
-            {/* Real Interactive Leaflet Map Overlay */}
-            {frame >= 280 && (
-              <div style={{
-                position: 'absolute',
-                top: '5.92%',
-                left: '0.4%', // starts at the left edge padding
-                width: '74.2%', // spans left and center panels (approx 9 columns)
-                height: '93.33%',
-                zIndex: 40,
-                opacity: interpolate(frame, [290, 310], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' })
-              }}>
-                <TacticalMap />
-              </div>
-            )}
 
             {/* Alert Pop-up Overlay (Springs in at frame 155, fades out at frame 280) */}
             {frame >= 155 && (
@@ -164,20 +148,14 @@ export const Scene2Reveal: React.FC = () => {
                   transform: `translate(-50%, -50%) scale(${alertScale})`,
                   opacity: alertOpacity * interpolate(frame, [275, 285], [1, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }),
                   zIndex: 50,
-                  width: 600, // Appropriate width for the Capture.PNG pop-up
+                  width: 600, 
+                  height: 'auto', // Changed to auto to fit content naturally
                   borderRadius: 16,
                   overflow: 'hidden',
                   boxShadow: '0 0 60px rgba(239, 68, 68, 0.4), 0 0 120px rgba(239, 68, 68, 0.2)',
                 }}
               >
-                <Img 
-                  src={staticFile('Capture.PNG')} 
-                  style={{
-                    width: '100%',
-                    height: 'auto',
-                    display: 'block'
-                  }}
-                />
+                <AlertPopup />
               </div>
             )}
             
