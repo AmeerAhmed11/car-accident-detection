@@ -41,7 +41,7 @@ const VideoFeed = React.memo(({ cam, mainCameraRef }: { cam: any, mainCameraRef:
         muted
         loop
         playsInline
-        preload="auto"
+        preload="metadata"
         onError={(e) => {
           console.error(`[NURAI] CODEC_ERR CAM_${cam.id}:`, e);
           setHasError(true);

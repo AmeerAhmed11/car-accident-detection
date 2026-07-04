@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import React, { useState, useRef, useEffect } from 'react';
 import { Upload, Image as ImageIcon, Sliders, AlertTriangle, Loader2, Target, CheckCircle2, RefreshCw, Activity } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -454,10 +455,12 @@ export function AIModelPredictionTab() {
                         : 'border border-white/10 hover:border-brand-primary/50 hover:scale-105 opacity-70 hover:opacity-100'
                     }`}
                   >
-                    <img 
+                    <Image 
                       src={preset} 
                       alt={`Preset ${index + 1}`} 
-                      className="w-full h-full object-cover"
+                      fill
+                      sizes="(max-width: 768px) 33vw, 11vw"
+                      className="object-cover"
                     />
                   </div>
                 );
