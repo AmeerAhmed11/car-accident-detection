@@ -1,5 +1,6 @@
 import React from 'react';
 import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig, Img, staticFile, Video } from 'remotion';
+import TacticalMap from '../components/TacticalMap';
 import { SceneTransition } from '../components/SceneTransition';
 import { AnimatedCursor } from '../components/AnimatedCursor';
 
@@ -61,18 +62,12 @@ export const Scene2Reveal: React.FC = () => {
   const alertScale = interpolate(alertEnter, [0, 1], [0.8, 1]);
 
 
-  const dashboardFade = interpolate(frame, [290, 360], [1, 0], {
-    extrapolateLeft: 'clamp',
-    extrapolateRight: 'clamp',
-  });
-
   return (
     <SceneTransition totalDuration={DURATION} fadeInDuration={15} fadeOutDuration={20}>
       <AbsoluteFill style={{ backgroundColor: '#0B0F19', perspective: 1200 }}>
-        {/* Background 1: Main Dashboard (Default) */}
+        {/* Main Dashboard Container */}
         <AbsoluteFill
           style={{
-            opacity: dashboardFade,
             transform: `scale(${dashboardScale}) scale(${cameraScale}) translateX(${cameraTranslateX}px) translateY(${cameraTranslateY}px) rotateX(${cameraRotateX}deg) rotateY(${cameraRotateY}deg)`,
             display: 'flex',
             alignItems: 'center',
@@ -144,61 +139,18 @@ export const Scene2Reveal: React.FC = () => {
               }}
             />
 
-            {/* Map Routing Animation Overlay */}
+            {/* Real Interactive Leaflet Map Overlay */}
             {frame >= 280 && (
               <div style={{
                 position: 'absolute',
-                inset: 0,
-                zIndex: 40, // Below alert popup, above map
+                top: '5.92%',
+                left: '0.4%', // starts at the left edge padding
+                width: '74.2%', // spans left and center panels (approx 9 columns)
+                height: '93.33%',
+                zIndex: 40,
                 opacity: interpolate(frame, [290, 310], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' })
               }}>
-                <svg width="100%" height="100%" style={{ overflow: 'visible' }}>
-                  {/* Glowing line shadow */}
-                  <path 
-                    d="M 600 750 L 1000 450 L 1350 350"
-                    fill="none"
-                    stroke="#ffffff"
-                    strokeWidth="4"
-                    strokeDasharray="2000"
-                    strokeDashoffset={interpolate(frame, [310, 380], [2000, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' })}
-                    strokeLinejoin="round"
-                    strokeLinecap="round"
-                    style={{ filter: 'blur(8px)', opacity: 0.6 }}
-                  />
-                  {/* The actual routing line */}
-                  <path 
-                    d="M 600 750 L 1000 450 L 1350 350"
-                    fill="none"
-                    stroke="#00e676"
-                    strokeWidth="3"
-                    strokeDasharray="2000"
-                    strokeDashoffset={interpolate(frame, [310, 380], [2000, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' })}
-                    strokeLinejoin="round"
-                    strokeLinecap="round"
-                  />
-
-                  {/* Marker 1: Operation Center (Green) */}
-                  <g style={{ transform: `translate(600px, 750px) scale(${interpolate(frame, [290, 310], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' })})` }}>
-                    <circle cx="0" cy="0" r="15" fill="rgba(0, 230, 118, 0.2)" className="animate-ping" />
-                    <circle cx="0" cy="0" r="6" fill="#00e676" />
-                    <text x="20" y="5" fill="#00e676" fontFamily="Orbitron" fontSize="14" fontWeight="bold" letterSpacing="2">OPERATION CENTER</text>
-                  </g>
-
-                  {/* Marker 2: Accident Location (Red) */}
-                  <g style={{ transform: `translate(1000px, 450px) scale(${interpolate(frame, [330, 350], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' })})` }}>
-                    <circle cx="0" cy="0" r="20" fill="rgba(239, 68, 68, 0.3)" style={{ filter: 'blur(4px)' }} />
-                    <circle cx="0" cy="0" r="8" fill="#ef4444" />
-                    <text x="25" y="5" fill="#ef4444" fontFamily="Orbitron" fontSize="14" fontWeight="bold" letterSpacing="2">ACCIDENT LOCATION</text>
-                  </g>
-
-                  {/* Marker 3: Nearest Hospital (Blue) */}
-                  <g style={{ transform: `translate(1350px, 350px) scale(${interpolate(frame, [370, 390], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' })})` }}>
-                    <circle cx="0" cy="0" r="15" fill="rgba(59, 130, 246, 0.3)" />
-                    <circle cx="0" cy="0" r="6" fill="#3b82f6" />
-                    <circle cx="0" cy="0" r="3" fill="#ffffff" />
-                    <text x="20" y="5" fill="#3b82f6" fontFamily="Orbitron" fontSize="14" fontWeight="bold" letterSpacing="2">NEAREST HOSPITAL</text>
-                  </g>
-                </svg>
+                <TacticalMap />
               </div>
             )}
 

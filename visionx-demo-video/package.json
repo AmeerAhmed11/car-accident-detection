@@ -9,14 +9,18 @@
     "@remotion/cli": "4.0.471",
     "@remotion/tailwind-v4": "4.0.471",
     "framer-motion": "^12.40.0",
+    "leaflet": "^1.9.4",
+    "leaflet-routing-machine": "^3.2.12",
     "lucide-react": "^1.17.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
+    "react-leaflet": "^5.0.0",
     "remotion": "4.0.471",
     "tailwindcss": "4.0.0"
   },
   "devDependencies": {
     "@remotion/eslint-config-flat": "4.0.471",
+    "@types/leaflet": "^1.9.21",
     "@types/react": "19.2.7",
     "@types/web": "0.0.166",
     "eslint": "9.19.0",
