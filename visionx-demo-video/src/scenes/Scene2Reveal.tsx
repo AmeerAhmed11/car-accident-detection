@@ -1,5 +1,5 @@
 import React from 'react';
-import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig, Img, staticFile, Video } from 'remotion';
+import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig, Img, staticFile, Video, Audio, Sequence } from 'remotion';
 import TacticalMap from '../components/TacticalMap';
 import { SceneTransition } from '../components/SceneTransition';
 import { AnimatedCursor } from '../components/AnimatedCursor';
@@ -188,6 +188,22 @@ export const Scene2Reveal: React.FC = () => {
           </div>
         </AbsoluteFill>
       </AbsoluteFill>
+
+      {/* Sound Effects for Camera Zooms */}
+      <Sequence from={125}>
+        <Audio src={staticFile('zoom-whoosh.mp3')} volume={1.0} />
+      </Sequence>
+      <Sequence from={260}>
+        <Audio src={staticFile('zoom-whoosh.mp3')} volume={1.0} />
+      </Sequence>
+
+      {/* Mouse Click Sound Effects */}
+      <Sequence from={140}>
+        <Audio src={staticFile('mouse-click.mp3')} volume={0.8} />
+      </Sequence>
+      <Sequence from={280}>
+        <Audio src={staticFile('mouse-click.mp3')} volume={0.8} />
+      </Sequence>
     </SceneTransition>
   );
 };
