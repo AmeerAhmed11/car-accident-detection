@@ -4,6 +4,7 @@ import { useTheme } from "@/hooks/use-theme";
 import { useInactivity } from "@/hooks/use-inactivity";
 import { StorytellingOverlay } from "@/components/surveillance/storytelling-overlay";
 import { VideoFeedContainer } from "@/components/surveillance/video-feed-container";
+import { AIModelPredictionTab } from "@/components/ai-prediction/ai-model-prediction-tab";
 import { 
   Activity, 
   Map as MapIcon, 
@@ -29,6 +30,7 @@ const TacticalMap = dynamic(() => import('@/components/surveillance/tactical-map
 
 export default function Home() {
   const { mode, setMode, isAutoMode, setIsAutoMode, incidentStatus, setIncidentStatus } = useTheme();
+  const [activeTab, setActiveTab] = useState<'surveillance' | 'ai-prediction'>('surveillance');
   const [vitalsStatus, setVitalsStatus] = useState('SCANNING...');
   const [isResetting, setIsResetting] = useState(false);
   const [activeView, setActiveView] = useState<'analytics' | 'pathfinder'>('analytics');
@@ -94,7 +96,7 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-[#050505] p-4 flex flex-col gap-4 font-inter text-zinc-100 selection:bg-brand-primary/30 overflow-hidden relative selection:text-white">
+    <main className="h-screen bg-[#050505] p-2 flex flex-col gap-2 font-inter text-zinc-100 selection:bg-brand-primary/30 overflow-hidden relative selection:text-white">
       
       {/* GPU Optimization: Backface Visibility & Will-Change */}
       <style jsx global>{`
@@ -134,7 +136,7 @@ export default function Home() {
       <div className="fixed inset-0 hud-scanline opacity-[0.05] pointer-events-none z-[60]" />
 
       {/* Header Bar */}
-      <header className="h-16 flex items-center justify-between px-6 glassmorphism rounded-xl border border-white/10 shrink-0 shadow-2xl relative">
+      <header className="h-12 flex items-center justify-between px-4 glassmorphism rounded-xl border border-white/10 shrink-0 shadow-2xl relative">
         <div className="flex items-center gap-4">
           <motion.div 
             animate={mode === 'alert' ? { scale: [1, 1.2, 1] } : {}}
@@ -181,6 +183,30 @@ export default function Home() {
           </span>
         </div>
 
+        {/* Tab Switcher */}
+        <div className="flex items-center bg-zinc-900/40 p-1 rounded-xl border border-white/5 backdrop-blur-md">
+          <button 
+            onClick={() => setActiveTab('surveillance')}
+            className={`px-4 py-1.5 rounded-lg text-[9px] font-orbitron font-bold uppercase tracking-widest transition-all ${
+              activeTab === 'surveillance' 
+                ? 'bg-brand-primary text-white shadow-[0_0_10px_rgba(46,125,50,0.5)]' 
+                : 'text-zinc-500 hover:text-zinc-300'
+            }`}
+          >
+            Dashboard
+          </button>
+          <button 
+            onClick={() => setActiveTab('ai-prediction')}
+            className={`px-4 py-1.5 rounded-lg text-[9px] font-orbitron font-bold uppercase tracking-widest transition-all ${
+              activeTab === 'ai-prediction' 
+                ? 'bg-brand-primary text-white shadow-[0_0_10px_rgba(46,125,50,0.5)]' 
+                : 'text-zinc-500 hover:text-zinc-300'
+            }`}
+          >
+            AI Prediction
+          </button>
+        </div>
+
         <div className="flex items-center gap-8">
           <div className="flex gap-4 items-center border-r border-white/10 pr-8">
              <div className="flex flex-col items-end">
@@ -205,12 +231,16 @@ export default function Home() {
       </header>
 
       {/* Main Grid — switches to flex layout in Tactical Mode */}
-      <div className={`flex-1 min-h-0 gap-4 ${incidentStatus === 'approved' ? 'flex flex-row' : 'grid grid-cols-12'}`}>
+      <div className={`flex-1 min-h-0 ${activeTab === 'ai-prediction' ? '' : `gap-2 ${incidentStatus === 'approved' ? 'flex flex-row' : 'grid grid-cols-12'}`}`}>
         
+        {activeTab === 'ai-prediction' ? (
+          <AIModelPredictionTab />
+        ) : (
+          <>
         {/* Left Panel: City Intelligence (Hidden in Tactical Mode) */}
         {incidentStatus !== 'approved' && (
-          <div className="col-span-3 flex flex-col gap-4">
-          <section className="flex-1 glassmorphism rounded-xl p-5 flex flex-col min-h-0 border border-white/5">
+          <div className="col-span-3 flex flex-col gap-2">
+          <section className="flex-1 glassmorphism rounded-lg p-3 flex flex-col min-h-0 border border-white/5">
             <h2 className="text-[10px] font-orbitron text-zinc-400 uppercase tracking-widest flex items-center gap-2 mb-4 border-b border-white/5 pb-2">
               {activeView === 'analytics' ? (
                 <><TrendingUp size={14} className="text-brand-primary" /> City Analytics</>
@@ -219,16 +249,16 @@ export default function Home() {
               )}
             </h2>
             
-            <div className="space-y-4 overflow-y-auto pr-1">
+            <div className="space-y-2 overflow-y-auto pr-1">
               {activeView === 'pathfinder' && (
-                <div className="p-4 bg-brand-red/10 border border-brand-red/30 rounded-xl mb-4 animate-pulse">
+                <div className="p-2 bg-brand-red/10 border border-brand-red/30 rounded-xl mb-2 animate-pulse">
                   <div className="text-[10px] font-orbitron text-brand-red font-bold mb-2 uppercase">Dijkstra Routing Active</div>
                   <div className="text-[8px] font-mono text-zinc-400">CRASH_SITE: 33.3152 N, 44.3661 E</div>
                   <div className="text-[8px] font-mono text-zinc-400">TARGET: MEDICAL CITY HOSPITAL</div>
                 </div>
               )}
               {/* Al-Jadriya Bridge Stats */}
-              <div className="p-3 bg-white/5 rounded border border-white/5 group hover:border-brand-primary/20 transition-all">
+              <div className="p-2 bg-white/5 rounded border border-white/5 group hover:border-brand-primary/20 transition-all">
                 <div className="flex justify-between items-center mb-2">
                   <span className="text-[10px] font-orbitron text-zinc-400">AL-JADRIYA BRIDGE</span>
                   <span className="text-[10px] font-orbitron text-brand-emerald">HIGH_VOL</span>
@@ -243,9 +273,9 @@ export default function Home() {
               </div>
 
               {/* Response Comparison */}
-              <div className="p-4 bg-zinc-900/50 rounded-xl border border-white/10">
-                <span className="text-[9px] font-orbitron text-zinc-500 block mb-3 uppercase tracking-tighter">Response Comparison (Avg)</span>
-                <div className="space-y-3">
+              <div className="p-3 bg-zinc-900/50 rounded-lg border border-white/10">
+                <span className="text-[9px] font-orbitron text-zinc-500 block mb-2 uppercase tracking-tighter">Response Comparison (Avg)</span>
+                <div className="space-y-2">
                   <div className="space-y-1">
                     <div className="flex justify-between text-[8px] font-orbitron text-zinc-500">
                       <span>MANUAL REPORTING</span>
@@ -272,8 +302,8 @@ export default function Home() {
               </div>
 
               {/* System Hardware Telemetry (New) */}
-              <div className="p-4 bg-zinc-900/30 rounded-xl border border-white/5">
-                <span className="text-[9px] font-orbitron text-zinc-500 block mb-3 uppercase tracking-widest">Hardware Telemetry</span>
+              <div className="p-3 bg-zinc-900/30 rounded-lg border border-white/5">
+                <span className="text-[9px] font-orbitron text-zinc-500 block mb-2 uppercase tracking-widest">Hardware Telemetry</span>
                 <div className="grid grid-cols-2 gap-3">
                   <div className="flex flex-col">
                     <span className="text-[7px] text-zinc-600 font-mono">GPU_UTIL</span>
@@ -292,7 +322,7 @@ export default function Home() {
             </div>
 
 
-            <div className="mt-auto pt-4 border-t border-white/5 grid grid-cols-2 gap-2">
+            <div className="mt-auto pt-2 border-t border-white/5 grid grid-cols-2 gap-2">
                <div className="p-2 bg-white/5 rounded text-center">
                   <Cpu size={12} className="mx-auto mb-1 text-brand-primary opacity-50" />
                   <span className="text-[8px] font-orbitron text-zinc-500 block">NET_LOAD</span>
@@ -306,7 +336,7 @@ export default function Home() {
             </div>
           </section>
 
-          <section className="h-40 glassmorphism rounded-xl p-5 flex flex-col border border-white/5 relative overflow-hidden">
+          <section className="h-32 glassmorphism rounded-lg p-3 flex flex-col border border-white/5 relative overflow-hidden">
              <h2 className="text-[10px] font-orbitron text-zinc-400 uppercase tracking-widest flex items-center gap-2 mb-3">
                <History size={14} className="text-brand-primary" /> Narrative Event Logs
              </h2>
@@ -329,8 +359,8 @@ export default function Home() {
         )}
 
         {/* Center Panel: Surveillance Hub / Tactical Map */}
-        <div className={`${incidentStatus === 'approved' ? 'flex-1' : 'col-span-6'} flex flex-col gap-4 ${mode === 'alert' ? 'alert-border' : ''}`}>
-           <div className="flex-1 glassmorphism rounded-2xl p-2 relative shadow-2xl border border-white/10 group overflow-hidden" style={{ minHeight: incidentStatus === 'approved' ? '100%' : undefined }}>
+        <div className={`${incidentStatus === 'approved' ? 'flex-1' : 'col-span-6'} flex flex-col gap-2 ${mode === 'alert' ? 'alert-border' : ''}`}>
+           <div className="flex-1 glassmorphism rounded-xl p-1 relative shadow-2xl border border-white/10 group overflow-hidden" style={{ minHeight: incidentStatus === 'approved' ? '100%' : undefined }}>
               <AnimatePresence mode="wait">
                 {incidentStatus === 'approved' ? (
                   <motion.div 
@@ -338,7 +368,7 @@ export default function Home() {
                     initial={{ opacity: 0, filter: 'blur(10px)' }}
                     animate={{ opacity: 1, filter: 'blur(0px)' }}
                     exit={{ opacity: 0 }}
-                    className="w-full h-full" style={{ minHeight: '600px' }}
+                    className="w-full h-full" style={{ minHeight: '400px' }}
                   >
                     <TacticalMap />
                   </motion.div>
@@ -364,7 +394,7 @@ export default function Home() {
         </div>
 
         {/* Right Panel: Logistics / Tactical Report */}
-        <div className={`${incidentStatus === 'approved' ? 'w-[450px] shrink-0' : 'col-span-3'} flex flex-col gap-4 overflow-y-auto`}>
+        <div className={`${incidentStatus === 'approved' ? 'w-[450px] shrink-0' : 'col-span-3'} flex flex-col gap-2 overflow-y-auto`}>
 
            {/* ── TACTICAL MODE: Full Incident Report ── */}
            {incidentStatus === 'approved' ? (
@@ -374,7 +404,7 @@ export default function Home() {
                className="flex-1 flex flex-col gap-4"
              >
                {/* Incident Summary Card */}
-               <section className="glassmorphism rounded-2xl p-8 border-2 border-brand-red/50 bg-brand-red/10 flex flex-col gap-6">
+               <section className="glassmorphism rounded-xl p-4 border-2 border-brand-red/50 bg-brand-red/10 flex flex-col gap-4">
                  <div className="flex items-center justify-between">
                    <span className="text-sm font-orbitron font-bold text-brand-red tracking-widest uppercase">Tactical_Incident_Summary</span>
                    <span className="text-xs font-mono text-brand-red animate-pulse font-black">● LIVE</span>
@@ -423,7 +453,7 @@ export default function Home() {
                </section>
 
                {/* Dispatched Units Card */}
-               <section className="glassmorphism rounded-2xl p-6 border border-brand-red/30">
+               <section className="glassmorphism rounded-xl p-4 border border-brand-red/30">
                  <h2 className="text-[10px] font-orbitron text-brand-red uppercase tracking-widest flex items-center gap-2 mb-4 font-bold">
                    <Shield size={14} /> Dispatched Emergency Units
                  </h2>
@@ -449,7 +479,7 @@ export default function Home() {
                {/* Reset Button */}
                <button 
                  onClick={handleReset}
-                 className="w-full py-5 bg-brand-red/20 hover:bg-brand-red/30 border-2 border-brand-red/50 rounded-xl text-xs font-orbitron font-black text-brand-red uppercase tracking-widest transition-all shadow-lg shadow-brand-red/10"
+                 className="w-full py-3 bg-brand-red/20 hover:bg-brand-red/30 border-2 border-brand-red/50 rounded-lg text-xs font-orbitron font-black text-brand-red uppercase tracking-widest transition-all shadow-lg shadow-brand-red/10"
                >
                  ◼ Close Report & Reset
                </button>
@@ -457,8 +487,8 @@ export default function Home() {
            ) : (
              /* ── MONITORING MODE: Normal Widgets ── */
              <>
-               <section className="glassmorphism rounded-xl p-5 border border-white/5 relative overflow-hidden">
-                 <h2 className="text-[10px] font-orbitron text-zinc-400 uppercase tracking-widest flex items-center gap-2 mb-4">
+               <section className="glassmorphism rounded-lg p-3 border border-white/5 relative overflow-hidden">
+                 <h2 className="text-[10px] font-orbitron text-zinc-400 uppercase tracking-widest flex items-center gap-2 mb-3">
                    <Navigation size={14} className="text-brand-primary" /> Pathfinding Visualization
                  </h2>
                  <div className="space-y-4">
@@ -475,7 +505,7 @@ export default function Home() {
                       </div>
                     </div>
 
-                    <div className="h-44 bg-black rounded-xl border border-white/10 relative overflow-hidden group">
+                    <div className="h-32 bg-black rounded-lg border border-white/10 relative overflow-hidden group">
                        <div className="absolute inset-0 opacity-10 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]" />
                        <div className="absolute inset-0 grid grid-cols-10 grid-rows-10 opacity-5">
                           {Array.from({length: 100}).map((_, i) => <div key={i} className="border-[0.5px] border-white/20" />)}
@@ -520,8 +550,8 @@ export default function Home() {
                  </div>
                </section>
 
-               <section className="glassmorphism rounded-xl p-5 border border-white/5">
-                 <h2 className="text-[10px] font-orbitron text-zinc-400 uppercase tracking-widest flex items-center gap-2 mb-4">
+               <section className="glassmorphism rounded-lg p-3 border border-white/5">
+                 <h2 className="text-[10px] font-orbitron text-zinc-400 uppercase tracking-widest flex items-center gap-2 mb-3">
                    <Shield size={14} className="text-brand-primary" /> Emergency Units
                  </h2>
                  <div className="space-y-2">
@@ -544,7 +574,7 @@ export default function Home() {
                  </div>
                </section>
 
-               <div className="flex-1 glassmorphism rounded-xl p-6 flex flex-col items-center justify-center text-center gap-2 border border-white/5">
+               <div className="flex-1 glassmorphism rounded-lg p-4 flex flex-col items-center justify-center text-center gap-2 border border-white/5">
                  <div className={`p-5 rounded-full border transition-all duration-1000 ${
                    mode === 'alert' ? 'border-brand-red text-brand-red glow-red shadow-brand-red/20' : 'border-brand-emerald text-brand-emerald glow-emerald shadow-brand-emerald/20'
                  }`}>
@@ -561,6 +591,8 @@ export default function Home() {
            )}
         </div>
 
+          </>
+        )}
       </div>
       {/* Incident Detection Card (Step 1: Detection) */}
       <AnimatePresence>

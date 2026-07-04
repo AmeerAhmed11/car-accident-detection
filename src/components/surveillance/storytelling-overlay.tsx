@@ -351,7 +351,7 @@ export function StorytellingOverlay() {
                 className="w-3 h-3 rounded-full bg-brand-emerald shadow-[0_0_12px_rgba(46,125,50,0.9)]"
               />
               <span className="text-sm font-orbitron text-brand-emerald font-bold tracking-[0.4em] uppercase">
-                ResQ-AI // CINEMATIC DEMO
+                NURAI // CINEMATIC DEMO
               </span>
             </div>
             <SceneProgressBar activeScene={activeScene} sceneProgress={sceneProgress} />

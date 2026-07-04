@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-emerald: #2e7d32;
+  --color-brand-red: #ef4444;
+  --color-bg-carbon: #0a0a0a;
+  
+  --font-orbitron: "Orbitron", sans-serif;
+  --font-inter: "Inter", sans-serif;
+}
+
+:root {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --brand-primary: #2e7d32;
+  --accent-glow: rgba(46, 125, 50, 0.3);
+}
+
+[data-theme='alert'] {
+  --brand-primary: #ef4444;
+  --accent-glow: rgba(239, 68, 68, 0.3);
+}
+
+[data-theme='monitoring'] {
+  --brand-primary: #2e7d32;
+  --accent-glow: rgba(46, 125, 50, 0.3);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter);
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@layer utilities {
+  .glassmorphism {
+    backdrop-filter: blur(12px);
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .hud-scanline {
+    background: linear-gradient(
+      to bottom,
+      transparent 50%,
+      rgba(0, 0, 0, 0.05) 50%
+    );
+    background-size: 100% 4px;
+    pointer-events: none;
+  }
+  
+  .glow-emerald {
+    box-shadow: 0 0 20px rgba(46, 125, 50, 0.2);
+  }
+  
+  .glow-red {
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.2);
+  }
+
+  /* Smooth Alert Border Pulse */
+  @keyframes alert-border-pulse {
+    0%, 100% { border-color: rgba(239, 68, 68, 0.3); box-shadow: 0 0 10px rgba(239, 68, 68, 0.1); }
+    50% { border-color: rgba(239, 68, 68, 0.7); box-shadow: 0 0 20px rgba(239, 68, 68, 0.25); }
+  }
+
+  .alert-border {
+    animation: alert-border-pulse 3s ease-in-out infinite;
+    transition: all 0.5s ease-in-out;
+  }
+}

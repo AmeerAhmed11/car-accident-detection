@@ -19,7 +19,7 @@ const VideoFeed = React.memo(({ cam, mainCameraRef }: { cam: any, mainCameraRef:
       const el = refToUse.current;
       if (el) {
         el.load();
-        el.play().catch(() => {});
+        el.play().catch(() => { });
       }
     }, 3000);
     return () => clearTimeout(retryTimer);
@@ -28,11 +28,11 @@ const VideoFeed = React.memo(({ cam, mainCameraRef }: { cam: any, mainCameraRef:
   return (
     <div className="relative group overflow-hidden border border-white/5 hover:border-brand-primary/30 transition-colors duration-500 bg-zinc-900/20 w-full h-full">
       {/* Fallback Background (Static Noise Pattern) */}
-      <div className="absolute inset-0 bg-[#0a0a0a] opacity-40 pointer-events-none" 
-        style={{ 
+      <div className="absolute inset-0 bg-[#0a0a0a] opacity-40 pointer-events-none"
+        style={{
           backgroundImage: `radial-gradient(#1a1a1a 1px, transparent 1px)`,
           backgroundSize: '4px 4px'
-        }} 
+        }}
       />
 
       <video
@@ -68,7 +68,7 @@ const VideoFeed = React.memo(({ cam, mainCameraRef }: { cam: any, mainCameraRef:
           </div>
         </div>
       )}
-      
+
       {/* Label Tag */}
       <div className="absolute top-2 left-2 z-30 px-2 py-0.5 bg-black/60 backdrop-blur-md border border-white/10 rounded text-[8px] font-orbitron text-zinc-400 tracking-widest uppercase">
         CAM_{cam.id} // {cam.label}
@@ -81,7 +81,7 @@ const VideoFeed = React.memo(({ cam, mainCameraRef }: { cam: any, mainCameraRef:
 
       {/* HUD Overlay layer */}
       <HUDOverlay />
-      
+
       {/* Subtle Scanline Texture overlay */}
       <div className="absolute inset-0 pointer-events-none hud-scanline opacity-10 z-10" />
     </div>
@@ -97,7 +97,7 @@ const CAMERAS = [
 
 export const VideoFeedContainer = () => {
   const mainCameraRef = useRef<HTMLVideoElement>(null);
-  
+
   // Use the hook on the primary "incident" camera (Cam 03)
   useScriptedTimeline(mainCameraRef);
 
