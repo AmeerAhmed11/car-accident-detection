@@ -4,7 +4,7 @@ import { Upload, Image as ImageIcon, Sliders, Target, Activity, RefreshCw } from
 import { SceneTransition } from '../components/SceneTransition';
 import { AnimatedCursor } from '../components/AnimatedCursor';
 
-const DURATION = 360; // frames 1591–1950
+const DURATION = 429; // frames 1591–2190
 
 const PRESET_IMAGES = [
   staticFile('10google2-jumbo.png'),
@@ -58,15 +58,9 @@ export const Scene5Playground: React.FC = () => {
   const inferenceTriggered = frame >= 160;
   const processingComplete = frame >= 220;
 
-  // Final fade to black
-  const finalFade = interpolate(frame, [DURATION - 30, DURATION], [1, 0], {
-    extrapolateLeft: 'clamp',
-    extrapolateRight: 'clamp',
-  });
-
   return (
     <SceneTransition totalDuration={DURATION} fadeInDuration={15} fadeOutDuration={0}>
-      <AbsoluteFill style={{ backgroundColor: '#0B0F19', opacity: finalFade, padding: '40px' }}>
+      <AbsoluteFill style={{ backgroundColor: '#0B0F19', padding: '40px' }}>
 
         <div className="grid grid-cols-12 gap-6 h-full font-inter text-white">
 
@@ -284,6 +278,54 @@ export const Scene5Playground: React.FC = () => {
         </div>
 
         <AnimatedCursor path={CURSOR_PATH} clickFrames={CLICK_FRAMES} />
+
+        {/* End Call to Action Overlay */}
+        {(() => {
+          const ctaEnter = spring({
+            frame: frame - 364,
+            fps,
+            config: { damping: 14, mass: 1 },
+          });
+
+          return (
+            <div
+              style={{
+                position: 'absolute',
+                inset: 0,
+                display: frame >= 364 ? 'flex' : 'none',
+                alignItems: 'center',
+                justifyContent: 'center',
+                pointerEvents: 'none',
+                opacity: interpolate(ctaEnter, [0, 1], [0, 1]),
+                zIndex: 100,
+                backgroundColor: 'rgba(0,0,0,0.7)',
+                backdropFilter: 'blur(12px)',
+              }}
+            >
+              <div 
+                style={{
+                  transform: `scale(${interpolate(ctaEnter, [0, 1], [0.8, 1])}) translateY(${interpolate(ctaEnter, [0, 1], [20, 0])}px)`,
+                }}
+                className="bg-zinc-900/90 border border-brand-primary/50 shadow-[0_0_80px_rgba(46,125,50,0.2)] px-16 py-12 rounded-[2rem] flex flex-col items-center gap-6"
+              >
+                <div className="w-20 h-20 rounded-full bg-brand-primary/10 flex items-center justify-center mb-2 shadow-[0_0_30px_rgba(46,125,50,0.3)] border border-brand-primary/30">
+                  <Target size={40} className="text-brand-primary animate-pulse" />
+                </div>
+                <h1 className="text-5xl font-orbitron font-bold text-white tracking-widest uppercase text-center max-w-2xl leading-tight">
+                  Test the model yourself
+                </h1>
+                <p className="text-zinc-400 font-inter text-xl text-center max-w-xl">
+                  Try our live interactive demo with your own images or use our preset datasets.
+                </p>
+                <div className="bg-black border-2 border-brand-primary/50 px-10 py-5 rounded-2xl mt-4 shadow-[inset_0_0_20px_rgba(46,125,50,0.2)]">
+                  <span className="text-3xl font-mono font-bold text-brand-primary tracking-wider">
+                    car-accident-detection.vercel.app
+                  </span>
+                </div>
+              </div>
+            </div>
+          );
+        })()}
       </AbsoluteFill>
     </SceneTransition>
   );

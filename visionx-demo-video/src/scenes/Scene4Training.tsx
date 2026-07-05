@@ -177,6 +177,68 @@ export const Scene4Training: React.FC = () => {
           })}
         </AbsoluteFill>
 
+        {/* Accuracy Highlight */}
+        {(() => {
+          const accuracyEnter = spring({
+            frame: frame - 30, // Appear at the beginning of the scene
+            fps,
+            config: { damping: 14, mass: 1 },
+          });
+
+          const scale = interpolate(accuracyEnter, [0, 1], [0.8, 1]);
+          const opacity = interpolate(accuracyEnter, [0, 1], [0, 1]);
+          
+          // Count up linearly over the entire scene
+          const displayedAccuracy = Math.round(
+            interpolate(frame, [30, 270], [0, 98], {
+              extrapolateLeft: 'clamp',
+              extrapolateRight: 'clamp',
+            })
+          );
+
+          return (
+            <div
+              style={{
+                position: 'absolute',
+                top: '72%',
+                left: '50%',
+                transform: `translate(-50%, -50%) scale(${scale})`,
+                opacity,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: 8,
+                zIndex: 20,
+              }}
+            >
+              <div
+                style={{
+                  fontFamily: 'Orbitron',
+                  fontSize: 84,
+                  fontWeight: 900,
+                  color: '#00e676',
+                  textShadow: '0 0 40px rgba(0, 230, 118, 0.8), 0 0 80px rgba(0, 230, 118, 0.4)',
+                  lineHeight: 1,
+                }}
+              >
+                {displayedAccuracy}%
+              </div>
+              <div
+                style={{
+                  fontFamily: 'Orbitron',
+                  fontSize: 18,
+                  fontWeight: 600,
+                  letterSpacing: 8,
+                  color: 'rgba(255,255,255,0.9)',
+                  textTransform: 'uppercase',
+                }}
+              >
+                Model Accuracy
+              </div>
+            </div>
+          );
+        })()}
+
         {/* Bottom accent line */}
         <div
           style={{

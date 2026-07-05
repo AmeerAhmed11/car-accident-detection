@@ -1,7 +1,7 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 3368
+/***/ 4339
 (__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -206,11 +206,11 @@ const CRISIS_IMAGES = [
   (0,esm.staticFile)("original.png")
 ];
 const STATS = [
-  { text: "11,500", sub: "Traffic Accidents Annually", delay: 90 },
-  { text: "3,000", sub: "Fatalities on National Roads", delay: 170 },
-  { text: "5\u201310 Min", sub: "Traditional Notification Delay", delay: 250 }
+  { text: "11,500", sub: "Traffic Accidents Annually", delay: 45 },
+  { text: "3,000", sub: "Fatalities on National Roads", delay: 125 },
+  { text: "5\u201310 Min", sub: "Traditional Notification Delay", delay: 205 }
 ];
-const DURATION = 390;
+const DURATION = 331;
 const Scene1Crisis = () => {
   const frame = (0,esm.useCurrentFrame)();
   const { fps } = (0,esm.useVideoConfig)();
@@ -372,6 +372,49 @@ const Scene1Crisis = () => {
         })
       }
     ),
+    (() => {
+      const chartEnter = (0,esm.spring)({
+        frame: frame - 255,
+        fps,
+        config: { damping: 14, mass: 1 }
+      });
+      const deathPercentage = (0,esm.interpolate)(frame, [255, 315], [0, 2.6], {
+        extrapolateLeft: "clamp",
+        extrapolateRight: "clamp"
+      });
+      return /* @__PURE__ */ (0,jsx_runtime.jsx)(
+        esm.AbsoluteFill,
+        {
+          style: {
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "flex-end",
+            paddingBottom: 60,
+            opacity: (0,esm.interpolate)(chartEnter, [0, 1], [0, 1]),
+            transform: `translateY(${(0,esm.interpolate)(chartEnter, [0, 1], [20, 0])}px)`,
+            zIndex: 20
+          },
+          children: /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex flex-col items-center gap-2 bg-brand-red/10 border border-brand-red/30 px-10 py-6 rounded-2xl backdrop-blur-md shadow-[0_0_40px_rgba(239,68,68,0.15)]", children: [
+            /* @__PURE__ */ (0,jsx_runtime.jsx)("div", { className: "text-brand-red font-orbitron font-bold tracking-widest uppercase text-sm", children: "Fatality Rate Increase" }),
+            /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex items-end gap-4", children: [
+              /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "text-6xl font-orbitron font-bold text-white", style: { textShadow: "0 0 20px rgba(239,68,68,0.6)" }, children: [
+                "+",
+                deathPercentage.toFixed(1),
+                "%"
+              ] }),
+              /* @__PURE__ */ (0,jsx_runtime.jsx)("div", { className: "text-zinc-400 font-inter text-lg mb-2 uppercase tracking-widest", children: "per minute of delay" })
+            ] }),
+            /* @__PURE__ */ (0,jsx_runtime.jsx)("div", { className: "w-full h-1.5 bg-zinc-800 rounded-full mt-4 overflow-hidden relative", children: /* @__PURE__ */ (0,jsx_runtime.jsx)(
+              "div",
+              {
+                className: "absolute top-0 left-0 h-full bg-brand-red shadow-[0_0_10px_#ef4444]",
+                style: { width: `${(0,esm.interpolate)(deathPercentage, [0, 2.6], [0, 100])}%` }
+              }
+            ) })
+          ] })
+        }
+      );
+    })(),
     /* @__PURE__ */ (0,jsx_runtime.jsx)(
       esm.AbsoluteFill,
       {
@@ -767,7 +810,466 @@ const AlertPopup = () => {
   ] });
 };
 
+;// ./node_modules/lucide-react/dist/esm/icons/maximize-2.mjs
+/**
+ * @license lucide-react v1.17.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const maximize_2_iconNode = [
+  ["path", { d: "M15 3h6v6", key: "1q9fwt" }],
+  ["path", { d: "m21 3-7 7", key: "1l2asr" }],
+  ["path", { d: "m3 21 7-7", key: "tjx5ai" }],
+  ["path", { d: "M9 21H3v-6", key: "wtvkvv" }]
+];
+const Maximize2 = createLucideIcon("maximize-2", maximize_2_iconNode);
+
+
+//# sourceMappingURL=maximize-2.mjs.map
+
+;// ./src/components/DashboardHeader.tsx
+
+
+
+
+const DashboardHeader = ({ isAutonomous = true }) => {
+  const frame = (0,esm.useCurrentFrame)();
+  const { fps } = (0,esm.useVideoConfig)();
+  const pulseScale = (0,esm.interpolate)(
+    frame % (fps * 1),
+    // 1 second loop
+    [0, fps / 2, fps],
+    [1, 1.2, 1],
+    { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
+  );
+  return /* @__PURE__ */ (0,jsx_runtime.jsxs)("header", { className: "h-16 flex items-center justify-between px-6 glassmorphism rounded-xl border border-white/10 shrink-0 shadow-2xl relative bg-zinc-900/60 backdrop-blur-md z-50", children: [
+    /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex items-center gap-4", children: [
+      /* @__PURE__ */ (0,jsx_runtime.jsx)(
+        "div",
+        {
+          style: { transform: `scale(${isAutonomous ? pulseScale : 1})` },
+          className: `w-3 h-3 rounded-full ${isAutonomous ? "bg-brand-red shadow-[0_0_10px_#ef4444]" : "bg-brand-primary shadow-[0_0_10px_#2e7d32]"}`
+        }
+      ),
+      /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex flex-col", children: [
+        /* @__PURE__ */ (0,jsx_runtime.jsx)("h1", { className: `text-2xl font-orbitron font-bold tracking-tighter uppercase leading-none ${isAutonomous ? "text-brand-red" : "text-white"}`, children: "VISIONX IRAQ // AEOC-BGD" }),
+        /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-[10px] font-orbitron text-zinc-500 uppercase tracking-[0.3em] mt-1", children: "Neural Traffic Response Unit" })
+      ] })
+    ] }),
+    /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex items-center gap-4 px-5 py-2 rounded-xl border border-white/5 bg-zinc-900/40 backdrop-blur-md", children: [
+      /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: `text-[10px] font-orbitron font-bold transition-all duration-500 ${!isAutonomous ? "text-brand-primary drop-shadow-[0_0_8px_rgba(46,125,50,0.5)]" : "text-zinc-600"}`, children: "VIGILANCE (NORMAL)" }),
+      /* @__PURE__ */ (0,jsx_runtime.jsx)("button", { className: `group relative w-12 h-6 rounded-full transition-all duration-700 p-1 border ${isAutonomous ? "bg-brand-red/10 border-brand-red/40 shadow-[0_0_15px_rgba(239,68,68,0.2)]" : "bg-zinc-800 border-white/10"}`, children: /* @__PURE__ */ (0,jsx_runtime.jsx)(
+        "div",
+        {
+          className: "w-4 h-4 rounded-full transition-all duration-700",
+          style: {
+            transform: isAutonomous ? "translateX(24px)" : "translateX(0px)",
+            backgroundColor: isAutonomous ? "#ef4444" : "#71717a",
+            boxShadow: isAutonomous ? "0 0 15px rgba(239,68,68,0.8)" : "none"
+          }
+        }
+      ) }),
+      /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: `text-[10px] font-orbitron font-bold transition-all duration-500 ${isAutonomous ? "text-brand-red drop-shadow-[0_0_8px_rgba(239,68,68,0.5)]" : "text-zinc-600"}`, style: { opacity: isAutonomous ? pulseScale : 1 }, children: "AUTONOMOUS (AI)" })
+    ] }),
+    /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex items-center bg-zinc-900/40 p-1 rounded-xl border border-white/5 backdrop-blur-md", children: [
+      /* @__PURE__ */ (0,jsx_runtime.jsx)("button", { className: "px-6 py-2 rounded-lg text-[10px] font-orbitron font-bold uppercase tracking-widest transition-all bg-brand-primary text-white shadow-[0_0_10px_rgba(46,125,50,0.5)]", children: "Dashboard" }),
+      /* @__PURE__ */ (0,jsx_runtime.jsx)("button", { className: "px-6 py-2 rounded-lg text-[10px] font-orbitron font-bold uppercase tracking-widest transition-all text-zinc-500", children: "AI Prediction" })
+    ] }),
+    /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex items-center gap-8", children: [
+      /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex gap-4 items-center border-r border-white/10 pr-8", children: [
+        /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex flex-col items-end", children: [
+          /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-[10px] font-orbitron text-zinc-500 uppercase", children: "Latency" }),
+          /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-sm font-bold font-orbitron text-brand-emerald", children: "14.8ms" })
+        ] }),
+        /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex flex-col items-end", children: [
+          /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-[10px] font-orbitron text-zinc-500 uppercase", children: "Edge_Node" }),
+          /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-sm font-bold font-orbitron text-zinc-400", children: "0x7F2" })
+        ] })
+      ] }),
+      /* @__PURE__ */ (0,jsx_runtime.jsx)("button", { className: "p-2 rounded-full transition-colors text-zinc-500", children: /* @__PURE__ */ (0,jsx_runtime.jsx)(Maximize2, { size: 20 }) }),
+      /* @__PURE__ */ (0,jsx_runtime.jsx)("div", { className: "text-3xl font-orbitron font-bold tracking-widest text-zinc-300 min-w-[140px] text-right", children: "14:22:10" })
+    ] })
+  ] });
+};
+
+;// ./node_modules/lucide-react/dist/esm/icons/activity.mjs
+/**
+ * @license lucide-react v1.17.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const activity_iconNode = [
+  [
+    "path",
+    {
+      d: "M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2",
+      key: "169zse"
+    }
+  ]
+];
+const Activity = createLucideIcon("activity", activity_iconNode);
+
+
+//# sourceMappingURL=activity.mjs.map
+
+;// ./node_modules/lucide-react/dist/esm/icons/car.mjs
+/**
+ * @license lucide-react v1.17.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const car_iconNode = [
+  [
+    "path",
+    {
+      d: "M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2",
+      key: "5owen"
+    }
+  ],
+  ["circle", { cx: "7", cy: "17", r: "2", key: "u2ysq9" }],
+  ["path", { d: "M9 17h6", key: "r8uit2" }],
+  ["circle", { cx: "17", cy: "17", r: "2", key: "axvx0g" }]
+];
+const Car = createLucideIcon("car", car_iconNode);
+
+
+//# sourceMappingURL=car.mjs.map
+
+;// ./node_modules/lucide-react/dist/esm/icons/radio.mjs
+/**
+ * @license lucide-react v1.17.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const radio_iconNode = [
+  ["path", { d: "M16.247 7.761a6 6 0 0 1 0 8.478", key: "1fwjs5" }],
+  ["path", { d: "M19.075 4.933a10 10 0 0 1 0 14.134", key: "ehdyv1" }],
+  ["path", { d: "M4.925 19.067a10 10 0 0 1 0-14.134", key: "1q22gi" }],
+  ["path", { d: "M7.753 16.239a6 6 0 0 1 0-8.478", key: "r2q7qm" }],
+  ["circle", { cx: "12", cy: "12", r: "2", key: "1c9p78" }]
+];
+const Radio = createLucideIcon("radio", radio_iconNode);
+
+
+//# sourceMappingURL=radio.mjs.map
+
+;// ./node_modules/lucide-react/dist/esm/icons/cpu.mjs
+/**
+ * @license lucide-react v1.17.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const cpu_iconNode = [
+  ["path", { d: "M12 20v2", key: "1lh1kg" }],
+  ["path", { d: "M12 2v2", key: "tus03m" }],
+  ["path", { d: "M17 20v2", key: "1rnc9c" }],
+  ["path", { d: "M17 2v2", key: "11trls" }],
+  ["path", { d: "M2 12h2", key: "1t8f8n" }],
+  ["path", { d: "M2 17h2", key: "7oei6x" }],
+  ["path", { d: "M2 7h2", key: "asdhe0" }],
+  ["path", { d: "M20 12h2", key: "1q8mjw" }],
+  ["path", { d: "M20 17h2", key: "1fpfkl" }],
+  ["path", { d: "M20 7h2", key: "1o8tra" }],
+  ["path", { d: "M7 20v2", key: "4gnj0m" }],
+  ["path", { d: "M7 2v2", key: "1i4yhu" }],
+  ["rect", { x: "4", y: "4", width: "16", height: "16", rx: "2", key: "1vbyd7" }],
+  ["rect", { x: "8", y: "8", width: "8", height: "8", rx: "1", key: "z9xiuo" }]
+];
+const Cpu = createLucideIcon("cpu", cpu_iconNode);
+
+
+//# sourceMappingURL=cpu.mjs.map
+
+;// ./node_modules/lucide-react/dist/esm/icons/zap.mjs
+/**
+ * @license lucide-react v1.17.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const zap_iconNode = [
+  [
+    "path",
+    {
+      d: "M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z",
+      key: "1xq2db"
+    }
+  ]
+];
+const Zap = createLucideIcon("zap", zap_iconNode);
+
+
+//# sourceMappingURL=zap.mjs.map
+
+;// ./src/components/AnalyticsPanel.tsx
+
+
+
+const AnalyticsPanel = ({
+  speedDropRatio,
+  networkLoad,
+  congestionLevel,
+  themeColor
+}) => {
+  const isAlert = themeColor.includes("239");
+  return /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: `w-[320px] rounded-2xl glassmorphism border-white/10 overflow-hidden flex flex-col p-4 space-y-4`, style: { "--local-theme": themeColor }, children: [
+    /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex items-center gap-3 border-b border-white/10 pb-3", children: [
+      /* @__PURE__ */ (0,jsx_runtime.jsx)(Activity, { className: "w-5 h-5", style: { color: themeColor } }),
+      /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { children: [
+        /* @__PURE__ */ (0,jsx_runtime.jsx)("h3", { className: "text-white font-orbitron font-bold tracking-wider text-sm uppercase", children: "City Analytics" }),
+        /* @__PURE__ */ (0,jsx_runtime.jsx)("p", { className: "text-zinc-500 font-mono text-[10px]", children: "LIVE TELEMETRY FEED" })
+      ] })
+    ] }),
+    /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "space-y-4", children: [
+      /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "p-3 rounded-xl border relative overflow-hidden", style: { borderColor: themeColor, backgroundColor: isAlert ? "rgba(239, 68, 68, 0.1)" : "rgba(46, 125, 50, 0.1)" }, children: [
+        /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex justify-between items-center mb-2 relative z-10", children: [
+          /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-[10px] text-zinc-400 font-orbitron tracking-widest uppercase", children: "Traffic Velocity" }),
+          /* @__PURE__ */ (0,jsx_runtime.jsx)(Car, { className: "w-4 h-4", style: { color: themeColor } })
+        ] }),
+        /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex items-baseline gap-2 relative z-10", children: [
+          /* @__PURE__ */ (0,jsx_runtime.jsxs)("span", { className: "text-2xl font-bold font-mono", style: { color: themeColor }, children: [
+            "-",
+            speedDropRatio.toFixed(0),
+            "%"
+          ] }),
+          /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-xs text-zinc-500 font-mono", children: "from avg" })
+        ] }),
+        isAlert && /* @__PURE__ */ (0,jsx_runtime.jsx)("div", { className: "absolute inset-0 bg-brand-red opacity-10" })
+      ] }),
+      /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "p-3 rounded-xl border border-white/5 bg-white/5", children: [
+        /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex justify-between items-center mb-2", children: [
+          /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-[10px] text-zinc-400 font-orbitron tracking-widest uppercase", children: "IoT Network Load" }),
+          /* @__PURE__ */ (0,jsx_runtime.jsx)(Radio, { className: "w-4 h-4 text-zinc-500" })
+        ] }),
+        /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex items-center gap-3", children: [
+          /* @__PURE__ */ (0,jsx_runtime.jsx)("div", { className: "flex-1 h-1.5 bg-black rounded-full overflow-hidden", children: /* @__PURE__ */ (0,jsx_runtime.jsx)(
+            "div",
+            {
+              className: `h-full ${networkLoad > 80 ? "bg-brand-red" : "bg-brand-emerald"}`,
+              style: { width: `${networkLoad}%` }
+            }
+          ) }),
+          /* @__PURE__ */ (0,jsx_runtime.jsxs)("span", { className: "text-xs font-mono text-zinc-300", children: [
+            networkLoad.toFixed(0),
+            "%"
+          ] })
+        ] })
+      ] }),
+      /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "grid grid-cols-2 gap-2", children: [
+        /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "p-2 rounded-lg border border-white/5 bg-black/40 flex flex-col items-center justify-center gap-1", children: [
+          /* @__PURE__ */ (0,jsx_runtime.jsx)(Cpu, { className: "w-4 h-4 text-brand-emerald mb-1" }),
+          /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-[8px] text-zinc-500 font-orbitron tracking-widest", children: "EDGE COMPUTE" }),
+          /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-xs font-mono text-brand-emerald font-bold", children: "OPTIMAL" })
+        ] }),
+        /* @__PURE__ */ (0,jsx_runtime.jsxs)(
+          "div",
+          {
+            className: "p-2 rounded-lg border flex flex-col items-center justify-center gap-1",
+            style: {
+              borderColor: isAlert ? "rgba(239, 68, 68, 0.3)" : "rgba(255, 255, 255, 0.05)",
+              backgroundColor: isAlert ? "rgba(239, 68, 68, 0.1)" : "rgba(0, 0, 0, 0.4)"
+            },
+            children: [
+              /* @__PURE__ */ (0,jsx_runtime.jsx)(Zap, { className: `w-4 h-4 mb-1 ${isAlert ? "text-brand-red" : "text-zinc-400"}` }),
+              /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-[8px] text-zinc-500 font-orbitron tracking-widest", children: "CONGESTION" }),
+              /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-xs font-mono font-bold", style: { color: isAlert ? "#ef4444" : "#d4d4d8" }, children: congestionLevel })
+            ]
+          }
+        )
+      ] })
+    ] })
+  ] });
+};
+
+;// ./node_modules/lucide-react/dist/esm/icons/shield.mjs
+/**
+ * @license lucide-react v1.17.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const shield_iconNode = [
+  [
+    "path",
+    {
+      d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z",
+      key: "oel41y"
+    }
+  ]
+];
+const Shield = createLucideIcon("shield", shield_iconNode);
+
+
+//# sourceMappingURL=shield.mjs.map
+
+;// ./node_modules/lucide-react/dist/esm/icons/hospital.mjs
+/**
+ * @license lucide-react v1.17.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const hospital_iconNode = [
+  ["path", { d: "M12 7v4", key: "xawao1" }],
+  ["path", { d: "M14 21v-3a2 2 0 0 0-4 0v3", key: "1rgiei" }],
+  ["path", { d: "M14 9h-4", key: "1w2s2s" }],
+  [
+    "path",
+    {
+      d: "M18 11h2a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2h2",
+      key: "1tthqt"
+    }
+  ],
+  ["path", { d: "M18 21V5a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16", key: "dw4p4i" }]
+];
+const Hospital = createLucideIcon("hospital", hospital_iconNode);
+
+
+//# sourceMappingURL=hospital.mjs.map
+
+;// ./src/components/TacticalSidebar.tsx
+
+
+
+
+const TacticalSidebar = () => {
+  const frame = (0,esm.useCurrentFrame)();
+  const { fps } = (0,esm.useVideoConfig)();
+  const pulseOpacity = (0,esm.interpolate)(
+    frame % (fps * 1.5),
+    [0, fps * 1.5 / 2, fps * 1.5],
+    [1, 0.4, 1],
+    { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
+  );
+  const progressWidth = (0,esm.interpolate)(frame, [0, 45], [0, 85], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp"
+  });
+  return /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "w-[480px] shrink-0 flex flex-col gap-4 overflow-y-auto z-50", children: [
+    /* @__PURE__ */ (0,jsx_runtime.jsxs)("section", { className: "glassmorphism rounded-xl p-5 border-2 border-brand-red/50 bg-brand-red/10 flex flex-col gap-5 shadow-2xl", children: [
+      /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex items-center justify-between", children: [
+        /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-lg font-orbitron font-bold text-brand-red tracking-widest uppercase", children: "Tactical_Incident_Summary" }),
+        /* @__PURE__ */ (0,jsx_runtime.jsx)(
+          "span",
+          {
+            className: "text-sm font-mono text-brand-red font-black",
+            style: { opacity: pulseOpacity },
+            children: "\u25CF LIVE"
+          }
+        )
+      ] }),
+      /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "text-[1.1rem] font-mono space-y-5 mt-2", children: [
+        /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex justify-between border-b border-white/10 pb-4", children: [
+          /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-brand-emerald font-bold", children: "SECTOR:" }),
+          /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-brand-red font-black", children: "AL-JADRIYA, BGD" })
+        ] }),
+        /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex justify-between border-b border-white/10 pb-4", children: [
+          /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-brand-emerald font-bold", children: "TYPE:" }),
+          /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-brand-red font-black", children: "HIGH-IMPACT COLLISION" })
+        ] }),
+        /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex justify-between border-b border-white/10 pb-4", children: [
+          /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-brand-emerald font-bold", children: "SEVERITY:" }),
+          /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-brand-red font-black", children: "LEVEL 4 (CRITICAL)" })
+        ] }),
+        /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex justify-between border-b border-white/10 pb-4", children: [
+          /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-brand-emerald font-bold", children: "ETA_SITE:" }),
+          /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-brand-red font-black", children: "3.5 MINUTES" })
+        ] }),
+        /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex justify-between border-b border-white/10 pb-4", children: [
+          /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-brand-emerald font-bold", children: "CAMERA:" }),
+          /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-zinc-200 font-bold", children: "CAM_03 // KARRADA INT." })
+        ] }),
+        /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex justify-between", children: [
+          /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-brand-emerald font-bold", children: "TIMESTAMP:" }),
+          /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-zinc-200 font-bold", children: "14:22:10" })
+        ] })
+      ] }),
+      /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "mt-4 space-y-4", children: [
+        /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex justify-between text-xs font-orbitron text-zinc-400 font-bold", children: [
+          /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { children: "DISTANCE_TO_SITE" }),
+          /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-brand-red", children: "4.2 KM" })
+        ] }),
+        /* @__PURE__ */ (0,jsx_runtime.jsx)("div", { className: "w-full h-3 bg-white/5 rounded-full overflow-hidden border border-white/10", children: /* @__PURE__ */ (0,jsx_runtime.jsx)(
+          "div",
+          {
+            style: { width: `${progressWidth}%` },
+            className: "h-full bg-brand-red shadow-[0_0_15px_rgba(239,68,68,0.8)]"
+          }
+        ) })
+      ] })
+    ] }),
+    /* @__PURE__ */ (0,jsx_runtime.jsxs)("section", { className: "glassmorphism rounded-xl p-5 border border-brand-red/30 shadow-2xl", children: [
+      /* @__PURE__ */ (0,jsx_runtime.jsxs)("h2", { className: "text-xs font-orbitron text-brand-red uppercase tracking-widest flex items-center gap-3 mb-5 font-bold", children: [
+        /* @__PURE__ */ (0,jsx_runtime.jsx)(Shield, { size: 16 }),
+        " Dispatched Emergency Units"
+      ] }),
+      /* @__PURE__ */ (0,jsx_runtime.jsx)("div", { className: "space-y-4", children: [
+        { label: "UNIT_04_AMBULANCE", icon: Hospital, status: "EN_ROUTE", eta: "3.5 MIN" },
+        { label: "UNIT_07_POLICE", icon: Shield, status: "DISPATCHED", eta: "5.1 MIN" }
+      ].map((item, idx) => /* @__PURE__ */ (0,jsx_runtime.jsxs)(
+        "div",
+        {
+          className: "flex items-center justify-between p-5 rounded-xl border border-brand-red/40 bg-brand-red/5",
+          children: [
+            /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex items-center gap-4", children: [
+              /* @__PURE__ */ (0,jsx_runtime.jsx)(item.icon, { size: 20, className: "text-brand-red" }),
+              /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { children: [
+                /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-xs font-bold font-orbitron tracking-widest text-brand-red block mb-1", children: item.label }),
+                /* @__PURE__ */ (0,jsx_runtime.jsxs)("span", { className: "text-[10px] font-mono text-zinc-500", children: [
+                  item.status,
+                  " // ETA: ",
+                  item.eta
+                ] })
+              ] })
+            ] }),
+            /* @__PURE__ */ (0,jsx_runtime.jsx)(
+              "div",
+              {
+                className: "w-2.5 h-2.5 rounded-full bg-brand-red",
+                style: { opacity: pulseOpacity }
+              }
+            )
+          ]
+        },
+        idx
+      )) })
+    ] })
+  ] });
+};
+
 ;// ./src/scenes/Scene2Reveal.tsx
+
+
+
 
 
 
@@ -853,51 +1355,75 @@ const Scene2Reveal = () => {
           height: "100%",
           position: "relative"
         }, children: [
-          /* @__PURE__ */ (0,jsx_runtime.jsx)(
-            esm.Img,
-            {
-              src: (0,esm.staticFile)("screenshot-1783164667772.png"),
-              style: {
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                objectPosition: "top center"
-              }
-            }
-          ),
-          /* @__PURE__ */ (0,jsx_runtime.jsx)(
-            esm.Img,
-            {
-              src: (0,esm.staticFile)("screenshot-1783164715936.png"),
-              style: {
-                position: "absolute",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                objectPosition: "top center",
-                opacity: (0,esm.interpolate)(frame, [140, 150], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })
-              }
-            }
-          ),
-          /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { style: {
-            position: "absolute",
-            top: "8%",
-            left: "19.5%",
-            width: "61%",
-            height: "89%",
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gridTemplateRows: "1fr 1fr",
-            gap: "8px",
-            opacity: (0,esm.interpolate)(frame, [280, 290], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })
-          }, children: [
-            /* @__PURE__ */ (0,jsx_runtime.jsx)(esm.Video, { src: (0,esm.staticFile)("Feed_01_Normal_Monitoring.mp4"), muted: true, style: { width: "100%", height: "100%", objectFit: "cover", borderRadius: 8 } }),
-            /* @__PURE__ */ (0,jsx_runtime.jsx)(esm.Video, { src: (0,esm.staticFile)("Node_02_Strategic_Urban_Flow.mp4"), muted: true, style: { width: "100%", height: "100%", objectFit: "cover", borderRadius: 8 } }),
-            /* @__PURE__ */ (0,jsx_runtime.jsx)(esm.Video, { src: (0,esm.staticFile)("Incident_Alpha_Detection.mp4"), muted: true, style: { width: "100%", height: "100%", objectFit: "cover", borderRadius: 8 } }),
-            /* @__PURE__ */ (0,jsx_runtime.jsx)(esm.Video, { src: (0,esm.staticFile)("Node_04_High_Density_Monitoring.mp4"), muted: true, style: { width: "100%", height: "100%", objectFit: "cover", borderRadius: 8 } })
+          /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "absolute inset-0 flex flex-col p-4 gap-4 bg-[#0B0F19] text-white font-inter", children: [
+            /* @__PURE__ */ (0,jsx_runtime.jsx)(DashboardHeader, { isAutonomous: frame >= 140 }),
+            /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex-1 min-h-0 grid grid-cols-12 gap-4", children: [
+              /* @__PURE__ */ (0,jsx_runtime.jsx)("div", { className: "col-span-3 flex flex-col gap-4 h-full", children: /* @__PURE__ */ (0,jsx_runtime.jsx)(
+                AnalyticsPanel,
+                {
+                  speedDropRatio: frame >= 140 ? 68 : 24,
+                  networkLoad: frame >= 140 ? 88 : 42,
+                  congestionLevel: frame >= 140 ? "SEVERE" : "LOW",
+                  themeColor: frame >= 140 ? "rgba(239, 68, 68, 1)" : "rgba(46, 125, 50, 1)"
+                }
+              ) }),
+              /* @__PURE__ */ (0,jsx_runtime.jsx)(
+                "div",
+                {
+                  className: "col-span-6 flex flex-col gap-4 h-full relative",
+                  style: { opacity: (0,esm.interpolate)(frame, [280, 290], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }) },
+                  children: /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex-1 grid grid-cols-2 grid-rows-2 gap-2 relative", children: [
+                    /* @__PURE__ */ (0,jsx_runtime.jsx)(esm.Video, { src: (0,esm.staticFile)("Feed_01_Normal_Monitoring.mp4"), muted: true, style: { width: "100%", height: "100%", objectFit: "cover", borderRadius: 8 } }),
+                    /* @__PURE__ */ (0,jsx_runtime.jsx)(esm.Video, { src: (0,esm.staticFile)("Node_02_Strategic_Urban_Flow.mp4"), muted: true, style: { width: "100%", height: "100%", objectFit: "cover", borderRadius: 8 } }),
+                    /* @__PURE__ */ (0,jsx_runtime.jsx)(esm.Video, { src: (0,esm.staticFile)("Incident_Alpha_Detection.mp4"), muted: true, style: { width: "100%", height: "100%", objectFit: "cover", borderRadius: 8 } }),
+                    /* @__PURE__ */ (0,jsx_runtime.jsx)(esm.Video, { src: (0,esm.staticFile)("Node_04_High_Density_Monitoring.mp4"), muted: true, style: { width: "100%", height: "100%", objectFit: "cover", borderRadius: 8 } })
+                  ] })
+                }
+              ),
+              /* @__PURE__ */ (0,jsx_runtime.jsx)("div", { className: "col-span-3 flex flex-col gap-4 h-full", children: /* @__PURE__ */ (0,jsx_runtime.jsx)(TacticalSidebar, {}) })
+            ] })
           ] }),
+          (() => {
+            const statusEnter = (0,esm.spring)({
+              frame: frame - 140,
+              fps,
+              config: { damping: 14, mass: 1 }
+            });
+            return /* @__PURE__ */ (0,jsx_runtime.jsxs)(
+              "div",
+              {
+                style: {
+                  position: "absolute",
+                  bottom: 40,
+                  left: 40,
+                  transform: `translateY(${(0,esm.interpolate)(statusEnter, [0, 1], [40, 0])}px)`,
+                  opacity: (0,esm.interpolate)(statusEnter, [0, 1], [0, 1]),
+                  zIndex: 40
+                },
+                className: "bg-black/60 border border-brand-primary/50 p-6 rounded-2xl backdrop-blur-md shadow-[0_0_30px_rgba(16,185,129,0.15)] flex flex-col gap-4",
+                children: [
+                  /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex items-center gap-3 border-b border-white/10 pb-3", children: [
+                    /* @__PURE__ */ (0,jsx_runtime.jsx)("div", { className: "w-2 h-2 rounded-full bg-brand-emerald shadow-[0_0_8px_#10b981]" }),
+                    /* @__PURE__ */ (0,jsx_runtime.jsx)("h3", { className: "font-orbitron font-bold text-white text-sm tracking-widest uppercase", children: "Infrastructure Status" })
+                  ] }),
+                  /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex flex-col gap-3 font-mono text-xs", children: [
+                    /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex justify-between items-center gap-8", children: [
+                      /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-zinc-400", children: "NETWORK" }),
+                      /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-brand-primary font-bold", children: "EXISTING CCTV" })
+                    ] }),
+                    /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex justify-between items-center gap-8", children: [
+                      /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-zinc-400", children: "HARDWARE REQ" }),
+                      /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-brand-primary font-bold", children: "NONE" })
+                    ] }),
+                    /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex justify-between items-center gap-8", children: [
+                      /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-zinc-400", children: "DEPLOYMENT COST" }),
+                      /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-brand-emerald font-bold text-sm", children: "$0.00" })
+                    ] })
+                  ] })
+                ]
+              }
+            );
+          })(),
           frame >= 155 && /* @__PURE__ */ (0,jsx_runtime.jsx)(
             "div",
             {
@@ -1545,254 +2071,6 @@ const TacticalMap = ({ animationStartFrame = 290 }) => {
   ] });
 };
 
-;// ./node_modules/lucide-react/dist/esm/icons/maximize-2.mjs
-/**
- * @license lucide-react v1.17.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-
-
-
-const maximize_2_iconNode = [
-  ["path", { d: "M15 3h6v6", key: "1q9fwt" }],
-  ["path", { d: "m21 3-7 7", key: "1l2asr" }],
-  ["path", { d: "m3 21 7-7", key: "tjx5ai" }],
-  ["path", { d: "M9 21H3v-6", key: "wtvkvv" }]
-];
-const Maximize2 = createLucideIcon("maximize-2", maximize_2_iconNode);
-
-
-//# sourceMappingURL=maximize-2.mjs.map
-
-;// ./src/components/DashboardHeader.tsx
-
-
-
-
-const DashboardHeader = () => {
-  const frame = (0,esm.useCurrentFrame)();
-  const { fps } = (0,esm.useVideoConfig)();
-  const pulseScale = (0,esm.interpolate)(
-    frame % (fps * 1),
-    // 1 second loop
-    [0, fps / 2, fps],
-    [1, 1.2, 1],
-    { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
-  );
-  return /* @__PURE__ */ (0,jsx_runtime.jsxs)("header", { className: "h-16 flex items-center justify-between px-6 glassmorphism rounded-xl border border-white/10 shrink-0 shadow-2xl relative bg-zinc-900/60 backdrop-blur-md z-50", children: [
-    /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex items-center gap-4", children: [
-      /* @__PURE__ */ (0,jsx_runtime.jsx)(
-        "div",
-        {
-          style: { transform: `scale(${pulseScale})` },
-          className: "w-3 h-3 rounded-full bg-brand-red shadow-[0_0_10px_#ef4444]"
-        }
-      ),
-      /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex flex-col", children: [
-        /* @__PURE__ */ (0,jsx_runtime.jsx)("h1", { className: "text-2xl font-orbitron font-bold tracking-tighter uppercase text-brand-red leading-none", children: "VISIONX IRAQ // AEOC-BGD" }),
-        /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-[10px] font-orbitron text-zinc-500 uppercase tracking-[0.3em] mt-1", children: "Neural Traffic Response Unit" })
-      ] })
-    ] }),
-    /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex items-center gap-4 px-5 py-2 rounded-xl border border-white/5 bg-zinc-900/40 backdrop-blur-md", children: [
-      /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-[10px] font-orbitron font-bold transition-all duration-500 text-zinc-600", children: "VIGILANCE (NORMAL)" }),
-      /* @__PURE__ */ (0,jsx_runtime.jsx)("button", { className: "group relative w-12 h-6 rounded-full transition-all duration-700 p-1 border bg-brand-red/10 border-brand-red/40 shadow-[0_0_15px_rgba(239,68,68,0.2)]", children: /* @__PURE__ */ (0,jsx_runtime.jsx)(
-        "div",
-        {
-          className: "w-4 h-4 rounded-full",
-          style: {
-            transform: "translateX(24px)",
-            backgroundColor: "#ef4444",
-            boxShadow: "0 0 15px rgba(239,68,68,0.8)"
-          }
-        }
-      ) }),
-      /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-[10px] font-orbitron font-bold transition-all duration-500 text-brand-red drop-shadow-[0_0_8px_rgba(239,68,68,0.5)]", style: { opacity: pulseScale }, children: "AUTONOMOUS (AI)" })
-    ] }),
-    /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex items-center bg-zinc-900/40 p-1 rounded-xl border border-white/5 backdrop-blur-md", children: [
-      /* @__PURE__ */ (0,jsx_runtime.jsx)("button", { className: "px-6 py-2 rounded-lg text-[10px] font-orbitron font-bold uppercase tracking-widest transition-all bg-brand-primary text-white shadow-[0_0_10px_rgba(46,125,50,0.5)]", children: "Dashboard" }),
-      /* @__PURE__ */ (0,jsx_runtime.jsx)("button", { className: "px-6 py-2 rounded-lg text-[10px] font-orbitron font-bold uppercase tracking-widest transition-all text-zinc-500", children: "AI Prediction" })
-    ] }),
-    /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex items-center gap-8", children: [
-      /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex gap-4 items-center border-r border-white/10 pr-8", children: [
-        /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex flex-col items-end", children: [
-          /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-[10px] font-orbitron text-zinc-500 uppercase", children: "Latency" }),
-          /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-sm font-bold font-orbitron text-brand-emerald", children: "14.8ms" })
-        ] }),
-        /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex flex-col items-end", children: [
-          /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-[10px] font-orbitron text-zinc-500 uppercase", children: "Edge_Node" }),
-          /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-sm font-bold font-orbitron text-zinc-400", children: "0x7F2" })
-        ] })
-      ] }),
-      /* @__PURE__ */ (0,jsx_runtime.jsx)("button", { className: "p-2 rounded-full transition-colors text-zinc-500", children: /* @__PURE__ */ (0,jsx_runtime.jsx)(Maximize2, { size: 20 }) }),
-      /* @__PURE__ */ (0,jsx_runtime.jsx)("div", { className: "text-3xl font-orbitron font-bold tracking-widest text-zinc-300 min-w-[140px] text-right", children: "14:22:10" })
-    ] })
-  ] });
-};
-
-;// ./node_modules/lucide-react/dist/esm/icons/shield.mjs
-/**
- * @license lucide-react v1.17.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-
-
-
-const shield_iconNode = [
-  [
-    "path",
-    {
-      d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z",
-      key: "oel41y"
-    }
-  ]
-];
-const Shield = createLucideIcon("shield", shield_iconNode);
-
-
-//# sourceMappingURL=shield.mjs.map
-
-;// ./node_modules/lucide-react/dist/esm/icons/hospital.mjs
-/**
- * @license lucide-react v1.17.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-
-
-
-const hospital_iconNode = [
-  ["path", { d: "M12 7v4", key: "xawao1" }],
-  ["path", { d: "M14 21v-3a2 2 0 0 0-4 0v3", key: "1rgiei" }],
-  ["path", { d: "M14 9h-4", key: "1w2s2s" }],
-  [
-    "path",
-    {
-      d: "M18 11h2a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2h2",
-      key: "1tthqt"
-    }
-  ],
-  ["path", { d: "M18 21V5a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16", key: "dw4p4i" }]
-];
-const Hospital = createLucideIcon("hospital", hospital_iconNode);
-
-
-//# sourceMappingURL=hospital.mjs.map
-
-;// ./src/components/TacticalSidebar.tsx
-
-
-
-
-const TacticalSidebar = () => {
-  const frame = (0,esm.useCurrentFrame)();
-  const { fps } = (0,esm.useVideoConfig)();
-  const pulseOpacity = (0,esm.interpolate)(
-    frame % (fps * 1.5),
-    [0, fps * 1.5 / 2, fps * 1.5],
-    [1, 0.4, 1],
-    { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
-  );
-  const progressWidth = (0,esm.interpolate)(frame, [0, 45], [0, 85], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp"
-  });
-  return /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "w-[480px] shrink-0 flex flex-col gap-4 overflow-y-auto z-50", children: [
-    /* @__PURE__ */ (0,jsx_runtime.jsxs)("section", { className: "glassmorphism rounded-xl p-5 border-2 border-brand-red/50 bg-brand-red/10 flex flex-col gap-5 shadow-2xl", children: [
-      /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex items-center justify-between", children: [
-        /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-lg font-orbitron font-bold text-brand-red tracking-widest uppercase", children: "Tactical_Incident_Summary" }),
-        /* @__PURE__ */ (0,jsx_runtime.jsx)(
-          "span",
-          {
-            className: "text-sm font-mono text-brand-red font-black",
-            style: { opacity: pulseOpacity },
-            children: "\u25CF LIVE"
-          }
-        )
-      ] }),
-      /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "text-[1.1rem] font-mono space-y-5 mt-2", children: [
-        /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex justify-between border-b border-white/10 pb-4", children: [
-          /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-brand-emerald font-bold", children: "SECTOR:" }),
-          /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-brand-red font-black", children: "AL-JADRIYA, BGD" })
-        ] }),
-        /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex justify-between border-b border-white/10 pb-4", children: [
-          /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-brand-emerald font-bold", children: "TYPE:" }),
-          /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-brand-red font-black", children: "HIGH-IMPACT COLLISION" })
-        ] }),
-        /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex justify-between border-b border-white/10 pb-4", children: [
-          /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-brand-emerald font-bold", children: "SEVERITY:" }),
-          /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-brand-red font-black", children: "LEVEL 4 (CRITICAL)" })
-        ] }),
-        /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex justify-between border-b border-white/10 pb-4", children: [
-          /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-brand-emerald font-bold", children: "ETA_SITE:" }),
-          /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-brand-red font-black", children: "3.5 MINUTES" })
-        ] }),
-        /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex justify-between border-b border-white/10 pb-4", children: [
-          /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-brand-emerald font-bold", children: "CAMERA:" }),
-          /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-zinc-200 font-bold", children: "CAM_03 // KARRADA INT." })
-        ] }),
-        /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex justify-between", children: [
-          /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-brand-emerald font-bold", children: "TIMESTAMP:" }),
-          /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-zinc-200 font-bold", children: "14:22:10" })
-        ] })
-      ] }),
-      /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "mt-4 space-y-4", children: [
-        /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex justify-between text-xs font-orbitron text-zinc-400 font-bold", children: [
-          /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { children: "DISTANCE_TO_SITE" }),
-          /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-brand-red", children: "4.2 KM" })
-        ] }),
-        /* @__PURE__ */ (0,jsx_runtime.jsx)("div", { className: "w-full h-3 bg-white/5 rounded-full overflow-hidden border border-white/10", children: /* @__PURE__ */ (0,jsx_runtime.jsx)(
-          "div",
-          {
-            style: { width: `${progressWidth}%` },
-            className: "h-full bg-brand-red shadow-[0_0_15px_rgba(239,68,68,0.8)]"
-          }
-        ) })
-      ] })
-    ] }),
-    /* @__PURE__ */ (0,jsx_runtime.jsxs)("section", { className: "glassmorphism rounded-xl p-5 border border-brand-red/30 shadow-2xl", children: [
-      /* @__PURE__ */ (0,jsx_runtime.jsxs)("h2", { className: "text-xs font-orbitron text-brand-red uppercase tracking-widest flex items-center gap-3 mb-5 font-bold", children: [
-        /* @__PURE__ */ (0,jsx_runtime.jsx)(Shield, { size: 16 }),
-        " Dispatched Emergency Units"
-      ] }),
-      /* @__PURE__ */ (0,jsx_runtime.jsx)("div", { className: "space-y-4", children: [
-        { label: "UNIT_04_AMBULANCE", icon: Hospital, status: "EN_ROUTE", eta: "3.5 MIN" },
-        { label: "UNIT_07_POLICE", icon: Shield, status: "DISPATCHED", eta: "5.1 MIN" }
-      ].map((item, idx) => /* @__PURE__ */ (0,jsx_runtime.jsxs)(
-        "div",
-        {
-          className: "flex items-center justify-between p-5 rounded-xl border border-brand-red/40 bg-brand-red/5",
-          children: [
-            /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex items-center gap-4", children: [
-              /* @__PURE__ */ (0,jsx_runtime.jsx)(item.icon, { size: 20, className: "text-brand-red" }),
-              /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { children: [
-                /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-xs font-bold font-orbitron tracking-widest text-brand-red block mb-1", children: item.label }),
-                /* @__PURE__ */ (0,jsx_runtime.jsxs)("span", { className: "text-[10px] font-mono text-zinc-500", children: [
-                  item.status,
-                  " // ETA: ",
-                  item.eta
-                ] })
-              ] })
-            ] }),
-            /* @__PURE__ */ (0,jsx_runtime.jsx)(
-              "div",
-              {
-                className: "w-2.5 h-2.5 rounded-full bg-brand-red",
-                style: { opacity: pulseOpacity }
-              }
-            )
-          ]
-        },
-        idx
-      )) })
-    ] })
-  ] });
-};
-
 ;// ./src/scenes/Scene3GeoRouting.tsx
 
 
@@ -1801,7 +2079,7 @@ const TacticalSidebar = () => {
 
 
 
-const Scene3GeoRouting_DURATION = 450;
+const Scene3GeoRouting_DURATION = 210;
 const Scene3GeoRouting = () => {
   return /* @__PURE__ */ (0,jsx_runtime.jsx)(SceneTransition, { totalDuration: Scene3GeoRouting_DURATION, fadeInDuration: 20, fadeOutDuration: 20, children: /* @__PURE__ */ (0,jsx_runtime.jsx)(esm.AbsoluteFill, { style: { backgroundColor: "#0B0F19" }, children: /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex flex-col h-full p-4 gap-4 bg-[#0B0F19] text-white font-inter", children: [
     /* @__PURE__ */ (0,jsx_runtime.jsx)(DashboardHeader, {}),
@@ -1812,6 +2090,157 @@ const Scene3GeoRouting = () => {
       ] }) }),
       /* @__PURE__ */ (0,jsx_runtime.jsx)(TacticalSidebar, {})
     ] })
+  ] }) }) });
+};
+
+;// ./src/scenes/Scene3bAlgorithms.tsx
+
+
+
+
+const Scene3bAlgorithms_DURATION = 300;
+const Scene3bAlgorithms = () => {
+  const frame = (0,esm.useCurrentFrame)();
+  const { fps } = (0,esm.useVideoConfig)();
+  const headerEnter = (0,esm.spring)({ frame, fps, config: { damping: 14, mass: 1 } });
+  const boxesEnter = (0,esm.spring)({ frame: frame - 15, fps, config: { damping: 14, mass: 1 } });
+  const statusEnter = (0,esm.spring)({ frame: frame - 250, fps, config: { damping: 12, mass: 0.8, stiffness: 150 } });
+  const cameraScale = (0,esm.interpolate)(
+    frame,
+    [25, 38, 100, 116, 183, 200, 258, 275],
+    [1, 1.36, 1.36, 1.36, 1.36, 1.36, 1.36, 1],
+    { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
+  );
+  const cameraX = (0,esm.interpolate)(
+    frame,
+    [25, 38, 100, 116, 183, 200, 258, 275],
+    [0, 420, 420, 0, 0, -420, -420, 0],
+    { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
+  );
+  return /* @__PURE__ */ (0,jsx_runtime.jsx)(SceneTransition, { totalDuration: Scene3bAlgorithms_DURATION, fadeInDuration: 15, fadeOutDuration: 15, children: /* @__PURE__ */ (0,jsx_runtime.jsx)(esm.AbsoluteFill, { style: { backgroundColor: "#0B0F19", fontFamily: "Inter, sans-serif" }, children: /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "w-full h-full p-16 flex flex-col items-center justify-center relative", children: [
+    /* @__PURE__ */ (0,jsx_runtime.jsxs)(
+      "div",
+      {
+        className: "absolute top-24 flex flex-col items-center",
+        style: {
+          opacity: (0,esm.interpolate)(headerEnter, [0, 1], [0, 1]),
+          transform: `translateY(${(0,esm.interpolate)(headerEnter, [0, 1], [-20, 0])})`
+        },
+        children: [
+          /* @__PURE__ */ (0,jsx_runtime.jsx)("h1", { className: "text-4xl font-orbitron font-bold text-white tracking-widest uppercase text-center leading-tight", children: "Triple-Verification Pipeline" }),
+          /* @__PURE__ */ (0,jsx_runtime.jsx)("div", { className: "w-64 h-1 mt-4 bg-gradient-to-r from-transparent via-brand-primary to-transparent" })
+        ]
+      }
+    ),
+    /* @__PURE__ */ (0,jsx_runtime.jsxs)(
+      "div",
+      {
+        className: "w-full max-w-7xl grid grid-cols-3 gap-8 mt-12",
+        style: {
+          transform: `translateX(${cameraX}px) scale(${cameraScale})`
+        },
+        children: [
+          /* @__PURE__ */ (0,jsx_runtime.jsxs)(
+            "div",
+            {
+              className: "flex flex-col gap-6 glassmorphism p-8 rounded-2xl border border-white/10 relative overflow-hidden bg-black/40",
+              style: {
+                opacity: (0,esm.interpolate)(boxesEnter, [0, 1], [0, 1]),
+                transform: `scale(${(0,esm.interpolate)(boxesEnter, [0, 1], [0.95, 1])})`
+              },
+              children: [
+                /* @__PURE__ */ (0,jsx_runtime.jsx)("div", { className: "text-[10px] text-brand-primary font-orbitron tracking-[0.3em] uppercase", children: "Algorithm 01" }),
+                /* @__PURE__ */ (0,jsx_runtime.jsx)("h2", { className: "text-2xl font-bold text-white leading-tight", children: "Vector Direction Check" }),
+                /* @__PURE__ */ (0,jsx_runtime.jsx)("p", { className: "text-sm text-zinc-400", children: "Verifying if vehicle trajectories physically intersect post-detection." }),
+                /* @__PURE__ */ (0,jsx_runtime.jsx)("div", { className: "h-32 mt-4 bg-black/60 rounded-xl border border-white/5 relative flex items-center justify-center overflow-hidden", children: frame > 25 && /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "flex gap-4", children: [
+                  /* @__PURE__ */ (0,jsx_runtime.jsx)(
+                    "div",
+                    {
+                      className: "w-16 h-1 bg-brand-red rounded-full shadow-[0_0_10px_#ef4444]",
+                      style: {
+                        transformOrigin: "right",
+                        transform: `rotate(45deg) scaleX(${(0,esm.interpolate)(frame, [50, 75], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })})`
+                      }
+                    }
+                  ),
+                  /* @__PURE__ */ (0,jsx_runtime.jsx)(
+                    "div",
+                    {
+                      className: "w-16 h-1 bg-brand-emerald rounded-full shadow-[0_0_10px_#10b981]",
+                      style: {
+                        transformOrigin: "left",
+                        transform: `rotate(-45deg) scaleX(${(0,esm.interpolate)(frame, [50, 75], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })})`
+                      }
+                    }
+                  )
+                ] }) }),
+                /* @__PURE__ */ (0,jsx_runtime.jsx)("div", { className: "absolute top-8 right-8 text-xs font-mono text-zinc-500", children: frame > 75 ? /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-brand-emerald font-bold", children: "VERIFIED" }) : "ANALYZING..." })
+              ]
+            }
+          ),
+          /* @__PURE__ */ (0,jsx_runtime.jsxs)(
+            "div",
+            {
+              className: "flex flex-col gap-6 glassmorphism p-8 rounded-2xl border border-white/10 relative overflow-hidden bg-black/40",
+              style: {
+                opacity: (0,esm.interpolate)(boxesEnter, [0, 1], [0, 1]),
+                transform: `scale(${(0,esm.interpolate)(boxesEnter, [0, 1], [0.95, 1])})`
+              },
+              children: [
+                /* @__PURE__ */ (0,jsx_runtime.jsx)("div", { className: "text-[10px] text-brand-primary font-orbitron tracking-[0.3em] uppercase", children: "Algorithm 02" }),
+                /* @__PURE__ */ (0,jsx_runtime.jsx)("h2", { className: "text-2xl font-bold text-white leading-tight", children: "Velocity Drop Analysis" }),
+                /* @__PURE__ */ (0,jsx_runtime.jsx)("p", { className: "text-sm text-zinc-400", children: "Monitoring for abrupt drops to zero speed across a small time frame." }),
+                /* @__PURE__ */ (0,jsx_runtime.jsx)("div", { className: "h-32 mt-4 bg-black/60 rounded-xl border border-white/5 relative flex items-end p-4", children: /* @__PURE__ */ (0,jsx_runtime.jsx)("div", { className: "w-full flex items-end gap-1 h-full opacity-80", children: new Array(15).fill(0).map((_, i) => {
+                  const barHeight = frame < 125 + i * 2 ? 80 : i > 8 ? 5 : 80;
+                  return /* @__PURE__ */ (0,jsx_runtime.jsx)("div", { className: "flex-1 bg-brand-emerald transition-all duration-300 rounded-t-sm", style: { height: `${barHeight}%` } }, i);
+                }) }) }),
+                /* @__PURE__ */ (0,jsx_runtime.jsx)("div", { className: "absolute top-8 right-8 text-xs font-mono text-zinc-500", children: frame > 155 ? /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-brand-emerald font-bold", children: "VERIFIED" }) : "ANALYZING..." })
+              ]
+            }
+          ),
+          /* @__PURE__ */ (0,jsx_runtime.jsxs)(
+            "div",
+            {
+              className: "flex flex-col gap-6 glassmorphism p-8 rounded-2xl border border-white/10 relative overflow-hidden bg-black/40",
+              style: {
+                opacity: (0,esm.interpolate)(boxesEnter, [0, 1], [0, 1]),
+                transform: `scale(${(0,esm.interpolate)(boxesEnter, [0, 1], [0.95, 1])})`
+              },
+              children: [
+                /* @__PURE__ */ (0,jsx_runtime.jsx)("div", { className: "text-[10px] text-brand-primary font-orbitron tracking-[0.3em] uppercase", children: "Algorithm 03" }),
+                /* @__PURE__ */ (0,jsx_runtime.jsx)("h2", { className: "text-2xl font-bold text-white leading-tight", children: "Frame Persistence" }),
+                /* @__PURE__ */ (0,jsx_runtime.jsx)("p", { className: "text-sm text-zinc-400", children: "Ensuring the AI model detects the anomaly across 30 consecutive frames." }),
+                /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "h-32 mt-4 bg-black/60 rounded-xl border border-white/5 relative flex flex-col justify-center px-8 gap-4", children: [
+                  /* @__PURE__ */ (0,jsx_runtime.jsx)("div", { className: "w-full h-2 bg-zinc-800 rounded-full overflow-hidden", children: /* @__PURE__ */ (0,jsx_runtime.jsx)(
+                    "div",
+                    {
+                      className: "h-full bg-gradient-to-r from-brand-primary to-brand-emerald shadow-[0_0_10px_#10b981]",
+                      style: { width: `${(0,esm.interpolate)(frame, [200, 240], [0, 100], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })}%` }
+                    }
+                  ) }),
+                  /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "text-center font-orbitron text-xs text-white tracking-widest", children: [
+                    Math.round((0,esm.interpolate)(frame, [200, 240], [0, 30], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })),
+                    " / 30 FRAMES"
+                  ] })
+                ] }),
+                /* @__PURE__ */ (0,jsx_runtime.jsx)("div", { className: "absolute top-8 right-8 text-xs font-mono text-zinc-500", children: frame > 240 ? /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-brand-emerald font-bold", children: "VERIFIED" }) : "ANALYZING..." })
+              ]
+            }
+          )
+        ]
+      }
+    ),
+    /* @__PURE__ */ (0,jsx_runtime.jsx)(
+      "div",
+      {
+        className: "absolute bottom-16 bg-brand-emerald/10 border border-brand-emerald/40 px-12 py-4 rounded-full shadow-[0_0_30px_rgba(16,185,129,0.3)] backdrop-blur-xl",
+        style: {
+          opacity: (0,esm.interpolate)(statusEnter, [0, 1], [0, 1]),
+          transform: `scale(${(0,esm.interpolate)(statusEnter, [0, 1], [0.8, 1])})`
+        },
+        children: /* @__PURE__ */ (0,jsx_runtime.jsx)("div", { className: "text-brand-emerald font-orbitron font-bold text-2xl tracking-[0.5em] uppercase", children: "STATUS: ALARM VALIDATED" })
+      }
+    )
   ] }) }) });
 };
 
@@ -1989,6 +2418,72 @@ const Scene4Training = () => {
         })
       }
     ),
+    (() => {
+      const accuracyEnter = (0,esm.spring)({
+        frame: frame - 30,
+        // Appear at the beginning of the scene
+        fps,
+        config: { damping: 14, mass: 1 }
+      });
+      const scale = (0,esm.interpolate)(accuracyEnter, [0, 1], [0.8, 1]);
+      const opacity = (0,esm.interpolate)(accuracyEnter, [0, 1], [0, 1]);
+      const displayedAccuracy = Math.round(
+        (0,esm.interpolate)(frame, [30, 270], [0, 98], {
+          extrapolateLeft: "clamp",
+          extrapolateRight: "clamp"
+        })
+      );
+      return /* @__PURE__ */ (0,jsx_runtime.jsxs)(
+        "div",
+        {
+          style: {
+            position: "absolute",
+            top: "72%",
+            left: "50%",
+            transform: `translate(-50%, -50%) scale(${scale})`,
+            opacity,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: 8,
+            zIndex: 20
+          },
+          children: [
+            /* @__PURE__ */ (0,jsx_runtime.jsxs)(
+              "div",
+              {
+                style: {
+                  fontFamily: "Orbitron",
+                  fontSize: 84,
+                  fontWeight: 900,
+                  color: "#00e676",
+                  textShadow: "0 0 40px rgba(0, 230, 118, 0.8), 0 0 80px rgba(0, 230, 118, 0.4)",
+                  lineHeight: 1
+                },
+                children: [
+                  displayedAccuracy,
+                  "%"
+                ]
+              }
+            ),
+            /* @__PURE__ */ (0,jsx_runtime.jsx)(
+              "div",
+              {
+                style: {
+                  fontFamily: "Orbitron",
+                  fontSize: 18,
+                  fontWeight: 600,
+                  letterSpacing: 8,
+                  color: "rgba(255,255,255,0.9)",
+                  textTransform: "uppercase"
+                },
+                children: "Model Accuracy"
+              }
+            )
+          ]
+        }
+      );
+    })(),
     /* @__PURE__ */ (0,jsx_runtime.jsx)(
       "div",
       {
@@ -2113,30 +2608,6 @@ const Target = createLucideIcon("target", target_iconNode);
 
 //# sourceMappingURL=target.mjs.map
 
-;// ./node_modules/lucide-react/dist/esm/icons/activity.mjs
-/**
- * @license lucide-react v1.17.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-
-
-
-const activity_iconNode = [
-  [
-    "path",
-    {
-      d: "M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2",
-      key: "169zse"
-    }
-  ]
-];
-const Activity = createLucideIcon("activity", activity_iconNode);
-
-
-//# sourceMappingURL=activity.mjs.map
-
 ;// ./src/scenes/Scene5Playground.tsx
 
 
@@ -2144,7 +2615,7 @@ const Activity = createLucideIcon("activity", activity_iconNode);
 
 
 
-const Scene5Playground_DURATION = 360;
+const Scene5Playground_DURATION = 429;
 const PRESET_IMAGES = [
   (0,esm.staticFile)("10google2-jumbo.png"),
   (0,esm.staticFile)("Accident.png"),
@@ -2193,11 +2664,7 @@ const Scene5Playground = () => {
   const isButtonHovered = frame >= 120 && frame < 160;
   const inferenceTriggered = frame >= 160;
   const processingComplete = frame >= 220;
-  const finalFade = (0,esm.interpolate)(frame, [Scene5Playground_DURATION - 30, Scene5Playground_DURATION], [1, 0], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp"
-  });
-  return /* @__PURE__ */ (0,jsx_runtime.jsx)(SceneTransition, { totalDuration: Scene5Playground_DURATION, fadeInDuration: 15, fadeOutDuration: 0, children: /* @__PURE__ */ (0,jsx_runtime.jsxs)(esm.AbsoluteFill, { style: { backgroundColor: "#0B0F19", opacity: finalFade, padding: "40px" }, children: [
+  return /* @__PURE__ */ (0,jsx_runtime.jsx)(SceneTransition, { totalDuration: Scene5Playground_DURATION, fadeInDuration: 15, fadeOutDuration: 0, children: /* @__PURE__ */ (0,jsx_runtime.jsxs)(esm.AbsoluteFill, { style: { backgroundColor: "#0B0F19", padding: "40px" }, children: [
     /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "grid grid-cols-12 gap-6 h-full font-inter text-white", children: [
       /* @__PURE__ */ (0,jsx_runtime.jsxs)("div", { className: "col-span-4 flex flex-col gap-6", children: [
         /* @__PURE__ */ (0,jsx_runtime.jsxs)("section", { className: "glassmorphism rounded-xl p-5 border border-white/5 relative overflow-hidden flex-1 shadow-2xl flex flex-col bg-zinc-900/40", children: [
@@ -2358,7 +2825,46 @@ const Scene5Playground = () => {
         ] }) })
       ] })
     ] }),
-    /* @__PURE__ */ (0,jsx_runtime.jsx)(AnimatedCursor, { path: Scene5Playground_CURSOR_PATH, clickFrames: Scene5Playground_CLICK_FRAMES })
+    /* @__PURE__ */ (0,jsx_runtime.jsx)(AnimatedCursor, { path: Scene5Playground_CURSOR_PATH, clickFrames: Scene5Playground_CLICK_FRAMES }),
+    (() => {
+      const ctaEnter = (0,esm.spring)({
+        frame: frame - 364,
+        fps,
+        config: { damping: 14, mass: 1 }
+      });
+      return /* @__PURE__ */ (0,jsx_runtime.jsx)(
+        "div",
+        {
+          style: {
+            position: "absolute",
+            inset: 0,
+            display: frame >= 364 ? "flex" : "none",
+            alignItems: "center",
+            justifyContent: "center",
+            pointerEvents: "none",
+            opacity: (0,esm.interpolate)(ctaEnter, [0, 1], [0, 1]),
+            zIndex: 100,
+            backgroundColor: "rgba(0,0,0,0.7)",
+            backdropFilter: "blur(12px)"
+          },
+          children: /* @__PURE__ */ (0,jsx_runtime.jsxs)(
+            "div",
+            {
+              style: {
+                transform: `scale(${(0,esm.interpolate)(ctaEnter, [0, 1], [0.8, 1])}) translateY(${(0,esm.interpolate)(ctaEnter, [0, 1], [20, 0])}px)`
+              },
+              className: "bg-zinc-900/90 border border-brand-primary/50 shadow-[0_0_80px_rgba(46,125,50,0.2)] px-16 py-12 rounded-[2rem] flex flex-col items-center gap-6",
+              children: [
+                /* @__PURE__ */ (0,jsx_runtime.jsx)("div", { className: "w-20 h-20 rounded-full bg-brand-primary/10 flex items-center justify-center mb-2 shadow-[0_0_30px_rgba(46,125,50,0.3)] border border-brand-primary/30", children: /* @__PURE__ */ (0,jsx_runtime.jsx)(Target, { size: 40, className: "text-brand-primary animate-pulse" }) }),
+                /* @__PURE__ */ (0,jsx_runtime.jsx)("h1", { className: "text-5xl font-orbitron font-bold text-white tracking-widest uppercase text-center max-w-2xl leading-tight", children: "Test the model yourself" }),
+                /* @__PURE__ */ (0,jsx_runtime.jsx)("p", { className: "text-zinc-400 font-inter text-xl text-center max-w-xl", children: "Try our live interactive demo with your own images or use our preset datasets." }),
+                /* @__PURE__ */ (0,jsx_runtime.jsx)("div", { className: "bg-black border-2 border-brand-primary/50 px-10 py-5 rounded-2xl mt-4 shadow-[inset_0_0_20px_rgba(46,125,50,0.2)]", children: /* @__PURE__ */ (0,jsx_runtime.jsx)("span", { className: "text-3xl font-mono font-bold text-brand-primary tracking-wider", children: "car-accident-detection.vercel.app" }) })
+              ]
+            }
+          )
+        }
+      );
+    })()
   ] }) });
 };
 
@@ -2371,21 +2877,23 @@ const Scene5Playground = () => {
 
 
 
+
 const VisionXDemo = () => {
   const frame = (0,esm.useCurrentFrame)();
   const volume = (0,esm.interpolate)(
     frame,
-    [0, 30, 1890, 1950],
+    [0, 30, 1860, 1890],
     [0, 0.15, 0.15, 0],
     { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
   );
   return /* @__PURE__ */ (0,jsx_runtime.jsxs)(esm.AbsoluteFill, { style: { backgroundColor: "#0B0F19", fontFamily: "Inter, sans-serif" }, children: [
     /* @__PURE__ */ (0,jsx_runtime.jsx)(esm.Audio, { src: (0,esm.staticFile)("bgm.mp3"), volume }),
-    /* @__PURE__ */ (0,jsx_runtime.jsx)(esm.Sequence, { from: 0, durationInFrames: 391, children: /* @__PURE__ */ (0,jsx_runtime.jsx)(Scene1Crisis, {}) }),
-    /* @__PURE__ */ (0,jsx_runtime.jsx)(esm.Sequence, { from: 391, durationInFrames: 320, children: /* @__PURE__ */ (0,jsx_runtime.jsx)(Scene2Reveal, {}) }),
-    /* @__PURE__ */ (0,jsx_runtime.jsx)(esm.Sequence, { from: 711, durationInFrames: 450, children: /* @__PURE__ */ (0,jsx_runtime.jsx)(Scene3GeoRouting, {}) }),
+    /* @__PURE__ */ (0,jsx_runtime.jsx)(esm.Sequence, { from: 0, durationInFrames: 331, children: /* @__PURE__ */ (0,jsx_runtime.jsx)(Scene1Crisis, {}) }),
+    /* @__PURE__ */ (0,jsx_runtime.jsx)(esm.Sequence, { from: 331, durationInFrames: 320, children: /* @__PURE__ */ (0,jsx_runtime.jsx)(Scene2Reveal, {}) }),
+    /* @__PURE__ */ (0,jsx_runtime.jsx)(esm.Sequence, { from: 651, durationInFrames: 210, children: /* @__PURE__ */ (0,jsx_runtime.jsx)(Scene3GeoRouting, {}) }),
+    /* @__PURE__ */ (0,jsx_runtime.jsx)(esm.Sequence, { from: 861, durationInFrames: 300, children: /* @__PURE__ */ (0,jsx_runtime.jsx)(Scene3bAlgorithms, {}) }),
     /* @__PURE__ */ (0,jsx_runtime.jsx)(esm.Sequence, { from: 1161, durationInFrames: 300, children: /* @__PURE__ */ (0,jsx_runtime.jsx)(Scene4Training, {}) }),
-    /* @__PURE__ */ (0,jsx_runtime.jsx)(esm.Sequence, { from: 1461, durationInFrames: 360, children: /* @__PURE__ */ (0,jsx_runtime.jsx)(Scene5Playground, {}) })
+    /* @__PURE__ */ (0,jsx_runtime.jsx)(esm.Sequence, { from: 1461, durationInFrames: 429, children: /* @__PURE__ */ (0,jsx_runtime.jsx)(Scene5Playground, {}) })
   ] });
 };
 
@@ -2402,7 +2910,7 @@ const RemotionRoot = () => {
     {
       id: "VisionXDemo",
       component: VisionXDemo,
-      durationInFrames: 1950,
+      durationInFrames: 1890,
       fps: 30,
       width: 1920,
       height: 1080
@@ -3372,7 +3880,10 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
     --color-black: #000;
     --color-white: #fff;
     --spacing: 0.25rem;
+    --container-xl: 36rem;
+    --container-2xl: 42rem;
     --container-4xl: 56rem;
+    --container-7xl: 80rem;
     --text-xs: 0.75rem;
     --text-xs--line-height: calc(1 / 0.75);
     --text-sm: 0.875rem;
@@ -3385,6 +3896,12 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
     --text-2xl--line-height: calc(2 / 1.5);
     --text-3xl: 1.875rem;
     --text-3xl--line-height: calc(2.25 / 1.875);
+    --text-4xl: 2.25rem;
+    --text-4xl--line-height: calc(2.5 / 2.25);
+    --text-5xl: 3rem;
+    --text-5xl--line-height: 1;
+    --text-6xl: 3.75rem;
+    --text-6xl--line-height: 1;
     --font-weight-bold: 700;
     --font-weight-black: 900;
     --tracking-tighter: -0.05em;
@@ -3393,6 +3910,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
     --tracking-widest: 0.1em;
     --leading-tight: 1.25;
     --leading-relaxed: 1.625;
+    --radius-sm: 0.25rem;
     --radius-lg: 0.5rem;
     --radius-xl: 0.75rem;
     --radius-2xl: 1rem;
@@ -3609,6 +4127,12 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
   .top-4 {
     top: calc(var(--spacing) * 4);
   }
+  .top-8 {
+    top: calc(var(--spacing) * 8);
+  }
+  .top-24 {
+    top: calc(var(--spacing) * 24);
+  }
   .top-\\[25\\%\\] {
     top: 25%;
   }
@@ -3618,6 +4142,9 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
   .right-4 {
     right: calc(var(--spacing) * 4);
   }
+  .right-8 {
+    right: calc(var(--spacing) * 8);
+  }
   .bottom-0 {
     bottom: calc(var(--spacing) * 0);
   }
@@ -3626,6 +4153,9 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
   }
   .bottom-6 {
     bottom: calc(var(--spacing) * 6);
+  }
+  .bottom-16 {
+    bottom: calc(var(--spacing) * 16);
   }
   .left-0 {
     left: calc(var(--spacing) * 0);
@@ -3666,8 +4196,14 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
   .z-\\[50\\] {
     z-index: 50;
   }
+  .col-span-3 {
+    grid-column: span 3 / span 3;
+  }
   .col-span-4 {
     grid-column: span 4 / span 4;
+  }
+  .col-span-6 {
+    grid-column: span 6 / span 6;
   }
   .col-span-8 {
     grid-column: span 8 / span 8;
@@ -3704,6 +4240,9 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
   }
   .mt-4 {
     margin-top: calc(var(--spacing) * 4);
+  }
+  .mt-12 {
+    margin-top: calc(var(--spacing) * 12);
   }
   .mt-auto {
     margin-top: auto;
@@ -3777,6 +4316,12 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
   .h-16 {
     height: calc(var(--spacing) * 16);
   }
+  .h-20 {
+    height: calc(var(--spacing) * 20);
+  }
+  .h-32 {
+    height: calc(var(--spacing) * 32);
+  }
   .h-40 {
     height: calc(var(--spacing) * 40);
   }
@@ -3825,8 +4370,17 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
   .w-12 {
     width: calc(var(--spacing) * 12);
   }
+  .w-16 {
+    width: calc(var(--spacing) * 16);
+  }
+  .w-20 {
+    width: calc(var(--spacing) * 20);
+  }
   .w-40 {
     width: calc(var(--spacing) * 40);
+  }
+  .w-64 {
+    width: calc(var(--spacing) * 64);
   }
   .w-\\[40\\%\\] {
     width: 40%;
@@ -3843,11 +4397,20 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
   .w-full {
     width: 100%;
   }
+  .max-w-2xl {
+    max-width: var(--container-2xl);
+  }
   .max-w-4xl {
     max-width: var(--container-4xl);
   }
+  .max-w-7xl {
+    max-width: var(--container-7xl);
+  }
   .max-w-\\[90\\%\\] {
     max-width: 90%;
+  }
+  .max-w-xl {
+    max-width: var(--container-xl);
   }
   .min-w-\\[140px\\] {
     min-width: 140px;
@@ -3881,11 +4444,17 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
   .grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+  .grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
   .grid-cols-9 {
     grid-template-columns: repeat(9, minmax(0, 1fr));
   }
   .grid-cols-12 {
     grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+  .grid-rows-2 {
+    grid-template-rows: repeat(2, minmax(0, 1fr));
   }
   .flex-col {
     flex-direction: column;
@@ -3982,6 +4551,9 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
   .rounded-3xl {
     border-radius: var(--radius-3xl);
   }
+  .rounded-\\[2rem\\] {
+    border-radius: 2rem;
+  }
   .rounded-full {
     border-radius: calc(infinity * 1px);
   }
@@ -3990,6 +4562,10 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
   }
   .rounded-xl {
     border-radius: var(--radius-xl);
+  }
+  .rounded-t-sm {
+    border-top-left-radius: var(--radius-sm);
+    border-top-right-radius: var(--radius-sm);
   }
   .border {
     border-style: var(--tw-border-style);
@@ -4050,6 +4626,12 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
   .border-dashed {
     --tw-border-style: dashed;
     border-style: dashed;
+  }
+  .border-brand-emerald\\/40 {
+    border-color: color-mix(in srgb, #2e7d32 40%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      border-color: color-mix(in oklab, var(--color-brand-emerald) 40%, transparent);
+    }
   }
   .border-brand-red {
     border-color: var(--color-brand-red);
@@ -4144,6 +4726,12 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
   .bg-brand-emerald {
     background-color: var(--color-brand-emerald);
   }
+  .bg-brand-emerald\\/10 {
+    background-color: color-mix(in srgb, #2e7d32 10%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-brand-emerald) 10%, transparent);
+    }
+  }
   .bg-brand-red {
     background-color: var(--color-brand-red);
   }
@@ -4207,8 +4795,30 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
       background-color: color-mix(in oklab, var(--color-zinc-900) 60%, transparent);
     }
   }
+  .bg-zinc-900\\/90 {
+    background-color: color-mix(in srgb, oklch(0.21 0.006 285.885) 90%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-zinc-900) 90%, transparent);
+    }
+  }
+  .bg-gradient-to-r {
+    --tw-gradient-position: to right in oklab;
+    background-image: linear-gradient(var(--tw-gradient-stops));
+  }
   .bg-\\[linear-gradient\\(to_right\\,\\#80808012_1px\\,transparent_1px\\)\\,linear-gradient\\(to_bottom\\,\\#80808012_1px\\,transparent_1px\\)\\] {
     background-image: linear-gradient(to right,#80808012 1px,transparent 1px),linear-gradient(to bottom,#80808012 1px,transparent 1px);
+  }
+  .from-transparent {
+    --tw-gradient-from: transparent;
+    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
+  }
+  .to-brand-emerald {
+    --tw-gradient-to: var(--color-brand-emerald);
+    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
+  }
+  .to-transparent {
+    --tw-gradient-to: transparent;
+    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
   }
   .bg-\\[size\\:32px_32px\\] {
     background-size: 32px 32px;
@@ -4231,6 +4841,12 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
   .p-6 {
     padding: calc(var(--spacing) * 6);
   }
+  .p-8 {
+    padding: calc(var(--spacing) * 8);
+  }
+  .p-16 {
+    padding: calc(var(--spacing) * 16);
+  }
   .px-2 {
     padding-inline: calc(var(--spacing) * 2);
   }
@@ -4245,6 +4861,18 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
   }
   .px-6 {
     padding-inline: calc(var(--spacing) * 6);
+  }
+  .px-8 {
+    padding-inline: calc(var(--spacing) * 8);
+  }
+  .px-10 {
+    padding-inline: calc(var(--spacing) * 10);
+  }
+  .px-12 {
+    padding-inline: calc(var(--spacing) * 12);
+  }
+  .px-16 {
+    padding-inline: calc(var(--spacing) * 16);
   }
   .py-0\\.5 {
     padding-block: calc(var(--spacing) * 0.5);
@@ -4261,8 +4889,17 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
   .py-3 {
     padding-block: calc(var(--spacing) * 3);
   }
+  .py-4 {
+    padding-block: calc(var(--spacing) * 4);
+  }
   .py-5 {
     padding-block: calc(var(--spacing) * 5);
+  }
+  .py-6 {
+    padding-block: calc(var(--spacing) * 6);
+  }
+  .py-12 {
+    padding-block: calc(var(--spacing) * 12);
   }
   .pt-2 {
     padding-top: calc(var(--spacing) * 2);
@@ -4301,6 +4938,18 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
   .text-3xl {
     font-size: var(--text-3xl);
     line-height: var(--tw-leading, var(--text-3xl--line-height));
+  }
+  .text-4xl {
+    font-size: var(--text-4xl);
+    line-height: var(--tw-leading, var(--text-4xl--line-height));
+  }
+  .text-5xl {
+    font-size: var(--text-5xl);
+    line-height: var(--tw-leading, var(--text-5xl--line-height));
+  }
+  .text-6xl {
+    font-size: var(--text-6xl);
+    line-height: var(--tw-leading, var(--text-6xl--line-height));
   }
   .text-lg {
     font-size: var(--text-lg);
@@ -4374,6 +5023,10 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
   .tracking-\\[0\\.4em\\] {
     --tw-tracking: 0.4em;
     letter-spacing: 0.4em;
+  }
+  .tracking-\\[0\\.5em\\] {
+    --tw-tracking: 0.5em;
+    letter-spacing: 0.5em;
   }
   .tracking-tight {
     --tw-tracking: var(--tracking-tight);
@@ -4464,6 +5117,18 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
     --tw-shadow: 0 25px 50px -12px var(--tw-shadow-color, rgb(0 0 0 / 0.25));
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   }
+  .shadow-\\[0_0_8px_\\#10b981\\] {
+    --tw-shadow: 0 0 8px var(--tw-shadow-color, #10b981);
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+  .shadow-\\[0_0_10px_\\#2e7d32\\] {
+    --tw-shadow: 0 0 10px var(--tw-shadow-color, #2e7d32);
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+  .shadow-\\[0_0_10px_\\#10b981\\] {
+    --tw-shadow: 0 0 10px var(--tw-shadow-color, #10b981);
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
   .shadow-\\[0_0_10px_\\#ef4444\\] {
     --tw-shadow: 0 0 10px var(--tw-shadow-color, #ef4444);
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
@@ -4508,12 +5173,36 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
     --tw-shadow: 0 0 20px var(--tw-shadow-color, rgba(239,68,68,0.5));
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   }
+  .shadow-\\[0_0_30px_rgba\\(16\\,185\\,129\\,0\\.3\\)\\] {
+    --tw-shadow: 0 0 30px var(--tw-shadow-color, rgba(16,185,129,0.3));
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+  .shadow-\\[0_0_30px_rgba\\(16\\,185\\,129\\,0\\.15\\)\\] {
+    --tw-shadow: 0 0 30px var(--tw-shadow-color, rgba(16,185,129,0.15));
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+  .shadow-\\[0_0_30px_rgba\\(46\\,125\\,50\\,0\\.3\\)\\] {
+    --tw-shadow: 0 0 30px var(--tw-shadow-color, rgba(46,125,50,0.3));
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
   .shadow-\\[0_0_30px_rgba\\(239\\,68\\,68\\,0\\.6\\)\\] {
     --tw-shadow: 0 0 30px var(--tw-shadow-color, rgba(239,68,68,0.6));
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   }
+  .shadow-\\[0_0_40px_rgba\\(239\\,68\\,68\\,0\\.15\\)\\] {
+    --tw-shadow: 0 0 40px var(--tw-shadow-color, rgba(239,68,68,0.15));
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+  .shadow-\\[0_0_80px_rgba\\(46\\,125\\,50\\,0\\.2\\)\\] {
+    --tw-shadow: 0 0 80px var(--tw-shadow-color, rgba(46,125,50,0.2));
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
   .shadow-\\[0_0_100px_rgba\\(0\\,0\\,0\\,0\\.8\\)\\,0_0_40px_rgba\\(239\\,68\\,68\\,0\\.15\\)\\] {
     --tw-shadow: 0 0 100px var(--tw-shadow-color, rgba(0,0,0,0.8)), 0 0 40px var(--tw-shadow-color, rgba(239,68,68,0.15));
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+  .shadow-\\[inset_0_0_20px_rgba\\(46\\,125\\,50\\,0\\.2\\)\\] {
+    --tw-shadow: inset 0 0 20px var(--tw-shadow-color, rgba(46,125,50,0.2));
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   }
   .shadow-lg {
@@ -4525,6 +5214,11 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
     @supports (color: color-mix(in lab, red, red)) {
       --tw-shadow-color: color-mix(in oklab, var(--color-black) var(--tw-shadow-alpha), transparent);
     }
+  }
+  .drop-shadow-\\[0_0_8px_rgba\\(46\\,125\\,50\\,0\\.5\\)\\] {
+    --tw-drop-shadow-size: drop-shadow(0 0 8px var(--tw-drop-shadow-color, rgba(46,125,50,0.5)));
+    --tw-drop-shadow: var(--tw-drop-shadow-size);
+    filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
   }
   .drop-shadow-\\[0_0_8px_rgba\\(239\\,68\\,68\\,0\\.5\\)\\] {
     --tw-drop-shadow-size: drop-shadow(0 0 8px var(--tw-drop-shadow-color, rgba(239,68,68,0.5)));
@@ -4573,6 +5267,10 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
     transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to;
     transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
     transition-duration: var(--tw-duration, var(--default-transition-duration));
+  }
+  .duration-300 {
+    --tw-duration: 300ms;
+    transition-duration: 300ms;
   }
   .duration-500 {
     --tw-duration: 500ms;
@@ -4694,6 +5392,48 @@ body {
   syntax: "*";
   inherits: false;
   initial-value: solid;
+}
+@property --tw-gradient-position {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-gradient-from {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #0000;
+}
+@property --tw-gradient-via {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #0000;
+}
+@property --tw-gradient-to {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #0000;
+}
+@property --tw-gradient-stops {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-gradient-via-stops {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-gradient-from-position {
+  syntax: "<length-percentage>";
+  inherits: false;
+  initial-value: 0%;
+}
+@property --tw-gradient-via-position {
+  syntax: "<length-percentage>";
+  inherits: false;
+  initial-value: 50%;
+}
+@property --tw-gradient-to-position {
+  syntax: "<length-percentage>";
+  inherits: false;
+  initial-value: 100%;
 }
 @property --tw-leading {
   syntax: "*";
@@ -4892,6 +5632,15 @@ body {
       --tw-skew-y: initial;
       --tw-space-y-reverse: 0;
       --tw-border-style: solid;
+      --tw-gradient-position: initial;
+      --tw-gradient-from: #0000;
+      --tw-gradient-via: #0000;
+      --tw-gradient-to: #0000;
+      --tw-gradient-stops: initial;
+      --tw-gradient-via-stops: initial;
+      --tw-gradient-from-position: 0%;
+      --tw-gradient-via-position: 50%;
+      --tw-gradient-to-position: 100%;
       --tw-leading: initial;
       --tw-font-weight: initial;
       --tw-tracking: initial;
@@ -4936,7 +5685,7 @@ body {
     }
   }
 }
-`, "",{"version":3,"sources":["webpack://./src/globals.css"],"names":[],"mappings":"AAAA,gEAAgE;AAEhE,iBAAiB;AACjB,yCAAyC;AACzC;EACE;IACE;6DACyD;IACzD;iDAC6C;IAC7C,0CAA0C;IAC1C,0CAA0C;IAC1C,0CAA0C;IAC1C,4CAA4C;IAC5C,+CAA+C;IAC/C,0CAA0C;IAC1C,4CAA4C;IAC5C,4CAA4C;IAC5C,4CAA4C;IAC5C,4CAA4C;IAC5C,2CAA2C;IAC3C,4CAA4C;IAC5C,2CAA2C;IAC3C,mBAAmB;IACnB,mBAAmB;IACnB,kBAAkB;IAClB,sBAAsB;IACtB,kBAAkB;IAClB,sCAAsC;IACtC,mBAAmB;IACnB,0CAA0C;IAC1C,mBAAmB;IACnB,0CAA0C;IAC1C,kBAAkB;IAClB,yCAAyC;IACzC,kBAAkB;IAClB,sCAAsC;IACtC,oBAAoB;IACpB,2CAA2C;IAC3C,uBAAuB;IACvB,wBAAwB;IACxB,2BAA2B;IAC3B,0BAA0B;IAC1B,wBAAwB;IACxB,wBAAwB;IACxB,qBAAqB;IACrB,wBAAwB;IACxB,mBAAmB;IACnB,oBAAoB;IACpB,kBAAkB;IAClB,oBAAoB;IACpB,6CAA6C;IAC7C,sCAAsC;IACtC,uCAAuC;IACvC,+DAA+D;IAC/D,cAAc;IACd,eAAe;IACf,eAAe;IACf,sBAAsB;IACtB,oCAAoC;IACpC,kEAAkE;IAClE,uCAAuC;IACvC,wEAAwE;IACxE;;KAEC;IACD,4CAA4C;IAC5C;;KAEC;IACD;;KAEC;IACD,8BAA8B;IAC9B,0BAA0B;IAC1B,uCAAuC;IACvC,iCAAiC;EACnC;AACF;AACA;EACE;IACE,sBAAsB;IACtB,SAAS;IACT,UAAU;IACV,eAAe;EACjB;EACA;IACE,gBAAgB;IAChB,8BAA8B;IAC9B,WAAW;IACX,6JAA6J;IAC7J,mEAAmE;IACnE,yEAAyE;IACzE,wCAAwC;EAC1C;EACA;IACE,oBAAoB;EACtB;EACA;IACE,SAAS;IACT,cAAc;IACd,qBAAqB;EACvB;EACA;IACE,yCAAyC;IACzC,iCAAiC;EACnC;EACA;IACE,kBAAkB;IAClB,oBAAoB;EACtB;EACA;IACE,cAAc;IACd,gCAAgC;IAChC,wBAAwB;EAC1B;EACA;IACE,mBAAmB;EACrB;EACA;IACE,kJAAkJ;IAClJ,0EAA0E;IAC1E,8EAA8E;IAC9E,cAAc;EAChB;EACA;IACE,cAAc;EAChB;EACA;IACE,cAAc;IACd,cAAc;IACd,kBAAkB;IAClB,wBAAwB;EAC1B;EACA;IACE,eAAe;EACjB;EACA;IACE,WAAW;EACb;EACA;IACE,cAAc;IACd,qBAAqB;IACrB,yBAAyB;EAC3B;EACA;IACE,aAAa;EACf;EACA;IACE,wBAAwB;EAC1B;EACA;IACE,kBAAkB;EACpB;EACA;IACE,gBAAgB;EAClB;EACA;IACE,cAAc;IACd,sBAAsB;EACxB;EACA;IACE,eAAe;IACf,YAAY;EACd;EACA;IACE,aAAa;IACb,8BAA8B;IAC9B,gCAAgC;IAChC,uBAAuB;IACvB,cAAc;IACd,gBAAgB;IAChB,6BAA6B;IAC7B,UAAU;EACZ;EACA;IACE,mBAAmB;EACrB;EACA;IACE,0BAA0B;EAC5B;EACA;IACE,sBAAsB;EACxB;EACA;IACE,UAAU;IACV,mBAAmB;IACnB;MACE,yDAAyD;IAC3D;EACF;EACA;IACE,gBAAgB;EAClB;EACA;IACE,wBAAwB;EAC1B;EACA;IACE,eAAe;IACf,mBAAmB;EACrB;EACA;IACE,oBAAoB;EACtB;EACA;IACE,UAAU;EACZ;EACA;IACE,gBAAgB;EAClB;EACA;IACE,gBAAgB;EAClB;EACA;IACE,kBAAkB;EACpB;EACA;IACE,YAAY;EACd;EACA;IACE,wBAAwB;EAC1B;AACF;AACA;EACE;IACE,oBAAoB;EACtB;EACA;IACE,mBAAmB;EACrB;EACA;IACE,kBAAkB;EACpB;EACA;IACE,kBAAkB;EACpB;EACA;IACE,gBAAgB;EAClB;EACA;IACE,+BAA+B;EACjC;EACA;IACE,kCAAkC;EACpC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,8BAA8B;EAChC;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,uBAAuB;EACzB;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,QAAQ;EACV;EACA;IACE,+BAA+B;EACjC;EACA;IACE,+BAA+B;EACjC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,8BAA8B;EAChC;EACA;IACE,wBAAwB;EAC1B;EACA;IACE,8BAA8B;EAChC;EACA;IACE,8BAA8B;EAChC;EACA;IACE,UAAU;EACZ;EACA;IACE,SAAS;EACX;EACA;IACE,UAAU;EACZ;EACA;IACE,WAAW;EACb;EACA;IACE,WAAW;EACb;EACA;IACE,WAAW;EACb;EACA;IACE,WAAW;EACb;EACA;IACE,WAAW;EACb;EACA;IACE,WAAW;EACb;EACA;IACE,4BAA4B;EAC9B;EACA;IACE,4BAA4B;EAC9B;EACA;IACE,WAAW;IACX;MACE,gBAAgB;IAClB;IACA;MACE,gBAAgB;IAClB;IACA;MACE,gBAAgB;IAClB;IACA;MACE,gBAAgB;IAClB;IACA;MACE,gBAAgB;IAClB;EACF;EACA;IACE,mBAAmB;EACrB;EACA;IACE,sCAAsC;EACxC;EACA;IACE,oCAAoC;EACtC;EACA;IACE,oCAAoC;EACtC;EACA;IACE,oCAAoC;EACtC;EACA;IACE,gBAAgB;EAClB;EACA;IACE,sCAAsC;EACxC;EACA;IACE,uCAAuC;EACzC;EACA;IACE,uCAAuC;EACzC;EACA;IACE,uCAAuC;EACzC;EACA;IACE,uCAAuC;EACzC;EACA;IACE,uCAAuC;EACzC;EACA;IACE,uCAAuC;EACzC;EACA;IACE,cAAc;EAChB;EACA;IACE,aAAa;EACf;EACA;IACE,aAAa;EACf;EACA;IACE,aAAa;EACf;EACA;IACE,iCAAiC;EACnC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,kCAAkC;EACpC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,kCAAkC;EACpC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,iCAAiC;EACnC;EACA;IACE,iCAAiC;EACnC;EACA;IACE,iCAAiC;EACnC;EACA;IACE,iCAAiC;EACnC;EACA;IACE,WAAW;EACb;EACA;IACE,WAAW;EACb;EACA;IACE,YAAY;EACd;EACA;IACE,oCAAoC;EACtC;EACA;IACE,+BAA+B;EACjC;EACA;IACE,yBAAyB;EAC3B;EACA;IACE,+BAA+B;EACjC;EACA;IACE,iCAAiC;EACnC;EACA;IACE,+BAA+B;EACjC;EACA;IACE,+BAA+B;EACjC;EACA;IACE,+BAA+B;EACjC;EACA;IACE,+BAA+B;EACjC;EACA;IACE,+BAA+B;EACjC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,UAAU;EACZ;EACA;IACE,YAAY;EACd;EACA;IACE,YAAY;EACd;EACA;IACE,YAAY;EACd;EACA;IACE,WAAW;EACb;EACA;IACE,+BAA+B;EACjC;EACA;IACE,cAAc;EAChB;EACA;IACE,gBAAgB;EAClB;EACA;IACE,OAAO;EACT;EACA;IACE,cAAc;EAChB;EACA;IACE,+CAA+C;IAC/C,sDAAsD;EACxD;EACA;IACE,+CAA+C;IAC/C,sDAAsD;EACxD;EACA;IACE,WAAW;EACb;EACA;IACE,0GAA0G;EAC5G;EACA;IACE,+BAA+B;EACjC;EACA;IACE,8BAA8B;EAChC;EACA;IACE,gDAAgD;EAClD;EACA;IACE,gDAAgD;EAClD;EACA;IACE,iDAAiD;EACnD;EACA;IACE,sBAAsB;EACxB;EACA;IACE,mBAAmB;EACrB;EACA;IACE,qBAAqB;EACvB;EACA;IACE,mBAAmB;EACrB;EACA;IACE,qBAAqB;EACvB;EACA;IACE,uBAAuB;EACzB;EACA;IACE,8BAA8B;EAChC;EACA;IACE,uBAAuB;EACzB;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,6BAA6B;EAC/B;EACA;IACE;MACE,uBAAuB;MACvB,8EAA8E;MAC9E,sFAAsF;IACxF;EACF;EACA;IACE;MACE,uBAAuB;MACvB,8EAA8E;MAC9E,sFAAsF;IACxF;EACF;EACA;IACE;MACE,uBAAuB;MACvB,8EAA8E;MAC9E,sFAAsF;IACxF;EACF;EACA;IACE;MACE,uBAAuB;MACvB,8EAA8E;MAC9E,sFAAsF;IACxF;EACF;EACA;IACE;MACE,uBAAuB;MACvB,8EAA8E;MAC9E,sFAAsF;IACxF;EACF;EACA;IACE,gBAAgB;EAClB;EACA;IACE,gBAAgB;EAClB;EACA;IACE,sBAAsB;EACxB;EACA;IACE,gCAAgC;EAClC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,mCAAmC;EACrC;EACA;IACE,+BAA+B;EACjC;EACA;IACE,+BAA+B;EACjC;EACA;IACE,oCAAoC;IACpC,iBAAiB;EACnB;EACA;IACE,oCAAoC;IACpC,iBAAiB;EACnB;EACA;IACE,oCAAoC;IACpC,iBAAiB;EACnB;EACA;IACE,wCAAwC;IACxC,qBAAqB;EACvB;EACA;IACE,wCAAwC;IACxC,qBAAqB;EACvB;EACA;IACE,wCAAwC;IACxC,qBAAqB;EACvB;EACA;IACE,0CAA0C;IAC1C,uBAAuB;EACzB;EACA;IACE,0CAA0C;IAC1C,uBAAuB;EACzB;EACA;IACE,0CAA0C;IAC1C,uBAAuB;EACzB;EACA;IACE,2CAA2C;IAC3C,wBAAwB;EAC1B;EACA;IACE,2CAA2C;IAC3C,wBAAwB;EAC1B;EACA;IACE,2CAA2C;IAC3C,wBAAwB;EAC1B;EACA;IACE,yCAAyC;IACzC,sBAAsB;EACxB;EACA;IACE,yCAAyC;IACzC,sBAAsB;EACxB;EACA;IACE,yBAAyB;IACzB,oBAAoB;EACtB;EACA;IACE,oCAAoC;EACtC;EACA;IACE,0DAA0D;IAC1D;MACE,0EAA0E;IAC5E;EACF;EACA;IACE,0DAA0D;IAC1D;MACE,0EAA0E;IAC5E;EACF;EACA;IACE,0DAA0D;IAC1D;MACE,0EAA0E;IAC5E;EACF;EACA;IACE,kCAAkC;EACpC;EACA;IACE,kCAAkC;EACpC;EACA;IACE,sDAAsD;IACtD;MACE,qEAAqE;IACvE;EACF;EACA;IACE,uDAAuD;IACvD;MACE,sEAAsE;IACxE;EACF;EACA;IACE,uDAAuD;IACvD;MACE,sEAAsE;IACxE;EACF;EACA;IACE,4EAA4E;IAC5E;MACE,yEAAyE;IAC3E;EACF;EACA;IACE,yBAAyB;EAC3B;EACA;IACE,yBAAyB;EAC3B;EACA;IACE,oCAAoC;EACtC;EACA;IACE,2DAA2D;IAC3D;MACE,0EAA0E;IAC5E;EACF;EACA;IACE,2DAA2D;IAC3D;MACE,0EAA0E;IAC5E;EACF;EACA;IACE,2DAA2D;IAC3D;MACE,0EAA0E;IAC5E;EACF;EACA;IACE,2DAA2D;IAC3D;MACE,0EAA0E;IAC5E;EACF;EACA;IACE,2DAA2D;IAC3D;MACE,0EAA0E;IAC5E;EACF;EACA;IACE,4CAA4C;EAC9C;EACA;IACE,wCAAwC;EAC1C;EACA;IACE,6DAA6D;IAC7D;MACE,6EAA6E;IAC/E;EACF;EACA;IACE,8DAA8D;IAC9D;MACE,8EAA8E;IAChF;EACF;EACA;IACE,8DAA8D;IAC9D;MACE,8EAA8E;IAChF;EACF;EACA;IACE,0CAA0C;EAC5C;EACA;IACE,sCAAsC;EACxC;EACA;IACE,sCAAsC;EACxC;EACA;IACE,0DAA0D;IAC1D;MACE,yEAAyE;IAC3E;EACF;EACA;IACE,2DAA2D;IAC3D;MACE,0EAA0E;IAC5E;EACF;EACA;IACE,uCAAuC;EACzC;EACA;IACE,gFAAgF;IAChF;MACE,6EAA6E;IAC/E;EACF;EACA;IACE,gFAAgF;IAChF;MACE,6EAA6E;IAC/E;EACF;EACA;IACE,gFAAgF;IAChF;MACE,6EAA6E;IAC/E;EACF;EACA;IACE,kIAAkI;EACpI;EACA;IACE,0BAA0B;EAC5B;EACA;IACE,iCAAiC;EACnC;EACA;IACE,iCAAiC;EACnC;EACA;IACE,iCAAiC;EACnC;EACA;IACE,iCAAiC;EACnC;EACA;IACE,iCAAiC;EACnC;EACA;IACE,iCAAiC;EACnC;EACA;IACE,wCAAwC;EAC1C;EACA;IACE,wCAAwC;EAC1C;EACA;IACE,wCAAwC;EAC1C;EACA;IACE,wCAAwC;EAC1C;EACA;IACE,wCAAwC;EAC1C;EACA;IACE,yCAAyC;EAC3C;EACA;IACE,uCAAuC;EACzC;EACA;IACE,yCAAyC;EAC3C;EACA;IACE,uCAAuC;EACzC;EACA;IACE,uCAAuC;EACzC;EACA;IACE,uCAAuC;EACzC;EACA;IACE,qCAAqC;EACvC;EACA;IACE,uCAAuC;EACzC;EACA;IACE,wCAAwC;EAC1C;EACA;IACE,wCAAwC;EAC1C;EACA;IACE,kBAAkB;EACpB;EACA;IACE,iBAAiB;EACnB;EACA;IACE,8BAA8B;EAChC;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,iCAAiC;EACnC;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,0BAA0B;IAC1B,4DAA4D;EAC9D;EACA;IACE,0BAA0B;IAC1B,4DAA4D;EAC9D;EACA;IACE,yBAAyB;IACzB,2DAA2D;EAC7D;EACA;IACE,yBAAyB;IACzB,2DAA2D;EAC7D;EACA;IACE,yBAAyB;IACzB,2DAA2D;EAC7D;EACA;IACE,yBAAyB;IACzB,2DAA2D;EAC7D;EACA;IACE,iBAAiB;EACnB;EACA;IACE,cAAc;EAChB;EACA;IACE,cAAc;EAChB;EACA;IACE,eAAe;EACjB;EACA;IACE,eAAe;EACjB;EACA;IACE,eAAe;EACjB;EACA;IACE,eAAe;EACjB;EACA;IACE,eAAe;IACf,cAAc;EAChB;EACA;IACE,oCAAoC;IACpC,mCAAmC;EACrC;EACA;IACE,kCAAkC;IAClC,iCAAiC;EACnC;EACA;IACE,0CAA0C;IAC1C,qCAAqC;EACvC;EACA;IACE,yCAAyC;IACzC,oCAAoC;EACtC;EACA;IACE,oBAAoB;IACpB,qBAAqB;EACvB;EACA;IACE,oBAAoB;IACpB,qBAAqB;EACvB;EACA;IACE,oBAAoB;IACpB,qBAAqB;EACvB;EACA;IACE,oBAAoB;IACpB,qBAAqB;EACvB;EACA;IACE,oCAAoC;IACpC,qCAAqC;EACvC;EACA;IACE,sCAAsC;IACtC,uCAAuC;EACzC;EACA;IACE,oCAAoC;IACpC,qCAAqC;EACvC;EACA;IACE,qCAAqC;IACrC,sCAAsC;EACxC;EACA;IACE,mBAAmB;EACrB;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,yBAAyB;EAC3B;EACA;IACE,iCAAiC;EACnC;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,mDAAmD;IACnD;MACE,mEAAmE;IACrE;EACF;EACA;IACE,2BAA2B;EAC7B;EACA;IACE,yBAAyB;EAC3B;EACA;IACE,4BAA4B;EAC9B;EACA;IACE,4BAA4B;EAC9B;EACA;IACE,4BAA4B;EAC9B;EACA;IACE,4BAA4B;EAC9B;EACA;IACE,4BAA4B;EAC9B;EACA;IACE,yBAAyB;EAC3B;EACA;IACE,YAAY;EACd;EACA;IACE,YAAY;EACd;EACA;IACE,YAAY;EACd;EACA;IACE,YAAY;EACd;EACA;IACE,YAAY;EACd;EACA;IACE,YAAY;EACd;EACA;IACE,aAAa;EACf;EACA;IACE,aAAa;EACf;EACA;IACE,wEAAwE;IACxE,sIAAsI;EACxI;EACA;IACE,qDAAqD;IACrD,sIAAsI;EACxI;EACA;IACE,0DAA0D;IAC1D,sIAAsI;EACxI;EACA;IACE,iEAAiE;IACjE,sIAAsI;EACxI;EACA;IACE,iEAAiE;IACjE,sIAAsI;EACxI;EACA;IACE,iEAAiE;IACjE,sIAAsI;EACxI;EACA;IACE,iEAAiE;IACjE,sIAAsI;EACxI;EACA;IACE,iEAAiE;IACjE,sIAAsI;EACxI;EACA;IACE,iEAAiE;IACjE,sIAAsI;EACxI;EACA;IACE,iEAAiE;IACjE,sIAAsI;EACxI;EACA;IACE,iEAAiE;IACjE,sIAAsI;EACxI;EACA;IACE,iEAAiE;IACjE,sIAAsI;EACxI;EACA;IACE,iEAAiE;IACjE,sIAAsI;EACxI;EACA;IACE,qHAAqH;IACrH,sIAAsI;EACxI;EACA;IACE,+HAA+H;IAC/H,sIAAsI;EACxI;EACA;IACE,uBAAuB;IACvB;MACE,8FAA8F;IAChG;EACF;EACA;IACE,4FAA4F;IAC5F,4CAA4C;IAC5C,0LAA0L;EAC5L;EACA;IACE,4FAA4F;IAC5F,oDAAoD;IACpD,0LAA0L;EAC5L;EACA;IACE,0LAA0L;EAC5L;EACA;IACE,6BAA6B;IAC7B,wRAAwR;IACxR,gRAAgR;EAClR;EACA;IACE,wCAAwC;IACxC,wRAAwR;IACxR,gRAAgR;EAClR;EACA;IACE,wCAAwC;IACxC,wRAAwR;IACxR,gRAAgR;EAClR;EACA;IACE,wCAAwC;IACxC,wRAAwR;IACxR,gRAAgR;EAClR;EACA;IACE,yUAAyU;IACzU,qFAAqF;IACrF,2EAA2E;EAC7E;EACA;IACE,wBAAwB;IACxB,qFAAqF;IACrF,2EAA2E;EAC7E;EACA;IACE,uKAAuK;IACvK,qFAAqF;IACrF,2EAA2E;EAC7E;EACA;IACE,oBAAoB;IACpB,0BAA0B;EAC5B;EACA;IACE,oBAAoB;IACpB,0BAA0B;EAC5B;EACA;IACE,0BAA0B;IAC1B,2CAA2C;EAC7C;EACA;IACE,yBAAyB;IACzB,iBAAiB;EACnB;EACA;IACE;MACE;QACE,8DAA8D;QAC9D;UACE,8EAA8E;QAChF;MACF;IACF;EACF;AACF;AACA;EACE,qBAAqB;EACrB,qBAAqB;EACrB,wBAAwB;EACxB,qCAAqC;AACvC;AACA;EACE,mCAAmC;EACnC,wBAAwB;EACxB,8BAA8B;EAC9B,gBAAgB;EAChB,mCAAmC;EACnC,kCAAkC;AACpC;AACA;EACE;IACE,2BAA2B;IAC3B,2CAA2C;IAC3C,0CAA0C;EAC5C;EACA;IACE,kFAAkF;IAClF,yBAAyB;IACzB,oBAAoB;EACtB;EACA;IACE,4EAA4E;EAC9E;EACA;IACE,4EAA4E;EAC9E;EACA;IACE,6EAA6E;EAC/E;EACA;IACE;MACE,oCAAoC;MACpC,2CAA2C;IAC7C;IACA;MACE,oCAAoC;MACpC,4CAA4C;IAC9C;EACF;EACA;IACE,qDAAqD;IACrD,gCAAgC;EAClC;AACF;AACA;EACE,WAAW;EACX,eAAe;EACf,gBAAgB;AAClB;AACA;EACE,WAAW;EACX,eAAe;EACf,gBAAgB;AAClB;AACA;EACE,WAAW;EACX,eAAe;EACf,gBAAgB;AAClB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;EACf,gBAAgB;AAClB;AACA;EACE,WAAW;EACX,eAAe;EACf,oBAAoB;AACtB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;EACf,wBAAwB;AAC1B;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,sBAAsB;EACtB,eAAe;EACf,mBAAmB;AACrB;AACA;EACE,WAAW;EACX,eAAe;EACf,wBAAwB;AAC1B;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,sBAAsB;EACtB,eAAe;EACf,mBAAmB;AACrB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;EACf,wBAAwB;AAC1B;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;EACf,wBAAwB;AAC1B;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,kBAAkB;EAClB,eAAe;EACf,kBAAkB;AACpB;AACA;EACE,WAAW;EACX,eAAe;EACf,mBAAmB;AACrB;AACA;EACE,WAAW;EACX,eAAe;EACf,wBAAwB;AAC1B;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,sBAAsB;EACtB,eAAe;EACf,mBAAmB;AACrB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE;IACE,yBAAyB;EAC3B;AACF;AACA;EACE;IACE,YAAY;EACd;AACF;AACA;EACE;IACE;MACE,mBAAmB;MACnB,mBAAmB;MACnB,mBAAmB;MACnB,sBAAsB;MACtB,sBAAsB;MACtB,sBAAsB;MACtB,oBAAoB;MACpB,oBAAoB;MACpB,uBAAuB;MACvB,wBAAwB;MACxB,qBAAqB;MACrB,yBAAyB;MACzB,sBAAsB;MACtB,sBAAsB;MACtB,0BAA0B;MAC1B,uBAAuB;MACvB,4BAA4B;MAC5B,gCAAgC;MAChC,6BAA6B;MAC7B,wBAAwB;MACxB,2BAA2B;MAC3B,8BAA8B;MAC9B,iCAAiC;MACjC,wBAAwB;MACxB,2BAA2B;MAC3B,4BAA4B;MAC5B,kCAAkC;MAClC,kBAAkB;MAClB,wBAAwB;MACxB,sBAAsB;MACtB,uBAAuB;MACvB,wBAAwB;MACxB,oBAAoB;MACpB,qBAAqB;MACrB,sBAAsB;MACtB,mBAAmB;MACnB,yBAAyB;MACzB,+BAA+B;MAC/B,4BAA4B;MAC5B,8BAA8B;MAC9B,2BAA2B;MAC3B,iCAAiC;MACjC,+BAA+B;MAC/B,gCAAgC;MAChC,iCAAiC;MACjC,6BAA6B;MAC7B,8BAA8B;MAC9B,+BAA+B;MAC/B,4BAA4B;MAC5B,sBAAsB;MACtB,kBAAkB;IACpB;EACF;AACF","sourcesContent":["/*! tailwindcss v4.2.0 | MIT License | https://tailwindcss.com */\n@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap');\n@layer properties;\n@layer theme, base, components, utilities;\n@layer theme {\n  :root, :host {\n    --font-sans: ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\",\n      \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\";\n    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,\n      \"Liberation Mono\", \"Courier New\", monospace;\n    --color-red-400: oklch(0.704 0.191 22.216);\n    --color-red-500: oklch(0.637 0.237 25.331);\n    --color-red-600: oklch(0.577 0.245 27.325);\n    --color-amber-400: oklch(0.828 0.189 84.429);\n    --color-emerald-600: oklch(0.596 0.145 163.225);\n    --color-zinc-200: oklch(0.92 0.004 286.32);\n    --color-zinc-300: oklch(0.871 0.006 286.286);\n    --color-zinc-400: oklch(0.705 0.015 286.067);\n    --color-zinc-500: oklch(0.552 0.016 285.938);\n    --color-zinc-600: oklch(0.442 0.017 285.786);\n    --color-zinc-700: oklch(0.37 0.013 285.805);\n    --color-zinc-800: oklch(0.274 0.006 286.033);\n    --color-zinc-900: oklch(0.21 0.006 285.885);\n    --color-black: #000;\n    --color-white: #fff;\n    --spacing: 0.25rem;\n    --container-4xl: 56rem;\n    --text-xs: 0.75rem;\n    --text-xs--line-height: calc(1 / 0.75);\n    --text-sm: 0.875rem;\n    --text-sm--line-height: calc(1.25 / 0.875);\n    --text-lg: 1.125rem;\n    --text-lg--line-height: calc(1.75 / 1.125);\n    --text-xl: 1.25rem;\n    --text-xl--line-height: calc(1.75 / 1.25);\n    --text-2xl: 1.5rem;\n    --text-2xl--line-height: calc(2 / 1.5);\n    --text-3xl: 1.875rem;\n    --text-3xl--line-height: calc(2.25 / 1.875);\n    --font-weight-bold: 700;\n    --font-weight-black: 900;\n    --tracking-tighter: -0.05em;\n    --tracking-tight: -0.025em;\n    --tracking-wider: 0.05em;\n    --tracking-widest: 0.1em;\n    --leading-tight: 1.25;\n    --leading-relaxed: 1.625;\n    --radius-lg: 0.5rem;\n    --radius-xl: 0.75rem;\n    --radius-2xl: 1rem;\n    --radius-3xl: 1.5rem;\n    --drop-shadow-md: 0 3px 3px rgb(0 0 0 / 0.12);\n    --ease-out: cubic-bezier(0, 0, 0.2, 1);\n    --animate-spin: spin 1s linear infinite;\n    --animate-pulse: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;\n    --blur-sm: 8px;\n    --blur-md: 12px;\n    --blur-xl: 24px;\n    --aspect-video: 16 / 9;\n    --default-transition-duration: 150ms;\n    --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);\n    --default-font-family: var(--font-sans);\n    --default-font-feature-settings: var(--font-sans--font-feature-settings);\n    --default-font-variation-settings: var(\n      --font-sans--font-variation-settings\n    );\n    --default-mono-font-family: var(--font-mono);\n    --default-mono-font-feature-settings: var(\n      --font-mono--font-feature-settings\n    );\n    --default-mono-font-variation-settings: var(\n      --font-mono--font-variation-settings\n    );\n    --color-brand-emerald: #2e7d32;\n    --color-brand-red: #ef4444;\n    --font-orbitron: \"Orbitron\", sans-serif;\n    --font-inter: \"Inter\", sans-serif;\n  }\n}\n@layer base {\n  *, ::after, ::before, ::backdrop, ::file-selector-button {\n    box-sizing: border-box;\n    margin: 0;\n    padding: 0;\n    border: 0 solid;\n  }\n  html, :host {\n    line-height: 1.5;\n    -webkit-text-size-adjust: 100%;\n    tab-size: 4;\n    font-family: var( --default-font-family, ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\" );\n    font-feature-settings: var(--default-font-feature-settings, normal);\n    font-variation-settings: var( --default-font-variation-settings, normal );\n    -webkit-tap-highlight-color: transparent;\n  }\n  body {\n    line-height: inherit;\n  }\n  hr {\n    height: 0;\n    color: inherit;\n    border-top-width: 1px;\n  }\n  abbr:where([title]) {\n    -webkit-text-decoration: underline dotted;\n    text-decoration: underline dotted;\n  }\n  h1, h2, h3, h4, h5, h6 {\n    font-size: inherit;\n    font-weight: inherit;\n  }\n  a {\n    color: inherit;\n    -webkit-text-decoration: inherit;\n    text-decoration: inherit;\n  }\n  b, strong {\n    font-weight: bolder;\n  }\n  code, kbd, samp, pre {\n    font-family: var( --default-mono-font-family, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace );\n    font-feature-settings: var( --default-mono-font-feature-settings, normal );\n    font-variation-settings: var( --default-mono-font-variation-settings, normal );\n    font-size: 1em;\n  }\n  small {\n    font-size: 80%;\n  }\n  sub, sup {\n    font-size: 75%;\n    line-height: 0;\n    position: relative;\n    vertical-align: baseline;\n  }\n  sub {\n    bottom: -0.25em;\n  }\n  sup {\n    top: -0.5em;\n  }\n  table {\n    text-indent: 0;\n    border-color: inherit;\n    border-collapse: collapse;\n  }\n  :-moz-focusring {\n    outline: auto;\n  }\n  progress {\n    vertical-align: baseline;\n  }\n  summary {\n    display: list-item;\n  }\n  ol, ul, menu {\n    list-style: none;\n  }\n  img, svg, video, canvas, audio, iframe, embed, object {\n    display: block;\n    vertical-align: middle;\n  }\n  img, video {\n    max-width: 100%;\n    height: auto;\n  }\n  button, input, select, optgroup, textarea, ::file-selector-button {\n    font: inherit;\n    font-feature-settings: inherit;\n    font-variation-settings: inherit;\n    letter-spacing: inherit;\n    color: inherit;\n    border-radius: 0;\n    background-color: transparent;\n    opacity: 1;\n  }\n  :where(select:is([multiple], [size])) optgroup {\n    font-weight: bolder;\n  }\n  :where(select:is([multiple], [size])) optgroup option {\n    padding-inline-start: 20px;\n  }\n  ::file-selector-button {\n    margin-inline-end: 4px;\n  }\n  ::placeholder {\n    opacity: 1;\n    color: currentColor;\n    @supports (color: color-mix(in lab, red, red)) {\n      color: color-mix(in oklab, currentColor 50%, transparent);\n    }\n  }\n  textarea {\n    resize: vertical;\n  }\n  ::-webkit-search-decoration {\n    -webkit-appearance: none;\n  }\n  ::-webkit-date-and-time-value {\n    min-height: 1lh;\n    text-align: inherit;\n  }\n  ::-webkit-datetime-edit {\n    display: inline-flex;\n  }\n  ::-webkit-datetime-edit-fields-wrapper {\n    padding: 0;\n  }\n  ::-webkit-datetime-edit, ::-webkit-datetime-edit-year-field, ::-webkit-datetime-edit-month-field, ::-webkit-datetime-edit-day-field, ::-webkit-datetime-edit-hour-field, ::-webkit-datetime-edit-minute-field, ::-webkit-datetime-edit-second-field, ::-webkit-datetime-edit-millisecond-field, ::-webkit-datetime-edit-meridiem-field {\n    padding-block: 0;\n  }\n  :-moz-ui-invalid {\n    box-shadow: none;\n  }\n  button, input:where([type=\"button\"], [type=\"reset\"], [type=\"submit\"]), ::file-selector-button {\n    appearance: button;\n  }\n  ::-webkit-inner-spin-button, ::-webkit-outer-spin-button {\n    height: auto;\n  }\n  [hidden]:where(:not([hidden=\"until-found\"])) {\n    display: none !important;\n  }\n}\n@layer utilities {\n  .pointer-events-none {\n    pointer-events: none;\n  }\n  .visible {\n    visibility: visible;\n  }\n  .absolute {\n    position: absolute;\n  }\n  .relative {\n    position: relative;\n  }\n  .static {\n    position: static;\n  }\n  .inset-0 {\n    inset: calc(var(--spacing) * 0);\n  }\n  .start {\n    inset-inline-start: var(--spacing);\n  }\n  .end {\n    inset-inline-end: var(--spacing);\n  }\n  .-top-8 {\n    top: calc(var(--spacing) * -8);\n  }\n  .top-0 {\n    top: calc(var(--spacing) * 0);\n  }\n  .top-1\\/2 {\n    top: calc(1 / 2 * 100%);\n  }\n  .top-2 {\n    top: calc(var(--spacing) * 2);\n  }\n  .top-4 {\n    top: calc(var(--spacing) * 4);\n  }\n  .top-\\[25\\%\\] {\n    top: 25%;\n  }\n  .right-0 {\n    right: calc(var(--spacing) * 0);\n  }\n  .right-4 {\n    right: calc(var(--spacing) * 4);\n  }\n  .bottom-0 {\n    bottom: calc(var(--spacing) * 0);\n  }\n  .bottom-4 {\n    bottom: calc(var(--spacing) * 4);\n  }\n  .bottom-6 {\n    bottom: calc(var(--spacing) * 6);\n  }\n  .left-0 {\n    left: calc(var(--spacing) * 0);\n  }\n  .left-1\\/2 {\n    left: calc(1 / 2 * 100%);\n  }\n  .left-2 {\n    left: calc(var(--spacing) * 2);\n  }\n  .left-4 {\n    left: calc(var(--spacing) * 4);\n  }\n  .left-\\[-2px\\] {\n    left: -2px;\n  }\n  .left-\\[30\\%\\] {\n    left: 30%;\n  }\n  .z-0 {\n    z-index: 0;\n  }\n  .z-10 {\n    z-index: 10;\n  }\n  .z-20 {\n    z-index: 20;\n  }\n  .z-30 {\n    z-index: 30;\n  }\n  .z-40 {\n    z-index: 40;\n  }\n  .z-50 {\n    z-index: 50;\n  }\n  .z-\\[50\\] {\n    z-index: 50;\n  }\n  .col-span-4 {\n    grid-column: span 4 / span 4;\n  }\n  .col-span-8 {\n    grid-column: span 8 / span 8;\n  }\n  .container {\n    width: 100%;\n    @media (width >= 40rem) {\n      max-width: 40rem;\n    }\n    @media (width >= 48rem) {\n      max-width: 48rem;\n    }\n    @media (width >= 64rem) {\n      max-width: 64rem;\n    }\n    @media (width >= 80rem) {\n      max-width: 80rem;\n    }\n    @media (width >= 96rem) {\n      max-width: 96rem;\n    }\n  }\n  .mx-auto {\n    margin-inline: auto;\n  }\n  .mt-0\\.5 {\n    margin-top: calc(var(--spacing) * 0.5);\n  }\n  .mt-1 {\n    margin-top: calc(var(--spacing) * 1);\n  }\n  .mt-2 {\n    margin-top: calc(var(--spacing) * 2);\n  }\n  .mt-4 {\n    margin-top: calc(var(--spacing) * 4);\n  }\n  .mt-auto {\n    margin-top: auto;\n  }\n  .mr-3 {\n    margin-right: calc(var(--spacing) * 3);\n  }\n  .mb-1 {\n    margin-bottom: calc(var(--spacing) * 1);\n  }\n  .mb-2 {\n    margin-bottom: calc(var(--spacing) * 2);\n  }\n  .mb-4 {\n    margin-bottom: calc(var(--spacing) * 4);\n  }\n  .mb-5 {\n    margin-bottom: calc(var(--spacing) * 5);\n  }\n  .mb-6 {\n    margin-bottom: calc(var(--spacing) * 6);\n  }\n  .mb-8 {\n    margin-bottom: calc(var(--spacing) * 8);\n  }\n  .block {\n    display: block;\n  }\n  .flex {\n    display: flex;\n  }\n  .grid {\n    display: grid;\n  }\n  .hidden {\n    display: none;\n  }\n  .aspect-video {\n    aspect-ratio: var(--aspect-video);\n  }\n  .h-1 {\n    height: calc(var(--spacing) * 1);\n  }\n  .h-1\\.5 {\n    height: calc(var(--spacing) * 1.5);\n  }\n  .h-2 {\n    height: calc(var(--spacing) * 2);\n  }\n  .h-2\\.5 {\n    height: calc(var(--spacing) * 2.5);\n  }\n  .h-3 {\n    height: calc(var(--spacing) * 3);\n  }\n  .h-4 {\n    height: calc(var(--spacing) * 4);\n  }\n  .h-5 {\n    height: calc(var(--spacing) * 5);\n  }\n  .h-6 {\n    height: calc(var(--spacing) * 6);\n  }\n  .h-7 {\n    height: calc(var(--spacing) * 7);\n  }\n  .h-12 {\n    height: calc(var(--spacing) * 12);\n  }\n  .h-16 {\n    height: calc(var(--spacing) * 16);\n  }\n  .h-40 {\n    height: calc(var(--spacing) * 40);\n  }\n  .h-48 {\n    height: calc(var(--spacing) * 48);\n  }\n  .h-\\[1px\\] {\n    height: 1px;\n  }\n  .h-\\[45\\%\\] {\n    height: 45%;\n  }\n  .h-full {\n    height: 100%;\n  }\n  .min-h-0 {\n    min-height: calc(var(--spacing) * 0);\n  }\n  .w-1 {\n    width: calc(var(--spacing) * 1);\n  }\n  .w-1\\/2 {\n    width: calc(1 / 2 * 100%);\n  }\n  .w-2 {\n    width: calc(var(--spacing) * 2);\n  }\n  .w-2\\.5 {\n    width: calc(var(--spacing) * 2.5);\n  }\n  .w-3 {\n    width: calc(var(--spacing) * 3);\n  }\n  .w-4 {\n    width: calc(var(--spacing) * 4);\n  }\n  .w-5 {\n    width: calc(var(--spacing) * 5);\n  }\n  .w-6 {\n    width: calc(var(--spacing) * 6);\n  }\n  .w-7 {\n    width: calc(var(--spacing) * 7);\n  }\n  .w-12 {\n    width: calc(var(--spacing) * 12);\n  }\n  .w-40 {\n    width: calc(var(--spacing) * 40);\n  }\n  .w-\\[40\\%\\] {\n    width: 40%;\n  }\n  .w-\\[320px\\] {\n    width: 320px;\n  }\n  .w-\\[420px\\] {\n    width: 420px;\n  }\n  .w-\\[480px\\] {\n    width: 480px;\n  }\n  .w-full {\n    width: 100%;\n  }\n  .max-w-4xl {\n    max-width: var(--container-4xl);\n  }\n  .max-w-\\[90\\%\\] {\n    max-width: 90%;\n  }\n  .min-w-\\[140px\\] {\n    min-width: 140px;\n  }\n  .flex-1 {\n    flex: 1;\n  }\n  .shrink-0 {\n    flex-shrink: 0;\n  }\n  .-translate-x-1\\/2 {\n    --tw-translate-x: calc(calc(1 / 2 * 100%) * -1);\n    translate: var(--tw-translate-x) var(--tw-translate-y);\n  }\n  .-translate-y-1\\/2 {\n    --tw-translate-y: calc(calc(1 / 2 * 100%) * -1);\n    translate: var(--tw-translate-x) var(--tw-translate-y);\n  }\n  .scale-\\[1\\.02\\] {\n    scale: 1.02;\n  }\n  .transform {\n    transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);\n  }\n  .animate-pulse {\n    animation: var(--animate-pulse);\n  }\n  .animate-spin {\n    animation: var(--animate-spin);\n  }\n  .grid-cols-2 {\n    grid-template-columns: repeat(2, minmax(0, 1fr));\n  }\n  .grid-cols-9 {\n    grid-template-columns: repeat(9, minmax(0, 1fr));\n  }\n  .grid-cols-12 {\n    grid-template-columns: repeat(12, minmax(0, 1fr));\n  }\n  .flex-col {\n    flex-direction: column;\n  }\n  .flex-row {\n    flex-direction: row;\n  }\n  .items-baseline {\n    align-items: baseline;\n  }\n  .items-center {\n    align-items: center;\n  }\n  .items-end {\n    align-items: flex-end;\n  }\n  .items-start {\n    align-items: flex-start;\n  }\n  .justify-between {\n    justify-content: space-between;\n  }\n  .justify-center {\n    justify-content: center;\n  }\n  .gap-1 {\n    gap: calc(var(--spacing) * 1);\n  }\n  .gap-2 {\n    gap: calc(var(--spacing) * 2);\n  }\n  .gap-3 {\n    gap: calc(var(--spacing) * 3);\n  }\n  .gap-4 {\n    gap: calc(var(--spacing) * 4);\n  }\n  .gap-5 {\n    gap: calc(var(--spacing) * 5);\n  }\n  .gap-6 {\n    gap: calc(var(--spacing) * 6);\n  }\n  .gap-8 {\n    gap: calc(var(--spacing) * 8);\n  }\n  .space-y-1 {\n    :where(& > :not(:last-child)) {\n      --tw-space-y-reverse: 0;\n      margin-block-start: calc(calc(var(--spacing) * 1) * var(--tw-space-y-reverse));\n      margin-block-end: calc(calc(var(--spacing) * 1) * calc(1 - var(--tw-space-y-reverse)));\n    }\n  }\n  .space-y-2 {\n    :where(& > :not(:last-child)) {\n      --tw-space-y-reverse: 0;\n      margin-block-start: calc(calc(var(--spacing) * 2) * var(--tw-space-y-reverse));\n      margin-block-end: calc(calc(var(--spacing) * 2) * calc(1 - var(--tw-space-y-reverse)));\n    }\n  }\n  .space-y-4 {\n    :where(& > :not(:last-child)) {\n      --tw-space-y-reverse: 0;\n      margin-block-start: calc(calc(var(--spacing) * 4) * var(--tw-space-y-reverse));\n      margin-block-end: calc(calc(var(--spacing) * 4) * calc(1 - var(--tw-space-y-reverse)));\n    }\n  }\n  .space-y-5 {\n    :where(& > :not(:last-child)) {\n      --tw-space-y-reverse: 0;\n      margin-block-start: calc(calc(var(--spacing) * 5) * var(--tw-space-y-reverse));\n      margin-block-end: calc(calc(var(--spacing) * 5) * calc(1 - var(--tw-space-y-reverse)));\n    }\n  }\n  .space-y-6 {\n    :where(& > :not(:last-child)) {\n      --tw-space-y-reverse: 0;\n      margin-block-start: calc(calc(var(--spacing) * 6) * var(--tw-space-y-reverse));\n      margin-block-end: calc(calc(var(--spacing) * 6) * calc(1 - var(--tw-space-y-reverse)));\n    }\n  }\n  .overflow-hidden {\n    overflow: hidden;\n  }\n  .overflow-y-auto {\n    overflow-y: auto;\n  }\n  .rounded {\n    border-radius: 0.25rem;\n  }\n  .rounded-2xl {\n    border-radius: var(--radius-2xl);\n  }\n  .rounded-3xl {\n    border-radius: var(--radius-3xl);\n  }\n  .rounded-full {\n    border-radius: calc(infinity * 1px);\n  }\n  .rounded-lg {\n    border-radius: var(--radius-lg);\n  }\n  .rounded-xl {\n    border-radius: var(--radius-xl);\n  }\n  .border {\n    border-style: var(--tw-border-style);\n    border-width: 1px;\n  }\n  .border-2 {\n    border-style: var(--tw-border-style);\n    border-width: 2px;\n  }\n  .border-\\[3px\\] {\n    border-style: var(--tw-border-style);\n    border-width: 3px;\n  }\n  .border-t {\n    border-top-style: var(--tw-border-style);\n    border-top-width: 1px;\n  }\n  .border-t-2 {\n    border-top-style: var(--tw-border-style);\n    border-top-width: 2px;\n  }\n  .border-t-\\[3px\\] {\n    border-top-style: var(--tw-border-style);\n    border-top-width: 3px;\n  }\n  .border-r {\n    border-right-style: var(--tw-border-style);\n    border-right-width: 1px;\n  }\n  .border-r-2 {\n    border-right-style: var(--tw-border-style);\n    border-right-width: 2px;\n  }\n  .border-r-\\[3px\\] {\n    border-right-style: var(--tw-border-style);\n    border-right-width: 3px;\n  }\n  .border-b {\n    border-bottom-style: var(--tw-border-style);\n    border-bottom-width: 1px;\n  }\n  .border-b-2 {\n    border-bottom-style: var(--tw-border-style);\n    border-bottom-width: 2px;\n  }\n  .border-b-\\[3px\\] {\n    border-bottom-style: var(--tw-border-style);\n    border-bottom-width: 3px;\n  }\n  .border-l-2 {\n    border-left-style: var(--tw-border-style);\n    border-left-width: 2px;\n  }\n  .border-l-\\[3px\\] {\n    border-left-style: var(--tw-border-style);\n    border-left-width: 3px;\n  }\n  .border-dashed {\n    --tw-border-style: dashed;\n    border-style: dashed;\n  }\n  .border-brand-red {\n    border-color: var(--color-brand-red);\n  }\n  .border-brand-red\\/30 {\n    border-color: color-mix(in srgb, #ef4444 30%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      border-color: color-mix(in oklab, var(--color-brand-red) 30%, transparent);\n    }\n  }\n  .border-brand-red\\/40 {\n    border-color: color-mix(in srgb, #ef4444 40%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      border-color: color-mix(in oklab, var(--color-brand-red) 40%, transparent);\n    }\n  }\n  .border-brand-red\\/50 {\n    border-color: color-mix(in srgb, #ef4444 50%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      border-color: color-mix(in oklab, var(--color-brand-red) 50%, transparent);\n    }\n  }\n  .border-red-400 {\n    border-color: var(--color-red-400);\n  }\n  .border-red-500 {\n    border-color: var(--color-red-500);\n  }\n  .border-white\\/5 {\n    border-color: color-mix(in srgb, #fff 5%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      border-color: color-mix(in oklab, var(--color-white) 5%, transparent);\n    }\n  }\n  .border-white\\/10 {\n    border-color: color-mix(in srgb, #fff 10%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      border-color: color-mix(in oklab, var(--color-white) 10%, transparent);\n    }\n  }\n  .border-white\\/25 {\n    border-color: color-mix(in srgb, #fff 25%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      border-color: color-mix(in oklab, var(--color-white) 25%, transparent);\n    }\n  }\n  .border-zinc-700\\/50 {\n    border-color: color-mix(in srgb, oklch(0.37 0.013 285.805) 50%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      border-color: color-mix(in oklab, var(--color-zinc-700) 50%, transparent);\n    }\n  }\n  .bg-\\[\\#0B0F19\\] {\n    background-color: #0B0F19;\n  }\n  .bg-\\[\\#0a0a0a\\] {\n    background-color: #0a0a0a;\n  }\n  .bg-black {\n    background-color: var(--color-black);\n  }\n  .bg-black\\/10 {\n    background-color: color-mix(in srgb, #000 10%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-black) 10%, transparent);\n    }\n  }\n  .bg-black\\/20 {\n    background-color: color-mix(in srgb, #000 20%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-black) 20%, transparent);\n    }\n  }\n  .bg-black\\/40 {\n    background-color: color-mix(in srgb, #000 40%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-black) 40%, transparent);\n    }\n  }\n  .bg-black\\/60 {\n    background-color: color-mix(in srgb, #000 60%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-black) 60%, transparent);\n    }\n  }\n  .bg-black\\/80 {\n    background-color: color-mix(in srgb, #000 80%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-black) 80%, transparent);\n    }\n  }\n  .bg-brand-emerald {\n    background-color: var(--color-brand-emerald);\n  }\n  .bg-brand-red {\n    background-color: var(--color-brand-red);\n  }\n  .bg-brand-red\\/5 {\n    background-color: color-mix(in srgb, #ef4444 5%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-brand-red) 5%, transparent);\n    }\n  }\n  .bg-brand-red\\/10 {\n    background-color: color-mix(in srgb, #ef4444 10%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-brand-red) 10%, transparent);\n    }\n  }\n  .bg-brand-red\\/20 {\n    background-color: color-mix(in srgb, #ef4444 20%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-brand-red) 20%, transparent);\n    }\n  }\n  .bg-emerald-600 {\n    background-color: var(--color-emerald-600);\n  }\n  .bg-red-500 {\n    background-color: var(--color-red-500);\n  }\n  .bg-red-600 {\n    background-color: var(--color-red-600);\n  }\n  .bg-white\\/5 {\n    background-color: color-mix(in srgb, #fff 5%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-white) 5%, transparent);\n    }\n  }\n  .bg-white\\/10 {\n    background-color: color-mix(in srgb, #fff 10%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-white) 10%, transparent);\n    }\n  }\n  .bg-zinc-800 {\n    background-color: var(--color-zinc-800);\n  }\n  .bg-zinc-900\\/40 {\n    background-color: color-mix(in srgb, oklch(0.21 0.006 285.885) 40%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-zinc-900) 40%, transparent);\n    }\n  }\n  .bg-zinc-900\\/50 {\n    background-color: color-mix(in srgb, oklch(0.21 0.006 285.885) 50%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-zinc-900) 50%, transparent);\n    }\n  }\n  .bg-zinc-900\\/60 {\n    background-color: color-mix(in srgb, oklch(0.21 0.006 285.885) 60%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-zinc-900) 60%, transparent);\n    }\n  }\n  .bg-\\[linear-gradient\\(to_right\\,\\#80808012_1px\\,transparent_1px\\)\\,linear-gradient\\(to_bottom\\,\\#80808012_1px\\,transparent_1px\\)\\] {\n    background-image: linear-gradient(to right,#80808012 1px,transparent 1px),linear-gradient(to bottom,#80808012 1px,transparent 1px);\n  }\n  .bg-\\[size\\:32px_32px\\] {\n    background-size: 32px 32px;\n  }\n  .p-1 {\n    padding: calc(var(--spacing) * 1);\n  }\n  .p-2 {\n    padding: calc(var(--spacing) * 2);\n  }\n  .p-3 {\n    padding: calc(var(--spacing) * 3);\n  }\n  .p-4 {\n    padding: calc(var(--spacing) * 4);\n  }\n  .p-5 {\n    padding: calc(var(--spacing) * 5);\n  }\n  .p-6 {\n    padding: calc(var(--spacing) * 6);\n  }\n  .px-2 {\n    padding-inline: calc(var(--spacing) * 2);\n  }\n  .px-3 {\n    padding-inline: calc(var(--spacing) * 3);\n  }\n  .px-4 {\n    padding-inline: calc(var(--spacing) * 4);\n  }\n  .px-5 {\n    padding-inline: calc(var(--spacing) * 5);\n  }\n  .px-6 {\n    padding-inline: calc(var(--spacing) * 6);\n  }\n  .py-0\\.5 {\n    padding-block: calc(var(--spacing) * 0.5);\n  }\n  .py-1 {\n    padding-block: calc(var(--spacing) * 1);\n  }\n  .py-1\\.5 {\n    padding-block: calc(var(--spacing) * 1.5);\n  }\n  .py-2 {\n    padding-block: calc(var(--spacing) * 2);\n  }\n  .py-3 {\n    padding-block: calc(var(--spacing) * 3);\n  }\n  .py-5 {\n    padding-block: calc(var(--spacing) * 5);\n  }\n  .pt-2 {\n    padding-top: calc(var(--spacing) * 2);\n  }\n  .pr-8 {\n    padding-right: calc(var(--spacing) * 8);\n  }\n  .pb-3 {\n    padding-bottom: calc(var(--spacing) * 3);\n  }\n  .pb-4 {\n    padding-bottom: calc(var(--spacing) * 4);\n  }\n  .text-center {\n    text-align: center;\n  }\n  .text-right {\n    text-align: right;\n  }\n  .font-inter {\n    font-family: var(--font-inter);\n  }\n  .font-mono {\n    font-family: var(--font-mono);\n  }\n  .font-orbitron {\n    font-family: var(--font-orbitron);\n  }\n  .font-sans {\n    font-family: var(--font-sans);\n  }\n  .text-2xl {\n    font-size: var(--text-2xl);\n    line-height: var(--tw-leading, var(--text-2xl--line-height));\n  }\n  .text-3xl {\n    font-size: var(--text-3xl);\n    line-height: var(--tw-leading, var(--text-3xl--line-height));\n  }\n  .text-lg {\n    font-size: var(--text-lg);\n    line-height: var(--tw-leading, var(--text-lg--line-height));\n  }\n  .text-sm {\n    font-size: var(--text-sm);\n    line-height: var(--tw-leading, var(--text-sm--line-height));\n  }\n  .text-xl {\n    font-size: var(--text-xl);\n    line-height: var(--tw-leading, var(--text-xl--line-height));\n  }\n  .text-xs {\n    font-size: var(--text-xs);\n    line-height: var(--tw-leading, var(--text-xs--line-height));\n  }\n  .text-\\[1\\.1rem\\] {\n    font-size: 1.1rem;\n  }\n  .text-\\[8px\\] {\n    font-size: 8px;\n  }\n  .text-\\[9px\\] {\n    font-size: 9px;\n  }\n  .text-\\[10px\\] {\n    font-size: 10px;\n  }\n  .text-\\[11px\\] {\n    font-size: 11px;\n  }\n  .text-\\[12px\\] {\n    font-size: 12px;\n  }\n  .text-\\[13px\\] {\n    font-size: 13px;\n  }\n  .leading-none {\n    --tw-leading: 1;\n    line-height: 1;\n  }\n  .leading-relaxed {\n    --tw-leading: var(--leading-relaxed);\n    line-height: var(--leading-relaxed);\n  }\n  .leading-tight {\n    --tw-leading: var(--leading-tight);\n    line-height: var(--leading-tight);\n  }\n  .font-black {\n    --tw-font-weight: var(--font-weight-black);\n    font-weight: var(--font-weight-black);\n  }\n  .font-bold {\n    --tw-font-weight: var(--font-weight-bold);\n    font-weight: var(--font-weight-bold);\n  }\n  .tracking-\\[0\\.1em\\] {\n    --tw-tracking: 0.1em;\n    letter-spacing: 0.1em;\n  }\n  .tracking-\\[0\\.2em\\] {\n    --tw-tracking: 0.2em;\n    letter-spacing: 0.2em;\n  }\n  .tracking-\\[0\\.3em\\] {\n    --tw-tracking: 0.3em;\n    letter-spacing: 0.3em;\n  }\n  .tracking-\\[0\\.4em\\] {\n    --tw-tracking: 0.4em;\n    letter-spacing: 0.4em;\n  }\n  .tracking-tight {\n    --tw-tracking: var(--tracking-tight);\n    letter-spacing: var(--tracking-tight);\n  }\n  .tracking-tighter {\n    --tw-tracking: var(--tracking-tighter);\n    letter-spacing: var(--tracking-tighter);\n  }\n  .tracking-wider {\n    --tw-tracking: var(--tracking-wider);\n    letter-spacing: var(--tracking-wider);\n  }\n  .tracking-widest {\n    --tw-tracking: var(--tracking-widest);\n    letter-spacing: var(--tracking-widest);\n  }\n  .whitespace-nowrap {\n    white-space: nowrap;\n  }\n  .text-amber-400 {\n    color: var(--color-amber-400);\n  }\n  .text-black {\n    color: var(--color-black);\n  }\n  .text-brand-emerald {\n    color: var(--color-brand-emerald);\n  }\n  .text-brand-red {\n    color: var(--color-brand-red);\n  }\n  .text-brand-red\\/70 {\n    color: color-mix(in srgb, #ef4444 70%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      color: color-mix(in oklab, var(--color-brand-red) 70%, transparent);\n    }\n  }\n  .text-red-500 {\n    color: var(--color-red-500);\n  }\n  .text-white {\n    color: var(--color-white);\n  }\n  .text-zinc-200 {\n    color: var(--color-zinc-200);\n  }\n  .text-zinc-300 {\n    color: var(--color-zinc-300);\n  }\n  .text-zinc-400 {\n    color: var(--color-zinc-400);\n  }\n  .text-zinc-500 {\n    color: var(--color-zinc-500);\n  }\n  .text-zinc-600 {\n    color: var(--color-zinc-600);\n  }\n  .uppercase {\n    text-transform: uppercase;\n  }\n  .opacity-10 {\n    opacity: 10%;\n  }\n  .opacity-20 {\n    opacity: 20%;\n  }\n  .opacity-40 {\n    opacity: 40%;\n  }\n  .opacity-50 {\n    opacity: 50%;\n  }\n  .opacity-60 {\n    opacity: 60%;\n  }\n  .opacity-80 {\n    opacity: 80%;\n  }\n  .opacity-\\[0\\.03\\] {\n    opacity: 0.03;\n  }\n  .opacity-\\[0\\.05\\] {\n    opacity: 0.05;\n  }\n  .shadow-2xl {\n    --tw-shadow: 0 25px 50px -12px var(--tw-shadow-color, rgb(0 0 0 / 0.25));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_10px_\\#ef4444\\] {\n    --tw-shadow: 0 0 10px var(--tw-shadow-color, #ef4444);\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_10px_currentColor\\] {\n    --tw-shadow: 0 0 10px var(--tw-shadow-color, currentColor);\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_10px_rgba\\(46\\,125\\,50\\,0\\.3\\)\\] {\n    --tw-shadow: 0 0 10px var(--tw-shadow-color, rgba(46,125,50,0.3));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_10px_rgba\\(46\\,125\\,50\\,0\\.5\\)\\] {\n    --tw-shadow: 0 0 10px var(--tw-shadow-color, rgba(46,125,50,0.5));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_15px_rgba\\(46\\,125\\,50\\,0\\.4\\)\\] {\n    --tw-shadow: 0 0 15px var(--tw-shadow-color, rgba(46,125,50,0.4));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_15px_rgba\\(239\\,68\\,68\\,0\\.2\\)\\] {\n    --tw-shadow: 0 0 15px var(--tw-shadow-color, rgba(239,68,68,0.2));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_15px_rgba\\(239\\,68\\,68\\,0\\.8\\)\\] {\n    --tw-shadow: 0 0 15px var(--tw-shadow-color, rgba(239,68,68,0.8));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_20px_rgba\\(46\\,125\\,50\\,0\\.5\\)\\] {\n    --tw-shadow: 0 0 20px var(--tw-shadow-color, rgba(46,125,50,0.5));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_20px_rgba\\(46\\,125\\,50\\,0\\.6\\)\\] {\n    --tw-shadow: 0 0 20px var(--tw-shadow-color, rgba(46,125,50,0.6));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_20px_rgba\\(239\\,68\\,68\\,0\\.4\\)\\] {\n    --tw-shadow: 0 0 20px var(--tw-shadow-color, rgba(239,68,68,0.4));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_20px_rgba\\(239\\,68\\,68\\,0\\.5\\)\\] {\n    --tw-shadow: 0 0 20px var(--tw-shadow-color, rgba(239,68,68,0.5));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_30px_rgba\\(239\\,68\\,68\\,0\\.6\\)\\] {\n    --tw-shadow: 0 0 30px var(--tw-shadow-color, rgba(239,68,68,0.6));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_100px_rgba\\(0\\,0\\,0\\,0\\.8\\)\\,0_0_40px_rgba\\(239\\,68\\,68\\,0\\.15\\)\\] {\n    --tw-shadow: 0 0 100px var(--tw-shadow-color, rgba(0,0,0,0.8)), 0 0 40px var(--tw-shadow-color, rgba(239,68,68,0.15));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-lg {\n    --tw-shadow: 0 10px 15px -3px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 4px 6px -4px var(--tw-shadow-color, rgb(0 0 0 / 0.1));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-black {\n    --tw-shadow-color: #000;\n    @supports (color: color-mix(in lab, red, red)) {\n      --tw-shadow-color: color-mix(in oklab, var(--color-black) var(--tw-shadow-alpha), transparent);\n    }\n  }\n  .drop-shadow-\\[0_0_8px_rgba\\(239\\,68\\,68\\,0\\.5\\)\\] {\n    --tw-drop-shadow-size: drop-shadow(0 0 8px var(--tw-drop-shadow-color, rgba(239,68,68,0.5)));\n    --tw-drop-shadow: var(--tw-drop-shadow-size);\n    filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);\n  }\n  .drop-shadow-md {\n    --tw-drop-shadow-size: drop-shadow(0 3px 3px var(--tw-drop-shadow-color, rgb(0 0 0 / 0.12)));\n    --tw-drop-shadow: drop-shadow(var(--drop-shadow-md));\n    filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);\n  }\n  .filter {\n    filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);\n  }\n  .backdrop-blur-\\[2px\\] {\n    --tw-backdrop-blur: blur(2px);\n    -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);\n    backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);\n  }\n  .backdrop-blur-md {\n    --tw-backdrop-blur: blur(var(--blur-md));\n    -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);\n    backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);\n  }\n  .backdrop-blur-sm {\n    --tw-backdrop-blur: blur(var(--blur-sm));\n    -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);\n    backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);\n  }\n  .backdrop-blur-xl {\n    --tw-backdrop-blur: blur(var(--blur-xl));\n    -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);\n    backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);\n  }\n  .transition {\n    transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter, display, content-visibility, overlay, pointer-events;\n    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));\n    transition-duration: var(--tw-duration, var(--default-transition-duration));\n  }\n  .transition-all {\n    transition-property: all;\n    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));\n    transition-duration: var(--tw-duration, var(--default-transition-duration));\n  }\n  .transition-colors {\n    transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to;\n    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));\n    transition-duration: var(--tw-duration, var(--default-transition-duration));\n  }\n  .duration-500 {\n    --tw-duration: 500ms;\n    transition-duration: 500ms;\n  }\n  .duration-700 {\n    --tw-duration: 700ms;\n    transition-duration: 700ms;\n  }\n  .ease-out {\n    --tw-ease: var(--ease-out);\n    transition-timing-function: var(--ease-out);\n  }\n  .select-none {\n    -webkit-user-select: none;\n    user-select: none;\n  }\n  .hover\\:bg-brand-red\\/90 {\n    &:hover {\n      @media (hover: hover) {\n        background-color: color-mix(in srgb, #ef4444 90%, transparent);\n        @supports (color: color-mix(in lab, red, red)) {\n          background-color: color-mix(in oklab, var(--color-brand-red) 90%, transparent);\n        }\n      }\n    }\n  }\n}\n:root {\n  --background: #0B0F19;\n  --foreground: #ededed;\n  --brand-primary: #2e7d32;\n  --accent-glow: rgba(46, 125, 50, 0.3);\n}\nbody {\n  background-color: var(--background);\n  color: var(--foreground);\n  font-family: var(--font-inter);\n  overflow: hidden;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n@layer utilities {\n  .glassmorphism {\n    backdrop-filter: blur(12px);\n    background-color: rgba(255, 255, 255, 0.05);\n    border: 1px solid rgba(255, 255, 255, 0.1);\n  }\n  .hud-scanline {\n    background: linear-gradient( to bottom, transparent 50%, rgba(0, 0, 0, 0.05) 50% );\n    background-size: 100% 4px;\n    pointer-events: none;\n  }\n  .glow-emerald {\n    box-shadow: 0 0 20px rgba(46, 125, 50, 0.2), 0 0 60px rgba(46, 125, 50, 0.1);\n  }\n  .glow-red {\n    box-shadow: 0 0 20px rgba(239, 68, 68, 0.2), 0 0 60px rgba(239, 68, 68, 0.1);\n  }\n  .glow-green-strong {\n    box-shadow: 0 0 30px rgba(0, 230, 118, 0.4), 0 0 80px rgba(0, 230, 118, 0.15);\n  }\n  @keyframes alert-border-pulse {\n    0%, 100% {\n      border-color: rgba(239, 68, 68, 0.3);\n      box-shadow: 0 0 10px rgba(239, 68, 68, 0.1);\n    }\n    50% {\n      border-color: rgba(239, 68, 68, 0.7);\n      box-shadow: 0 0 20px rgba(239, 68, 68, 0.25);\n    }\n  }\n  .alert-border {\n    animation: alert-border-pulse 3s ease-in-out infinite;\n    transition: all 0.5s ease-in-out;\n  }\n}\n@property --tw-translate-x {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0;\n}\n@property --tw-translate-y {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0;\n}\n@property --tw-translate-z {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0;\n}\n@property --tw-rotate-x {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-rotate-y {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-rotate-z {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-skew-x {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-skew-y {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-space-y-reverse {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0;\n}\n@property --tw-border-style {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: solid;\n}\n@property --tw-leading {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-font-weight {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-tracking {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-shadow {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0 0 #0000;\n}\n@property --tw-shadow-color {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-shadow-alpha {\n  syntax: \"<percentage>\";\n  inherits: false;\n  initial-value: 100%;\n}\n@property --tw-inset-shadow {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0 0 #0000;\n}\n@property --tw-inset-shadow-color {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-inset-shadow-alpha {\n  syntax: \"<percentage>\";\n  inherits: false;\n  initial-value: 100%;\n}\n@property --tw-ring-color {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-ring-shadow {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0 0 #0000;\n}\n@property --tw-inset-ring-color {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-inset-ring-shadow {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0 0 #0000;\n}\n@property --tw-ring-inset {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-ring-offset-width {\n  syntax: \"<length>\";\n  inherits: false;\n  initial-value: 0px;\n}\n@property --tw-ring-offset-color {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: #fff;\n}\n@property --tw-ring-offset-shadow {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0 0 #0000;\n}\n@property --tw-blur {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-brightness {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-contrast {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-grayscale {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-hue-rotate {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-invert {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-opacity {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-saturate {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-sepia {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-drop-shadow {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-drop-shadow-color {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-drop-shadow-alpha {\n  syntax: \"<percentage>\";\n  inherits: false;\n  initial-value: 100%;\n}\n@property --tw-drop-shadow-size {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-backdrop-blur {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-backdrop-brightness {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-backdrop-contrast {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-backdrop-grayscale {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-backdrop-hue-rotate {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-backdrop-invert {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-backdrop-opacity {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-backdrop-saturate {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-backdrop-sepia {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-duration {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-ease {\n  syntax: \"*\";\n  inherits: false;\n}\n@keyframes spin {\n  to {\n    transform: rotate(360deg);\n  }\n}\n@keyframes pulse {\n  50% {\n    opacity: 0.5;\n  }\n}\n@layer properties {\n  @supports ((-webkit-hyphens: none) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color:rgb(from red r g b)))) {\n    *, ::before, ::after, ::backdrop {\n      --tw-translate-x: 0;\n      --tw-translate-y: 0;\n      --tw-translate-z: 0;\n      --tw-rotate-x: initial;\n      --tw-rotate-y: initial;\n      --tw-rotate-z: initial;\n      --tw-skew-x: initial;\n      --tw-skew-y: initial;\n      --tw-space-y-reverse: 0;\n      --tw-border-style: solid;\n      --tw-leading: initial;\n      --tw-font-weight: initial;\n      --tw-tracking: initial;\n      --tw-shadow: 0 0 #0000;\n      --tw-shadow-color: initial;\n      --tw-shadow-alpha: 100%;\n      --tw-inset-shadow: 0 0 #0000;\n      --tw-inset-shadow-color: initial;\n      --tw-inset-shadow-alpha: 100%;\n      --tw-ring-color: initial;\n      --tw-ring-shadow: 0 0 #0000;\n      --tw-inset-ring-color: initial;\n      --tw-inset-ring-shadow: 0 0 #0000;\n      --tw-ring-inset: initial;\n      --tw-ring-offset-width: 0px;\n      --tw-ring-offset-color: #fff;\n      --tw-ring-offset-shadow: 0 0 #0000;\n      --tw-blur: initial;\n      --tw-brightness: initial;\n      --tw-contrast: initial;\n      --tw-grayscale: initial;\n      --tw-hue-rotate: initial;\n      --tw-invert: initial;\n      --tw-opacity: initial;\n      --tw-saturate: initial;\n      --tw-sepia: initial;\n      --tw-drop-shadow: initial;\n      --tw-drop-shadow-color: initial;\n      --tw-drop-shadow-alpha: 100%;\n      --tw-drop-shadow-size: initial;\n      --tw-backdrop-blur: initial;\n      --tw-backdrop-brightness: initial;\n      --tw-backdrop-contrast: initial;\n      --tw-backdrop-grayscale: initial;\n      --tw-backdrop-hue-rotate: initial;\n      --tw-backdrop-invert: initial;\n      --tw-backdrop-opacity: initial;\n      --tw-backdrop-saturate: initial;\n      --tw-backdrop-sepia: initial;\n      --tw-duration: initial;\n      --tw-ease: initial;\n    }\n  }\n}\n"],"sourceRoot":""}]);
+`, "",{"version":3,"sources":["webpack://./src/globals.css"],"names":[],"mappings":"AAAA,gEAAgE;AAEhE,iBAAiB;AACjB,yCAAyC;AACzC;EACE;IACE;6DACyD;IACzD;iDAC6C;IAC7C,0CAA0C;IAC1C,0CAA0C;IAC1C,0CAA0C;IAC1C,4CAA4C;IAC5C,+CAA+C;IAC/C,0CAA0C;IAC1C,4CAA4C;IAC5C,4CAA4C;IAC5C,4CAA4C;IAC5C,4CAA4C;IAC5C,2CAA2C;IAC3C,4CAA4C;IAC5C,2CAA2C;IAC3C,mBAAmB;IACnB,mBAAmB;IACnB,kBAAkB;IAClB,qBAAqB;IACrB,sBAAsB;IACtB,sBAAsB;IACtB,sBAAsB;IACtB,kBAAkB;IAClB,sCAAsC;IACtC,mBAAmB;IACnB,0CAA0C;IAC1C,mBAAmB;IACnB,0CAA0C;IAC1C,kBAAkB;IAClB,yCAAyC;IACzC,kBAAkB;IAClB,sCAAsC;IACtC,oBAAoB;IACpB,2CAA2C;IAC3C,mBAAmB;IACnB,yCAAyC;IACzC,gBAAgB;IAChB,0BAA0B;IAC1B,mBAAmB;IACnB,0BAA0B;IAC1B,uBAAuB;IACvB,wBAAwB;IACxB,2BAA2B;IAC3B,0BAA0B;IAC1B,wBAAwB;IACxB,wBAAwB;IACxB,qBAAqB;IACrB,wBAAwB;IACxB,oBAAoB;IACpB,mBAAmB;IACnB,oBAAoB;IACpB,kBAAkB;IAClB,oBAAoB;IACpB,6CAA6C;IAC7C,sCAAsC;IACtC,uCAAuC;IACvC,+DAA+D;IAC/D,cAAc;IACd,eAAe;IACf,eAAe;IACf,sBAAsB;IACtB,oCAAoC;IACpC,kEAAkE;IAClE,uCAAuC;IACvC,wEAAwE;IACxE;;KAEC;IACD,4CAA4C;IAC5C;;KAEC;IACD;;KAEC;IACD,8BAA8B;IAC9B,0BAA0B;IAC1B,uCAAuC;IACvC,iCAAiC;EACnC;AACF;AACA;EACE;IACE,sBAAsB;IACtB,SAAS;IACT,UAAU;IACV,eAAe;EACjB;EACA;IACE,gBAAgB;IAChB,8BAA8B;IAC9B,WAAW;IACX,6JAA6J;IAC7J,mEAAmE;IACnE,yEAAyE;IACzE,wCAAwC;EAC1C;EACA;IACE,oBAAoB;EACtB;EACA;IACE,SAAS;IACT,cAAc;IACd,qBAAqB;EACvB;EACA;IACE,yCAAyC;IACzC,iCAAiC;EACnC;EACA;IACE,kBAAkB;IAClB,oBAAoB;EACtB;EACA;IACE,cAAc;IACd,gCAAgC;IAChC,wBAAwB;EAC1B;EACA;IACE,mBAAmB;EACrB;EACA;IACE,kJAAkJ;IAClJ,0EAA0E;IAC1E,8EAA8E;IAC9E,cAAc;EAChB;EACA;IACE,cAAc;EAChB;EACA;IACE,cAAc;IACd,cAAc;IACd,kBAAkB;IAClB,wBAAwB;EAC1B;EACA;IACE,eAAe;EACjB;EACA;IACE,WAAW;EACb;EACA;IACE,cAAc;IACd,qBAAqB;IACrB,yBAAyB;EAC3B;EACA;IACE,aAAa;EACf;EACA;IACE,wBAAwB;EAC1B;EACA;IACE,kBAAkB;EACpB;EACA;IACE,gBAAgB;EAClB;EACA;IACE,cAAc;IACd,sBAAsB;EACxB;EACA;IACE,eAAe;IACf,YAAY;EACd;EACA;IACE,aAAa;IACb,8BAA8B;IAC9B,gCAAgC;IAChC,uBAAuB;IACvB,cAAc;IACd,gBAAgB;IAChB,6BAA6B;IAC7B,UAAU;EACZ;EACA;IACE,mBAAmB;EACrB;EACA;IACE,0BAA0B;EAC5B;EACA;IACE,sBAAsB;EACxB;EACA;IACE,UAAU;IACV,mBAAmB;IACnB;MACE,yDAAyD;IAC3D;EACF;EACA;IACE,gBAAgB;EAClB;EACA;IACE,wBAAwB;EAC1B;EACA;IACE,eAAe;IACf,mBAAmB;EACrB;EACA;IACE,oBAAoB;EACtB;EACA;IACE,UAAU;EACZ;EACA;IACE,gBAAgB;EAClB;EACA;IACE,gBAAgB;EAClB;EACA;IACE,kBAAkB;EACpB;EACA;IACE,YAAY;EACd;EACA;IACE,wBAAwB;EAC1B;AACF;AACA;EACE;IACE,oBAAoB;EACtB;EACA;IACE,mBAAmB;EACrB;EACA;IACE,kBAAkB;EACpB;EACA;IACE,kBAAkB;EACpB;EACA;IACE,gBAAgB;EAClB;EACA;IACE,+BAA+B;EACjC;EACA;IACE,kCAAkC;EACpC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,8BAA8B;EAChC;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,uBAAuB;EACzB;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,8BAA8B;EAChC;EACA;IACE,QAAQ;EACV;EACA;IACE,+BAA+B;EACjC;EACA;IACE,+BAA+B;EACjC;EACA;IACE,+BAA+B;EACjC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,iCAAiC;EACnC;EACA;IACE,8BAA8B;EAChC;EACA;IACE,wBAAwB;EAC1B;EACA;IACE,8BAA8B;EAChC;EACA;IACE,8BAA8B;EAChC;EACA;IACE,UAAU;EACZ;EACA;IACE,SAAS;EACX;EACA;IACE,UAAU;EACZ;EACA;IACE,WAAW;EACb;EACA;IACE,WAAW;EACb;EACA;IACE,WAAW;EACb;EACA;IACE,WAAW;EACb;EACA;IACE,WAAW;EACb;EACA;IACE,WAAW;EACb;EACA;IACE,4BAA4B;EAC9B;EACA;IACE,4BAA4B;EAC9B;EACA;IACE,4BAA4B;EAC9B;EACA;IACE,4BAA4B;EAC9B;EACA;IACE,WAAW;IACX;MACE,gBAAgB;IAClB;IACA;MACE,gBAAgB;IAClB;IACA;MACE,gBAAgB;IAClB;IACA;MACE,gBAAgB;IAClB;IACA;MACE,gBAAgB;IAClB;EACF;EACA;IACE,mBAAmB;EACrB;EACA;IACE,sCAAsC;EACxC;EACA;IACE,oCAAoC;EACtC;EACA;IACE,oCAAoC;EACtC;EACA;IACE,oCAAoC;EACtC;EACA;IACE,qCAAqC;EACvC;EACA;IACE,gBAAgB;EAClB;EACA;IACE,sCAAsC;EACxC;EACA;IACE,uCAAuC;EACzC;EACA;IACE,uCAAuC;EACzC;EACA;IACE,uCAAuC;EACzC;EACA;IACE,uCAAuC;EACzC;EACA;IACE,uCAAuC;EACzC;EACA;IACE,uCAAuC;EACzC;EACA;IACE,cAAc;EAChB;EACA;IACE,aAAa;EACf;EACA;IACE,aAAa;EACf;EACA;IACE,aAAa;EACf;EACA;IACE,iCAAiC;EACnC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,kCAAkC;EACpC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,kCAAkC;EACpC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,iCAAiC;EACnC;EACA;IACE,iCAAiC;EACnC;EACA;IACE,iCAAiC;EACnC;EACA;IACE,iCAAiC;EACnC;EACA;IACE,iCAAiC;EACnC;EACA;IACE,iCAAiC;EACnC;EACA;IACE,WAAW;EACb;EACA;IACE,WAAW;EACb;EACA;IACE,YAAY;EACd;EACA;IACE,oCAAoC;EACtC;EACA;IACE,+BAA+B;EACjC;EACA;IACE,yBAAyB;EAC3B;EACA;IACE,+BAA+B;EACjC;EACA;IACE,iCAAiC;EACnC;EACA;IACE,+BAA+B;EACjC;EACA;IACE,+BAA+B;EACjC;EACA;IACE,+BAA+B;EACjC;EACA;IACE,+BAA+B;EACjC;EACA;IACE,+BAA+B;EACjC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,UAAU;EACZ;EACA;IACE,YAAY;EACd;EACA;IACE,YAAY;EACd;EACA;IACE,YAAY;EACd;EACA;IACE,WAAW;EACb;EACA;IACE,+BAA+B;EACjC;EACA;IACE,+BAA+B;EACjC;EACA;IACE,+BAA+B;EACjC;EACA;IACE,cAAc;EAChB;EACA;IACE,8BAA8B;EAChC;EACA;IACE,gBAAgB;EAClB;EACA;IACE,OAAO;EACT;EACA;IACE,cAAc;EAChB;EACA;IACE,+CAA+C;IAC/C,sDAAsD;EACxD;EACA;IACE,+CAA+C;IAC/C,sDAAsD;EACxD;EACA;IACE,WAAW;EACb;EACA;IACE,0GAA0G;EAC5G;EACA;IACE,+BAA+B;EACjC;EACA;IACE,8BAA8B;EAChC;EACA;IACE,gDAAgD;EAClD;EACA;IACE,gDAAgD;EAClD;EACA;IACE,gDAAgD;EAClD;EACA;IACE,iDAAiD;EACnD;EACA;IACE,6CAA6C;EAC/C;EACA;IACE,sBAAsB;EACxB;EACA;IACE,mBAAmB;EACrB;EACA;IACE,qBAAqB;EACvB;EACA;IACE,mBAAmB;EACrB;EACA;IACE,qBAAqB;EACvB;EACA;IACE,uBAAuB;EACzB;EACA;IACE,8BAA8B;EAChC;EACA;IACE,uBAAuB;EACzB;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,6BAA6B;EAC/B;EACA;IACE;MACE,uBAAuB;MACvB,8EAA8E;MAC9E,sFAAsF;IACxF;EACF;EACA;IACE;MACE,uBAAuB;MACvB,8EAA8E;MAC9E,sFAAsF;IACxF;EACF;EACA;IACE;MACE,uBAAuB;MACvB,8EAA8E;MAC9E,sFAAsF;IACxF;EACF;EACA;IACE;MACE,uBAAuB;MACvB,8EAA8E;MAC9E,sFAAsF;IACxF;EACF;EACA;IACE;MACE,uBAAuB;MACvB,8EAA8E;MAC9E,sFAAsF;IACxF;EACF;EACA;IACE,gBAAgB;EAClB;EACA;IACE,gBAAgB;EAClB;EACA;IACE,sBAAsB;EACxB;EACA;IACE,gCAAgC;EAClC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,mBAAmB;EACrB;EACA;IACE,mCAAmC;EACrC;EACA;IACE,+BAA+B;EACjC;EACA;IACE,+BAA+B;EACjC;EACA;IACE,wCAAwC;IACxC,yCAAyC;EAC3C;EACA;IACE,oCAAoC;IACpC,iBAAiB;EACnB;EACA;IACE,oCAAoC;IACpC,iBAAiB;EACnB;EACA;IACE,oCAAoC;IACpC,iBAAiB;EACnB;EACA;IACE,wCAAwC;IACxC,qBAAqB;EACvB;EACA;IACE,wCAAwC;IACxC,qBAAqB;EACvB;EACA;IACE,wCAAwC;IACxC,qBAAqB;EACvB;EACA;IACE,0CAA0C;IAC1C,uBAAuB;EACzB;EACA;IACE,0CAA0C;IAC1C,uBAAuB;EACzB;EACA;IACE,0CAA0C;IAC1C,uBAAuB;EACzB;EACA;IACE,2CAA2C;IAC3C,wBAAwB;EAC1B;EACA;IACE,2CAA2C;IAC3C,wBAAwB;EAC1B;EACA;IACE,2CAA2C;IAC3C,wBAAwB;EAC1B;EACA;IACE,yCAAyC;IACzC,sBAAsB;EACxB;EACA;IACE,yCAAyC;IACzC,sBAAsB;EACxB;EACA;IACE,yBAAyB;IACzB,oBAAoB;EACtB;EACA;IACE,0DAA0D;IAC1D;MACE,8EAA8E;IAChF;EACF;EACA;IACE,oCAAoC;EACtC;EACA;IACE,0DAA0D;IAC1D;MACE,0EAA0E;IAC5E;EACF;EACA;IACE,0DAA0D;IAC1D;MACE,0EAA0E;IAC5E;EACF;EACA;IACE,0DAA0D;IAC1D;MACE,0EAA0E;IAC5E;EACF;EACA;IACE,kCAAkC;EACpC;EACA;IACE,kCAAkC;EACpC;EACA;IACE,sDAAsD;IACtD;MACE,qEAAqE;IACvE;EACF;EACA;IACE,uDAAuD;IACvD;MACE,sEAAsE;IACxE;EACF;EACA;IACE,uDAAuD;IACvD;MACE,sEAAsE;IACxE;EACF;EACA;IACE,4EAA4E;IAC5E;MACE,yEAAyE;IAC3E;EACF;EACA;IACE,yBAAyB;EAC3B;EACA;IACE,yBAAyB;EAC3B;EACA;IACE,oCAAoC;EACtC;EACA;IACE,2DAA2D;IAC3D;MACE,0EAA0E;IAC5E;EACF;EACA;IACE,2DAA2D;IAC3D;MACE,0EAA0E;IAC5E;EACF;EACA;IACE,2DAA2D;IAC3D;MACE,0EAA0E;IAC5E;EACF;EACA;IACE,2DAA2D;IAC3D;MACE,0EAA0E;IAC5E;EACF;EACA;IACE,2DAA2D;IAC3D;MACE,0EAA0E;IAC5E;EACF;EACA;IACE,4CAA4C;EAC9C;EACA;IACE,8DAA8D;IAC9D;MACE,kFAAkF;IACpF;EACF;EACA;IACE,wCAAwC;EAC1C;EACA;IACE,6DAA6D;IAC7D;MACE,6EAA6E;IAC/E;EACF;EACA;IACE,8DAA8D;IAC9D;MACE,8EAA8E;IAChF;EACF;EACA;IACE,8DAA8D;IAC9D;MACE,8EAA8E;IAChF;EACF;EACA;IACE,0CAA0C;EAC5C;EACA;IACE,sCAAsC;EACxC;EACA;IACE,sCAAsC;EACxC;EACA;IACE,0DAA0D;IAC1D;MACE,yEAAyE;IAC3E;EACF;EACA;IACE,2DAA2D;IAC3D;MACE,0EAA0E;IAC5E;EACF;EACA;IACE,uCAAuC;EACzC;EACA;IACE,gFAAgF;IAChF;MACE,6EAA6E;IAC/E;EACF;EACA;IACE,gFAAgF;IAChF;MACE,6EAA6E;IAC/E;EACF;EACA;IACE,gFAAgF;IAChF;MACE,6EAA6E;IAC/E;EACF;EACA;IACE,gFAAgF;IAChF;MACE,6EAA6E;IAC/E;EACF;EACA;IACE,yCAAyC;IACzC,2DAA2D;EAC7D;EACA;IACE,kIAAkI;EACpI;EACA;IACE,+BAA+B;IAC/B,8LAA8L;EAChM;EACA;IACE,4CAA4C;IAC5C,8LAA8L;EAChM;EACA;IACE,6BAA6B;IAC7B,8LAA8L;EAChM;EACA;IACE,0BAA0B;EAC5B;EACA;IACE,iCAAiC;EACnC;EACA;IACE,iCAAiC;EACnC;EACA;IACE,iCAAiC;EACnC;EACA;IACE,iCAAiC;EACnC;EACA;IACE,iCAAiC;EACnC;EACA;IACE,iCAAiC;EACnC;EACA;IACE,iCAAiC;EACnC;EACA;IACE,kCAAkC;EACpC;EACA;IACE,wCAAwC;EAC1C;EACA;IACE,wCAAwC;EAC1C;EACA;IACE,wCAAwC;EAC1C;EACA;IACE,wCAAwC;EAC1C;EACA;IACE,wCAAwC;EAC1C;EACA;IACE,wCAAwC;EAC1C;EACA;IACE,yCAAyC;EAC3C;EACA;IACE,yCAAyC;EAC3C;EACA;IACE,yCAAyC;EAC3C;EACA;IACE,yCAAyC;EAC3C;EACA;IACE,uCAAuC;EACzC;EACA;IACE,yCAAyC;EAC3C;EACA;IACE,uCAAuC;EACzC;EACA;IACE,uCAAuC;EACzC;EACA;IACE,uCAAuC;EACzC;EACA;IACE,uCAAuC;EACzC;EACA;IACE,uCAAuC;EACzC;EACA;IACE,wCAAwC;EAC1C;EACA;IACE,qCAAqC;EACvC;EACA;IACE,uCAAuC;EACzC;EACA;IACE,wCAAwC;EAC1C;EACA;IACE,wCAAwC;EAC1C;EACA;IACE,kBAAkB;EACpB;EACA;IACE,iBAAiB;EACnB;EACA;IACE,8BAA8B;EAChC;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,iCAAiC;EACnC;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,0BAA0B;IAC1B,4DAA4D;EAC9D;EACA;IACE,0BAA0B;IAC1B,4DAA4D;EAC9D;EACA;IACE,0BAA0B;IAC1B,4DAA4D;EAC9D;EACA;IACE,0BAA0B;IAC1B,4DAA4D;EAC9D;EACA;IACE,0BAA0B;IAC1B,4DAA4D;EAC9D;EACA;IACE,yBAAyB;IACzB,2DAA2D;EAC7D;EACA;IACE,yBAAyB;IACzB,2DAA2D;EAC7D;EACA;IACE,yBAAyB;IACzB,2DAA2D;EAC7D;EACA;IACE,yBAAyB;IACzB,2DAA2D;EAC7D;EACA;IACE,iBAAiB;EACnB;EACA;IACE,cAAc;EAChB;EACA;IACE,cAAc;EAChB;EACA;IACE,eAAe;EACjB;EACA;IACE,eAAe;EACjB;EACA;IACE,eAAe;EACjB;EACA;IACE,eAAe;EACjB;EACA;IACE,eAAe;IACf,cAAc;EAChB;EACA;IACE,oCAAoC;IACpC,mCAAmC;EACrC;EACA;IACE,kCAAkC;IAClC,iCAAiC;EACnC;EACA;IACE,0CAA0C;IAC1C,qCAAqC;EACvC;EACA;IACE,yCAAyC;IACzC,oCAAoC;EACtC;EACA;IACE,oBAAoB;IACpB,qBAAqB;EACvB;EACA;IACE,oBAAoB;IACpB,qBAAqB;EACvB;EACA;IACE,oBAAoB;IACpB,qBAAqB;EACvB;EACA;IACE,oBAAoB;IACpB,qBAAqB;EACvB;EACA;IACE,oBAAoB;IACpB,qBAAqB;EACvB;EACA;IACE,oCAAoC;IACpC,qCAAqC;EACvC;EACA;IACE,sCAAsC;IACtC,uCAAuC;EACzC;EACA;IACE,oCAAoC;IACpC,qCAAqC;EACvC;EACA;IACE,qCAAqC;IACrC,sCAAsC;EACxC;EACA;IACE,mBAAmB;EACrB;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,yBAAyB;EAC3B;EACA;IACE,iCAAiC;EACnC;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,mDAAmD;IACnD;MACE,mEAAmE;IACrE;EACF;EACA;IACE,2BAA2B;EAC7B;EACA;IACE,yBAAyB;EAC3B;EACA;IACE,4BAA4B;EAC9B;EACA;IACE,4BAA4B;EAC9B;EACA;IACE,4BAA4B;EAC9B;EACA;IACE,4BAA4B;EAC9B;EACA;IACE,4BAA4B;EAC9B;EACA;IACE,yBAAyB;EAC3B;EACA;IACE,YAAY;EACd;EACA;IACE,YAAY;EACd;EACA;IACE,YAAY;EACd;EACA;IACE,YAAY;EACd;EACA;IACE,YAAY;EACd;EACA;IACE,YAAY;EACd;EACA;IACE,aAAa;EACf;EACA;IACE,aAAa;EACf;EACA;IACE,wEAAwE;IACxE,sIAAsI;EACxI;EACA;IACE,oDAAoD;IACpD,sIAAsI;EACxI;EACA;IACE,qDAAqD;IACrD,sIAAsI;EACxI;EACA;IACE,qDAAqD;IACrD,sIAAsI;EACxI;EACA;IACE,qDAAqD;IACrD,sIAAsI;EACxI;EACA;IACE,0DAA0D;IAC1D,sIAAsI;EACxI;EACA;IACE,iEAAiE;IACjE,sIAAsI;EACxI;EACA;IACE,iEAAiE;IACjE,sIAAsI;EACxI;EACA;IACE,iEAAiE;IACjE,sIAAsI;EACxI;EACA;IACE,iEAAiE;IACjE,sIAAsI;EACxI;EACA;IACE,iEAAiE;IACjE,sIAAsI;EACxI;EACA;IACE,iEAAiE;IACjE,sIAAsI;EACxI;EACA;IACE,iEAAiE;IACjE,sIAAsI;EACxI;EACA;IACE,iEAAiE;IACjE,sIAAsI;EACxI;EACA;IACE,iEAAiE;IACjE,sIAAsI;EACxI;EACA;IACE,kEAAkE;IAClE,sIAAsI;EACxI;EACA;IACE,mEAAmE;IACnE,sIAAsI;EACxI;EACA;IACE,iEAAiE;IACjE,sIAAsI;EACxI;EACA;IACE,iEAAiE;IACjE,sIAAsI;EACxI;EACA;IACE,kEAAkE;IAClE,sIAAsI;EACxI;EACA;IACE,iEAAiE;IACjE,sIAAsI;EACxI;EACA;IACE,qHAAqH;IACrH,sIAAsI;EACxI;EACA;IACE,uEAAuE;IACvE,sIAAsI;EACxI;EACA;IACE,+HAA+H;IAC/H,sIAAsI;EACxI;EACA;IACE,uBAAuB;IACvB;MACE,8FAA8F;IAChG;EACF;EACA;IACE,4FAA4F;IAC5F,4CAA4C;IAC5C,0LAA0L;EAC5L;EACA;IACE,4FAA4F;IAC5F,4CAA4C;IAC5C,0LAA0L;EAC5L;EACA;IACE,4FAA4F;IAC5F,oDAAoD;IACpD,0LAA0L;EAC5L;EACA;IACE,0LAA0L;EAC5L;EACA;IACE,6BAA6B;IAC7B,wRAAwR;IACxR,gRAAgR;EAClR;EACA;IACE,wCAAwC;IACxC,wRAAwR;IACxR,gRAAgR;EAClR;EACA;IACE,wCAAwC;IACxC,wRAAwR;IACxR,gRAAgR;EAClR;EACA;IACE,wCAAwC;IACxC,wRAAwR;IACxR,gRAAgR;EAClR;EACA;IACE,yUAAyU;IACzU,qFAAqF;IACrF,2EAA2E;EAC7E;EACA;IACE,wBAAwB;IACxB,qFAAqF;IACrF,2EAA2E;EAC7E;EACA;IACE,uKAAuK;IACvK,qFAAqF;IACrF,2EAA2E;EAC7E;EACA;IACE,oBAAoB;IACpB,0BAA0B;EAC5B;EACA;IACE,oBAAoB;IACpB,0BAA0B;EAC5B;EACA;IACE,oBAAoB;IACpB,0BAA0B;EAC5B;EACA;IACE,0BAA0B;IAC1B,2CAA2C;EAC7C;EACA;IACE,yBAAyB;IACzB,iBAAiB;EACnB;EACA;IACE;MACE;QACE,8DAA8D;QAC9D;UACE,8EAA8E;QAChF;MACF;IACF;EACF;AACF;AACA;EACE,qBAAqB;EACrB,qBAAqB;EACrB,wBAAwB;EACxB,qCAAqC;AACvC;AACA;EACE,mCAAmC;EACnC,wBAAwB;EACxB,8BAA8B;EAC9B,gBAAgB;EAChB,mCAAmC;EACnC,kCAAkC;AACpC;AACA;EACE;IACE,2BAA2B;IAC3B,2CAA2C;IAC3C,0CAA0C;EAC5C;EACA;IACE,kFAAkF;IAClF,yBAAyB;IACzB,oBAAoB;EACtB;EACA;IACE,4EAA4E;EAC9E;EACA;IACE,4EAA4E;EAC9E;EACA;IACE,6EAA6E;EAC/E;EACA;IACE;MACE,oCAAoC;MACpC,2CAA2C;IAC7C;IACA;MACE,oCAAoC;MACpC,4CAA4C;IAC9C;EACF;EACA;IACE,qDAAqD;IACrD,gCAAgC;EAClC;AACF;AACA;EACE,WAAW;EACX,eAAe;EACf,gBAAgB;AAClB;AACA;EACE,WAAW;EACX,eAAe;EACf,gBAAgB;AAClB;AACA;EACE,WAAW;EACX,eAAe;EACf,gBAAgB;AAClB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;EACf,gBAAgB;AAClB;AACA;EACE,WAAW;EACX,eAAe;EACf,oBAAoB;AACtB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,iBAAiB;EACjB,eAAe;EACf,oBAAoB;AACtB;AACA;EACE,iBAAiB;EACjB,eAAe;EACf,oBAAoB;AACtB;AACA;EACE,iBAAiB;EACjB,eAAe;EACf,oBAAoB;AACtB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,6BAA6B;EAC7B,eAAe;EACf,iBAAiB;AACnB;AACA;EACE,6BAA6B;EAC7B,eAAe;EACf,kBAAkB;AACpB;AACA;EACE,6BAA6B;EAC7B,eAAe;EACf,mBAAmB;AACrB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;EACf,wBAAwB;AAC1B;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,sBAAsB;EACtB,eAAe;EACf,mBAAmB;AACrB;AACA;EACE,WAAW;EACX,eAAe;EACf,wBAAwB;AAC1B;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,sBAAsB;EACtB,eAAe;EACf,mBAAmB;AACrB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;EACf,wBAAwB;AAC1B;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;EACf,wBAAwB;AAC1B;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,kBAAkB;EAClB,eAAe;EACf,kBAAkB;AACpB;AACA;EACE,WAAW;EACX,eAAe;EACf,mBAAmB;AACrB;AACA;EACE,WAAW;EACX,eAAe;EACf,wBAAwB;AAC1B;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,sBAAsB;EACtB,eAAe;EACf,mBAAmB;AACrB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE;IACE,yBAAyB;EAC3B;AACF;AACA;EACE;IACE,YAAY;EACd;AACF;AACA;EACE;IACE;MACE,mBAAmB;MACnB,mBAAmB;MACnB,mBAAmB;MACnB,sBAAsB;MACtB,sBAAsB;MACtB,sBAAsB;MACtB,oBAAoB;MACpB,oBAAoB;MACpB,uBAAuB;MACvB,wBAAwB;MACxB,+BAA+B;MAC/B,yBAAyB;MACzB,wBAAwB;MACxB,uBAAuB;MACvB,4BAA4B;MAC5B,gCAAgC;MAChC,+BAA+B;MAC/B,+BAA+B;MAC/B,+BAA+B;MAC/B,qBAAqB;MACrB,yBAAyB;MACzB,sBAAsB;MACtB,sBAAsB;MACtB,0BAA0B;MAC1B,uBAAuB;MACvB,4BAA4B;MAC5B,gCAAgC;MAChC,6BAA6B;MAC7B,wBAAwB;MACxB,2BAA2B;MAC3B,8BAA8B;MAC9B,iCAAiC;MACjC,wBAAwB;MACxB,2BAA2B;MAC3B,4BAA4B;MAC5B,kCAAkC;MAClC,kBAAkB;MAClB,wBAAwB;MACxB,sBAAsB;MACtB,uBAAuB;MACvB,wBAAwB;MACxB,oBAAoB;MACpB,qBAAqB;MACrB,sBAAsB;MACtB,mBAAmB;MACnB,yBAAyB;MACzB,+BAA+B;MAC/B,4BAA4B;MAC5B,8BAA8B;MAC9B,2BAA2B;MAC3B,iCAAiC;MACjC,+BAA+B;MAC/B,gCAAgC;MAChC,iCAAiC;MACjC,6BAA6B;MAC7B,8BAA8B;MAC9B,+BAA+B;MAC/B,4BAA4B;MAC5B,sBAAsB;MACtB,kBAAkB;IACpB;EACF;AACF","sourcesContent":["/*! tailwindcss v4.2.0 | MIT License | https://tailwindcss.com */\n@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap');\n@layer properties;\n@layer theme, base, components, utilities;\n@layer theme {\n  :root, :host {\n    --font-sans: ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\",\n      \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\";\n    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,\n      \"Liberation Mono\", \"Courier New\", monospace;\n    --color-red-400: oklch(0.704 0.191 22.216);\n    --color-red-500: oklch(0.637 0.237 25.331);\n    --color-red-600: oklch(0.577 0.245 27.325);\n    --color-amber-400: oklch(0.828 0.189 84.429);\n    --color-emerald-600: oklch(0.596 0.145 163.225);\n    --color-zinc-200: oklch(0.92 0.004 286.32);\n    --color-zinc-300: oklch(0.871 0.006 286.286);\n    --color-zinc-400: oklch(0.705 0.015 286.067);\n    --color-zinc-500: oklch(0.552 0.016 285.938);\n    --color-zinc-600: oklch(0.442 0.017 285.786);\n    --color-zinc-700: oklch(0.37 0.013 285.805);\n    --color-zinc-800: oklch(0.274 0.006 286.033);\n    --color-zinc-900: oklch(0.21 0.006 285.885);\n    --color-black: #000;\n    --color-white: #fff;\n    --spacing: 0.25rem;\n    --container-xl: 36rem;\n    --container-2xl: 42rem;\n    --container-4xl: 56rem;\n    --container-7xl: 80rem;\n    --text-xs: 0.75rem;\n    --text-xs--line-height: calc(1 / 0.75);\n    --text-sm: 0.875rem;\n    --text-sm--line-height: calc(1.25 / 0.875);\n    --text-lg: 1.125rem;\n    --text-lg--line-height: calc(1.75 / 1.125);\n    --text-xl: 1.25rem;\n    --text-xl--line-height: calc(1.75 / 1.25);\n    --text-2xl: 1.5rem;\n    --text-2xl--line-height: calc(2 / 1.5);\n    --text-3xl: 1.875rem;\n    --text-3xl--line-height: calc(2.25 / 1.875);\n    --text-4xl: 2.25rem;\n    --text-4xl--line-height: calc(2.5 / 2.25);\n    --text-5xl: 3rem;\n    --text-5xl--line-height: 1;\n    --text-6xl: 3.75rem;\n    --text-6xl--line-height: 1;\n    --font-weight-bold: 700;\n    --font-weight-black: 900;\n    --tracking-tighter: -0.05em;\n    --tracking-tight: -0.025em;\n    --tracking-wider: 0.05em;\n    --tracking-widest: 0.1em;\n    --leading-tight: 1.25;\n    --leading-relaxed: 1.625;\n    --radius-sm: 0.25rem;\n    --radius-lg: 0.5rem;\n    --radius-xl: 0.75rem;\n    --radius-2xl: 1rem;\n    --radius-3xl: 1.5rem;\n    --drop-shadow-md: 0 3px 3px rgb(0 0 0 / 0.12);\n    --ease-out: cubic-bezier(0, 0, 0.2, 1);\n    --animate-spin: spin 1s linear infinite;\n    --animate-pulse: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;\n    --blur-sm: 8px;\n    --blur-md: 12px;\n    --blur-xl: 24px;\n    --aspect-video: 16 / 9;\n    --default-transition-duration: 150ms;\n    --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);\n    --default-font-family: var(--font-sans);\n    --default-font-feature-settings: var(--font-sans--font-feature-settings);\n    --default-font-variation-settings: var(\n      --font-sans--font-variation-settings\n    );\n    --default-mono-font-family: var(--font-mono);\n    --default-mono-font-feature-settings: var(\n      --font-mono--font-feature-settings\n    );\n    --default-mono-font-variation-settings: var(\n      --font-mono--font-variation-settings\n    );\n    --color-brand-emerald: #2e7d32;\n    --color-brand-red: #ef4444;\n    --font-orbitron: \"Orbitron\", sans-serif;\n    --font-inter: \"Inter\", sans-serif;\n  }\n}\n@layer base {\n  *, ::after, ::before, ::backdrop, ::file-selector-button {\n    box-sizing: border-box;\n    margin: 0;\n    padding: 0;\n    border: 0 solid;\n  }\n  html, :host {\n    line-height: 1.5;\n    -webkit-text-size-adjust: 100%;\n    tab-size: 4;\n    font-family: var( --default-font-family, ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\" );\n    font-feature-settings: var(--default-font-feature-settings, normal);\n    font-variation-settings: var( --default-font-variation-settings, normal );\n    -webkit-tap-highlight-color: transparent;\n  }\n  body {\n    line-height: inherit;\n  }\n  hr {\n    height: 0;\n    color: inherit;\n    border-top-width: 1px;\n  }\n  abbr:where([title]) {\n    -webkit-text-decoration: underline dotted;\n    text-decoration: underline dotted;\n  }\n  h1, h2, h3, h4, h5, h6 {\n    font-size: inherit;\n    font-weight: inherit;\n  }\n  a {\n    color: inherit;\n    -webkit-text-decoration: inherit;\n    text-decoration: inherit;\n  }\n  b, strong {\n    font-weight: bolder;\n  }\n  code, kbd, samp, pre {\n    font-family: var( --default-mono-font-family, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace );\n    font-feature-settings: var( --default-mono-font-feature-settings, normal );\n    font-variation-settings: var( --default-mono-font-variation-settings, normal );\n    font-size: 1em;\n  }\n  small {\n    font-size: 80%;\n  }\n  sub, sup {\n    font-size: 75%;\n    line-height: 0;\n    position: relative;\n    vertical-align: baseline;\n  }\n  sub {\n    bottom: -0.25em;\n  }\n  sup {\n    top: -0.5em;\n  }\n  table {\n    text-indent: 0;\n    border-color: inherit;\n    border-collapse: collapse;\n  }\n  :-moz-focusring {\n    outline: auto;\n  }\n  progress {\n    vertical-align: baseline;\n  }\n  summary {\n    display: list-item;\n  }\n  ol, ul, menu {\n    list-style: none;\n  }\n  img, svg, video, canvas, audio, iframe, embed, object {\n    display: block;\n    vertical-align: middle;\n  }\n  img, video {\n    max-width: 100%;\n    height: auto;\n  }\n  button, input, select, optgroup, textarea, ::file-selector-button {\n    font: inherit;\n    font-feature-settings: inherit;\n    font-variation-settings: inherit;\n    letter-spacing: inherit;\n    color: inherit;\n    border-radius: 0;\n    background-color: transparent;\n    opacity: 1;\n  }\n  :where(select:is([multiple], [size])) optgroup {\n    font-weight: bolder;\n  }\n  :where(select:is([multiple], [size])) optgroup option {\n    padding-inline-start: 20px;\n  }\n  ::file-selector-button {\n    margin-inline-end: 4px;\n  }\n  ::placeholder {\n    opacity: 1;\n    color: currentColor;\n    @supports (color: color-mix(in lab, red, red)) {\n      color: color-mix(in oklab, currentColor 50%, transparent);\n    }\n  }\n  textarea {\n    resize: vertical;\n  }\n  ::-webkit-search-decoration {\n    -webkit-appearance: none;\n  }\n  ::-webkit-date-and-time-value {\n    min-height: 1lh;\n    text-align: inherit;\n  }\n  ::-webkit-datetime-edit {\n    display: inline-flex;\n  }\n  ::-webkit-datetime-edit-fields-wrapper {\n    padding: 0;\n  }\n  ::-webkit-datetime-edit, ::-webkit-datetime-edit-year-field, ::-webkit-datetime-edit-month-field, ::-webkit-datetime-edit-day-field, ::-webkit-datetime-edit-hour-field, ::-webkit-datetime-edit-minute-field, ::-webkit-datetime-edit-second-field, ::-webkit-datetime-edit-millisecond-field, ::-webkit-datetime-edit-meridiem-field {\n    padding-block: 0;\n  }\n  :-moz-ui-invalid {\n    box-shadow: none;\n  }\n  button, input:where([type=\"button\"], [type=\"reset\"], [type=\"submit\"]), ::file-selector-button {\n    appearance: button;\n  }\n  ::-webkit-inner-spin-button, ::-webkit-outer-spin-button {\n    height: auto;\n  }\n  [hidden]:where(:not([hidden=\"until-found\"])) {\n    display: none !important;\n  }\n}\n@layer utilities {\n  .pointer-events-none {\n    pointer-events: none;\n  }\n  .visible {\n    visibility: visible;\n  }\n  .absolute {\n    position: absolute;\n  }\n  .relative {\n    position: relative;\n  }\n  .static {\n    position: static;\n  }\n  .inset-0 {\n    inset: calc(var(--spacing) * 0);\n  }\n  .start {\n    inset-inline-start: var(--spacing);\n  }\n  .end {\n    inset-inline-end: var(--spacing);\n  }\n  .-top-8 {\n    top: calc(var(--spacing) * -8);\n  }\n  .top-0 {\n    top: calc(var(--spacing) * 0);\n  }\n  .top-1\\/2 {\n    top: calc(1 / 2 * 100%);\n  }\n  .top-2 {\n    top: calc(var(--spacing) * 2);\n  }\n  .top-4 {\n    top: calc(var(--spacing) * 4);\n  }\n  .top-8 {\n    top: calc(var(--spacing) * 8);\n  }\n  .top-24 {\n    top: calc(var(--spacing) * 24);\n  }\n  .top-\\[25\\%\\] {\n    top: 25%;\n  }\n  .right-0 {\n    right: calc(var(--spacing) * 0);\n  }\n  .right-4 {\n    right: calc(var(--spacing) * 4);\n  }\n  .right-8 {\n    right: calc(var(--spacing) * 8);\n  }\n  .bottom-0 {\n    bottom: calc(var(--spacing) * 0);\n  }\n  .bottom-4 {\n    bottom: calc(var(--spacing) * 4);\n  }\n  .bottom-6 {\n    bottom: calc(var(--spacing) * 6);\n  }\n  .bottom-16 {\n    bottom: calc(var(--spacing) * 16);\n  }\n  .left-0 {\n    left: calc(var(--spacing) * 0);\n  }\n  .left-1\\/2 {\n    left: calc(1 / 2 * 100%);\n  }\n  .left-2 {\n    left: calc(var(--spacing) * 2);\n  }\n  .left-4 {\n    left: calc(var(--spacing) * 4);\n  }\n  .left-\\[-2px\\] {\n    left: -2px;\n  }\n  .left-\\[30\\%\\] {\n    left: 30%;\n  }\n  .z-0 {\n    z-index: 0;\n  }\n  .z-10 {\n    z-index: 10;\n  }\n  .z-20 {\n    z-index: 20;\n  }\n  .z-30 {\n    z-index: 30;\n  }\n  .z-40 {\n    z-index: 40;\n  }\n  .z-50 {\n    z-index: 50;\n  }\n  .z-\\[50\\] {\n    z-index: 50;\n  }\n  .col-span-3 {\n    grid-column: span 3 / span 3;\n  }\n  .col-span-4 {\n    grid-column: span 4 / span 4;\n  }\n  .col-span-6 {\n    grid-column: span 6 / span 6;\n  }\n  .col-span-8 {\n    grid-column: span 8 / span 8;\n  }\n  .container {\n    width: 100%;\n    @media (width >= 40rem) {\n      max-width: 40rem;\n    }\n    @media (width >= 48rem) {\n      max-width: 48rem;\n    }\n    @media (width >= 64rem) {\n      max-width: 64rem;\n    }\n    @media (width >= 80rem) {\n      max-width: 80rem;\n    }\n    @media (width >= 96rem) {\n      max-width: 96rem;\n    }\n  }\n  .mx-auto {\n    margin-inline: auto;\n  }\n  .mt-0\\.5 {\n    margin-top: calc(var(--spacing) * 0.5);\n  }\n  .mt-1 {\n    margin-top: calc(var(--spacing) * 1);\n  }\n  .mt-2 {\n    margin-top: calc(var(--spacing) * 2);\n  }\n  .mt-4 {\n    margin-top: calc(var(--spacing) * 4);\n  }\n  .mt-12 {\n    margin-top: calc(var(--spacing) * 12);\n  }\n  .mt-auto {\n    margin-top: auto;\n  }\n  .mr-3 {\n    margin-right: calc(var(--spacing) * 3);\n  }\n  .mb-1 {\n    margin-bottom: calc(var(--spacing) * 1);\n  }\n  .mb-2 {\n    margin-bottom: calc(var(--spacing) * 2);\n  }\n  .mb-4 {\n    margin-bottom: calc(var(--spacing) * 4);\n  }\n  .mb-5 {\n    margin-bottom: calc(var(--spacing) * 5);\n  }\n  .mb-6 {\n    margin-bottom: calc(var(--spacing) * 6);\n  }\n  .mb-8 {\n    margin-bottom: calc(var(--spacing) * 8);\n  }\n  .block {\n    display: block;\n  }\n  .flex {\n    display: flex;\n  }\n  .grid {\n    display: grid;\n  }\n  .hidden {\n    display: none;\n  }\n  .aspect-video {\n    aspect-ratio: var(--aspect-video);\n  }\n  .h-1 {\n    height: calc(var(--spacing) * 1);\n  }\n  .h-1\\.5 {\n    height: calc(var(--spacing) * 1.5);\n  }\n  .h-2 {\n    height: calc(var(--spacing) * 2);\n  }\n  .h-2\\.5 {\n    height: calc(var(--spacing) * 2.5);\n  }\n  .h-3 {\n    height: calc(var(--spacing) * 3);\n  }\n  .h-4 {\n    height: calc(var(--spacing) * 4);\n  }\n  .h-5 {\n    height: calc(var(--spacing) * 5);\n  }\n  .h-6 {\n    height: calc(var(--spacing) * 6);\n  }\n  .h-7 {\n    height: calc(var(--spacing) * 7);\n  }\n  .h-12 {\n    height: calc(var(--spacing) * 12);\n  }\n  .h-16 {\n    height: calc(var(--spacing) * 16);\n  }\n  .h-20 {\n    height: calc(var(--spacing) * 20);\n  }\n  .h-32 {\n    height: calc(var(--spacing) * 32);\n  }\n  .h-40 {\n    height: calc(var(--spacing) * 40);\n  }\n  .h-48 {\n    height: calc(var(--spacing) * 48);\n  }\n  .h-\\[1px\\] {\n    height: 1px;\n  }\n  .h-\\[45\\%\\] {\n    height: 45%;\n  }\n  .h-full {\n    height: 100%;\n  }\n  .min-h-0 {\n    min-height: calc(var(--spacing) * 0);\n  }\n  .w-1 {\n    width: calc(var(--spacing) * 1);\n  }\n  .w-1\\/2 {\n    width: calc(1 / 2 * 100%);\n  }\n  .w-2 {\n    width: calc(var(--spacing) * 2);\n  }\n  .w-2\\.5 {\n    width: calc(var(--spacing) * 2.5);\n  }\n  .w-3 {\n    width: calc(var(--spacing) * 3);\n  }\n  .w-4 {\n    width: calc(var(--spacing) * 4);\n  }\n  .w-5 {\n    width: calc(var(--spacing) * 5);\n  }\n  .w-6 {\n    width: calc(var(--spacing) * 6);\n  }\n  .w-7 {\n    width: calc(var(--spacing) * 7);\n  }\n  .w-12 {\n    width: calc(var(--spacing) * 12);\n  }\n  .w-16 {\n    width: calc(var(--spacing) * 16);\n  }\n  .w-20 {\n    width: calc(var(--spacing) * 20);\n  }\n  .w-40 {\n    width: calc(var(--spacing) * 40);\n  }\n  .w-64 {\n    width: calc(var(--spacing) * 64);\n  }\n  .w-\\[40\\%\\] {\n    width: 40%;\n  }\n  .w-\\[320px\\] {\n    width: 320px;\n  }\n  .w-\\[420px\\] {\n    width: 420px;\n  }\n  .w-\\[480px\\] {\n    width: 480px;\n  }\n  .w-full {\n    width: 100%;\n  }\n  .max-w-2xl {\n    max-width: var(--container-2xl);\n  }\n  .max-w-4xl {\n    max-width: var(--container-4xl);\n  }\n  .max-w-7xl {\n    max-width: var(--container-7xl);\n  }\n  .max-w-\\[90\\%\\] {\n    max-width: 90%;\n  }\n  .max-w-xl {\n    max-width: var(--container-xl);\n  }\n  .min-w-\\[140px\\] {\n    min-width: 140px;\n  }\n  .flex-1 {\n    flex: 1;\n  }\n  .shrink-0 {\n    flex-shrink: 0;\n  }\n  .-translate-x-1\\/2 {\n    --tw-translate-x: calc(calc(1 / 2 * 100%) * -1);\n    translate: var(--tw-translate-x) var(--tw-translate-y);\n  }\n  .-translate-y-1\\/2 {\n    --tw-translate-y: calc(calc(1 / 2 * 100%) * -1);\n    translate: var(--tw-translate-x) var(--tw-translate-y);\n  }\n  .scale-\\[1\\.02\\] {\n    scale: 1.02;\n  }\n  .transform {\n    transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);\n  }\n  .animate-pulse {\n    animation: var(--animate-pulse);\n  }\n  .animate-spin {\n    animation: var(--animate-spin);\n  }\n  .grid-cols-2 {\n    grid-template-columns: repeat(2, minmax(0, 1fr));\n  }\n  .grid-cols-3 {\n    grid-template-columns: repeat(3, minmax(0, 1fr));\n  }\n  .grid-cols-9 {\n    grid-template-columns: repeat(9, minmax(0, 1fr));\n  }\n  .grid-cols-12 {\n    grid-template-columns: repeat(12, minmax(0, 1fr));\n  }\n  .grid-rows-2 {\n    grid-template-rows: repeat(2, minmax(0, 1fr));\n  }\n  .flex-col {\n    flex-direction: column;\n  }\n  .flex-row {\n    flex-direction: row;\n  }\n  .items-baseline {\n    align-items: baseline;\n  }\n  .items-center {\n    align-items: center;\n  }\n  .items-end {\n    align-items: flex-end;\n  }\n  .items-start {\n    align-items: flex-start;\n  }\n  .justify-between {\n    justify-content: space-between;\n  }\n  .justify-center {\n    justify-content: center;\n  }\n  .gap-1 {\n    gap: calc(var(--spacing) * 1);\n  }\n  .gap-2 {\n    gap: calc(var(--spacing) * 2);\n  }\n  .gap-3 {\n    gap: calc(var(--spacing) * 3);\n  }\n  .gap-4 {\n    gap: calc(var(--spacing) * 4);\n  }\n  .gap-5 {\n    gap: calc(var(--spacing) * 5);\n  }\n  .gap-6 {\n    gap: calc(var(--spacing) * 6);\n  }\n  .gap-8 {\n    gap: calc(var(--spacing) * 8);\n  }\n  .space-y-1 {\n    :where(& > :not(:last-child)) {\n      --tw-space-y-reverse: 0;\n      margin-block-start: calc(calc(var(--spacing) * 1) * var(--tw-space-y-reverse));\n      margin-block-end: calc(calc(var(--spacing) * 1) * calc(1 - var(--tw-space-y-reverse)));\n    }\n  }\n  .space-y-2 {\n    :where(& > :not(:last-child)) {\n      --tw-space-y-reverse: 0;\n      margin-block-start: calc(calc(var(--spacing) * 2) * var(--tw-space-y-reverse));\n      margin-block-end: calc(calc(var(--spacing) * 2) * calc(1 - var(--tw-space-y-reverse)));\n    }\n  }\n  .space-y-4 {\n    :where(& > :not(:last-child)) {\n      --tw-space-y-reverse: 0;\n      margin-block-start: calc(calc(var(--spacing) * 4) * var(--tw-space-y-reverse));\n      margin-block-end: calc(calc(var(--spacing) * 4) * calc(1 - var(--tw-space-y-reverse)));\n    }\n  }\n  .space-y-5 {\n    :where(& > :not(:last-child)) {\n      --tw-space-y-reverse: 0;\n      margin-block-start: calc(calc(var(--spacing) * 5) * var(--tw-space-y-reverse));\n      margin-block-end: calc(calc(var(--spacing) * 5) * calc(1 - var(--tw-space-y-reverse)));\n    }\n  }\n  .space-y-6 {\n    :where(& > :not(:last-child)) {\n      --tw-space-y-reverse: 0;\n      margin-block-start: calc(calc(var(--spacing) * 6) * var(--tw-space-y-reverse));\n      margin-block-end: calc(calc(var(--spacing) * 6) * calc(1 - var(--tw-space-y-reverse)));\n    }\n  }\n  .overflow-hidden {\n    overflow: hidden;\n  }\n  .overflow-y-auto {\n    overflow-y: auto;\n  }\n  .rounded {\n    border-radius: 0.25rem;\n  }\n  .rounded-2xl {\n    border-radius: var(--radius-2xl);\n  }\n  .rounded-3xl {\n    border-radius: var(--radius-3xl);\n  }\n  .rounded-\\[2rem\\] {\n    border-radius: 2rem;\n  }\n  .rounded-full {\n    border-radius: calc(infinity * 1px);\n  }\n  .rounded-lg {\n    border-radius: var(--radius-lg);\n  }\n  .rounded-xl {\n    border-radius: var(--radius-xl);\n  }\n  .rounded-t-sm {\n    border-top-left-radius: var(--radius-sm);\n    border-top-right-radius: var(--radius-sm);\n  }\n  .border {\n    border-style: var(--tw-border-style);\n    border-width: 1px;\n  }\n  .border-2 {\n    border-style: var(--tw-border-style);\n    border-width: 2px;\n  }\n  .border-\\[3px\\] {\n    border-style: var(--tw-border-style);\n    border-width: 3px;\n  }\n  .border-t {\n    border-top-style: var(--tw-border-style);\n    border-top-width: 1px;\n  }\n  .border-t-2 {\n    border-top-style: var(--tw-border-style);\n    border-top-width: 2px;\n  }\n  .border-t-\\[3px\\] {\n    border-top-style: var(--tw-border-style);\n    border-top-width: 3px;\n  }\n  .border-r {\n    border-right-style: var(--tw-border-style);\n    border-right-width: 1px;\n  }\n  .border-r-2 {\n    border-right-style: var(--tw-border-style);\n    border-right-width: 2px;\n  }\n  .border-r-\\[3px\\] {\n    border-right-style: var(--tw-border-style);\n    border-right-width: 3px;\n  }\n  .border-b {\n    border-bottom-style: var(--tw-border-style);\n    border-bottom-width: 1px;\n  }\n  .border-b-2 {\n    border-bottom-style: var(--tw-border-style);\n    border-bottom-width: 2px;\n  }\n  .border-b-\\[3px\\] {\n    border-bottom-style: var(--tw-border-style);\n    border-bottom-width: 3px;\n  }\n  .border-l-2 {\n    border-left-style: var(--tw-border-style);\n    border-left-width: 2px;\n  }\n  .border-l-\\[3px\\] {\n    border-left-style: var(--tw-border-style);\n    border-left-width: 3px;\n  }\n  .border-dashed {\n    --tw-border-style: dashed;\n    border-style: dashed;\n  }\n  .border-brand-emerald\\/40 {\n    border-color: color-mix(in srgb, #2e7d32 40%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      border-color: color-mix(in oklab, var(--color-brand-emerald) 40%, transparent);\n    }\n  }\n  .border-brand-red {\n    border-color: var(--color-brand-red);\n  }\n  .border-brand-red\\/30 {\n    border-color: color-mix(in srgb, #ef4444 30%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      border-color: color-mix(in oklab, var(--color-brand-red) 30%, transparent);\n    }\n  }\n  .border-brand-red\\/40 {\n    border-color: color-mix(in srgb, #ef4444 40%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      border-color: color-mix(in oklab, var(--color-brand-red) 40%, transparent);\n    }\n  }\n  .border-brand-red\\/50 {\n    border-color: color-mix(in srgb, #ef4444 50%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      border-color: color-mix(in oklab, var(--color-brand-red) 50%, transparent);\n    }\n  }\n  .border-red-400 {\n    border-color: var(--color-red-400);\n  }\n  .border-red-500 {\n    border-color: var(--color-red-500);\n  }\n  .border-white\\/5 {\n    border-color: color-mix(in srgb, #fff 5%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      border-color: color-mix(in oklab, var(--color-white) 5%, transparent);\n    }\n  }\n  .border-white\\/10 {\n    border-color: color-mix(in srgb, #fff 10%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      border-color: color-mix(in oklab, var(--color-white) 10%, transparent);\n    }\n  }\n  .border-white\\/25 {\n    border-color: color-mix(in srgb, #fff 25%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      border-color: color-mix(in oklab, var(--color-white) 25%, transparent);\n    }\n  }\n  .border-zinc-700\\/50 {\n    border-color: color-mix(in srgb, oklch(0.37 0.013 285.805) 50%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      border-color: color-mix(in oklab, var(--color-zinc-700) 50%, transparent);\n    }\n  }\n  .bg-\\[\\#0B0F19\\] {\n    background-color: #0B0F19;\n  }\n  .bg-\\[\\#0a0a0a\\] {\n    background-color: #0a0a0a;\n  }\n  .bg-black {\n    background-color: var(--color-black);\n  }\n  .bg-black\\/10 {\n    background-color: color-mix(in srgb, #000 10%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-black) 10%, transparent);\n    }\n  }\n  .bg-black\\/20 {\n    background-color: color-mix(in srgb, #000 20%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-black) 20%, transparent);\n    }\n  }\n  .bg-black\\/40 {\n    background-color: color-mix(in srgb, #000 40%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-black) 40%, transparent);\n    }\n  }\n  .bg-black\\/60 {\n    background-color: color-mix(in srgb, #000 60%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-black) 60%, transparent);\n    }\n  }\n  .bg-black\\/80 {\n    background-color: color-mix(in srgb, #000 80%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-black) 80%, transparent);\n    }\n  }\n  .bg-brand-emerald {\n    background-color: var(--color-brand-emerald);\n  }\n  .bg-brand-emerald\\/10 {\n    background-color: color-mix(in srgb, #2e7d32 10%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-brand-emerald) 10%, transparent);\n    }\n  }\n  .bg-brand-red {\n    background-color: var(--color-brand-red);\n  }\n  .bg-brand-red\\/5 {\n    background-color: color-mix(in srgb, #ef4444 5%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-brand-red) 5%, transparent);\n    }\n  }\n  .bg-brand-red\\/10 {\n    background-color: color-mix(in srgb, #ef4444 10%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-brand-red) 10%, transparent);\n    }\n  }\n  .bg-brand-red\\/20 {\n    background-color: color-mix(in srgb, #ef4444 20%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-brand-red) 20%, transparent);\n    }\n  }\n  .bg-emerald-600 {\n    background-color: var(--color-emerald-600);\n  }\n  .bg-red-500 {\n    background-color: var(--color-red-500);\n  }\n  .bg-red-600 {\n    background-color: var(--color-red-600);\n  }\n  .bg-white\\/5 {\n    background-color: color-mix(in srgb, #fff 5%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-white) 5%, transparent);\n    }\n  }\n  .bg-white\\/10 {\n    background-color: color-mix(in srgb, #fff 10%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-white) 10%, transparent);\n    }\n  }\n  .bg-zinc-800 {\n    background-color: var(--color-zinc-800);\n  }\n  .bg-zinc-900\\/40 {\n    background-color: color-mix(in srgb, oklch(0.21 0.006 285.885) 40%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-zinc-900) 40%, transparent);\n    }\n  }\n  .bg-zinc-900\\/50 {\n    background-color: color-mix(in srgb, oklch(0.21 0.006 285.885) 50%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-zinc-900) 50%, transparent);\n    }\n  }\n  .bg-zinc-900\\/60 {\n    background-color: color-mix(in srgb, oklch(0.21 0.006 285.885) 60%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-zinc-900) 60%, transparent);\n    }\n  }\n  .bg-zinc-900\\/90 {\n    background-color: color-mix(in srgb, oklch(0.21 0.006 285.885) 90%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-zinc-900) 90%, transparent);\n    }\n  }\n  .bg-gradient-to-r {\n    --tw-gradient-position: to right in oklab;\n    background-image: linear-gradient(var(--tw-gradient-stops));\n  }\n  .bg-\\[linear-gradient\\(to_right\\,\\#80808012_1px\\,transparent_1px\\)\\,linear-gradient\\(to_bottom\\,\\#80808012_1px\\,transparent_1px\\)\\] {\n    background-image: linear-gradient(to right,#80808012 1px,transparent 1px),linear-gradient(to bottom,#80808012 1px,transparent 1px);\n  }\n  .from-transparent {\n    --tw-gradient-from: transparent;\n    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));\n  }\n  .to-brand-emerald {\n    --tw-gradient-to: var(--color-brand-emerald);\n    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));\n  }\n  .to-transparent {\n    --tw-gradient-to: transparent;\n    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));\n  }\n  .bg-\\[size\\:32px_32px\\] {\n    background-size: 32px 32px;\n  }\n  .p-1 {\n    padding: calc(var(--spacing) * 1);\n  }\n  .p-2 {\n    padding: calc(var(--spacing) * 2);\n  }\n  .p-3 {\n    padding: calc(var(--spacing) * 3);\n  }\n  .p-4 {\n    padding: calc(var(--spacing) * 4);\n  }\n  .p-5 {\n    padding: calc(var(--spacing) * 5);\n  }\n  .p-6 {\n    padding: calc(var(--spacing) * 6);\n  }\n  .p-8 {\n    padding: calc(var(--spacing) * 8);\n  }\n  .p-16 {\n    padding: calc(var(--spacing) * 16);\n  }\n  .px-2 {\n    padding-inline: calc(var(--spacing) * 2);\n  }\n  .px-3 {\n    padding-inline: calc(var(--spacing) * 3);\n  }\n  .px-4 {\n    padding-inline: calc(var(--spacing) * 4);\n  }\n  .px-5 {\n    padding-inline: calc(var(--spacing) * 5);\n  }\n  .px-6 {\n    padding-inline: calc(var(--spacing) * 6);\n  }\n  .px-8 {\n    padding-inline: calc(var(--spacing) * 8);\n  }\n  .px-10 {\n    padding-inline: calc(var(--spacing) * 10);\n  }\n  .px-12 {\n    padding-inline: calc(var(--spacing) * 12);\n  }\n  .px-16 {\n    padding-inline: calc(var(--spacing) * 16);\n  }\n  .py-0\\.5 {\n    padding-block: calc(var(--spacing) * 0.5);\n  }\n  .py-1 {\n    padding-block: calc(var(--spacing) * 1);\n  }\n  .py-1\\.5 {\n    padding-block: calc(var(--spacing) * 1.5);\n  }\n  .py-2 {\n    padding-block: calc(var(--spacing) * 2);\n  }\n  .py-3 {\n    padding-block: calc(var(--spacing) * 3);\n  }\n  .py-4 {\n    padding-block: calc(var(--spacing) * 4);\n  }\n  .py-5 {\n    padding-block: calc(var(--spacing) * 5);\n  }\n  .py-6 {\n    padding-block: calc(var(--spacing) * 6);\n  }\n  .py-12 {\n    padding-block: calc(var(--spacing) * 12);\n  }\n  .pt-2 {\n    padding-top: calc(var(--spacing) * 2);\n  }\n  .pr-8 {\n    padding-right: calc(var(--spacing) * 8);\n  }\n  .pb-3 {\n    padding-bottom: calc(var(--spacing) * 3);\n  }\n  .pb-4 {\n    padding-bottom: calc(var(--spacing) * 4);\n  }\n  .text-center {\n    text-align: center;\n  }\n  .text-right {\n    text-align: right;\n  }\n  .font-inter {\n    font-family: var(--font-inter);\n  }\n  .font-mono {\n    font-family: var(--font-mono);\n  }\n  .font-orbitron {\n    font-family: var(--font-orbitron);\n  }\n  .font-sans {\n    font-family: var(--font-sans);\n  }\n  .text-2xl {\n    font-size: var(--text-2xl);\n    line-height: var(--tw-leading, var(--text-2xl--line-height));\n  }\n  .text-3xl {\n    font-size: var(--text-3xl);\n    line-height: var(--tw-leading, var(--text-3xl--line-height));\n  }\n  .text-4xl {\n    font-size: var(--text-4xl);\n    line-height: var(--tw-leading, var(--text-4xl--line-height));\n  }\n  .text-5xl {\n    font-size: var(--text-5xl);\n    line-height: var(--tw-leading, var(--text-5xl--line-height));\n  }\n  .text-6xl {\n    font-size: var(--text-6xl);\n    line-height: var(--tw-leading, var(--text-6xl--line-height));\n  }\n  .text-lg {\n    font-size: var(--text-lg);\n    line-height: var(--tw-leading, var(--text-lg--line-height));\n  }\n  .text-sm {\n    font-size: var(--text-sm);\n    line-height: var(--tw-leading, var(--text-sm--line-height));\n  }\n  .text-xl {\n    font-size: var(--text-xl);\n    line-height: var(--tw-leading, var(--text-xl--line-height));\n  }\n  .text-xs {\n    font-size: var(--text-xs);\n    line-height: var(--tw-leading, var(--text-xs--line-height));\n  }\n  .text-\\[1\\.1rem\\] {\n    font-size: 1.1rem;\n  }\n  .text-\\[8px\\] {\n    font-size: 8px;\n  }\n  .text-\\[9px\\] {\n    font-size: 9px;\n  }\n  .text-\\[10px\\] {\n    font-size: 10px;\n  }\n  .text-\\[11px\\] {\n    font-size: 11px;\n  }\n  .text-\\[12px\\] {\n    font-size: 12px;\n  }\n  .text-\\[13px\\] {\n    font-size: 13px;\n  }\n  .leading-none {\n    --tw-leading: 1;\n    line-height: 1;\n  }\n  .leading-relaxed {\n    --tw-leading: var(--leading-relaxed);\n    line-height: var(--leading-relaxed);\n  }\n  .leading-tight {\n    --tw-leading: var(--leading-tight);\n    line-height: var(--leading-tight);\n  }\n  .font-black {\n    --tw-font-weight: var(--font-weight-black);\n    font-weight: var(--font-weight-black);\n  }\n  .font-bold {\n    --tw-font-weight: var(--font-weight-bold);\n    font-weight: var(--font-weight-bold);\n  }\n  .tracking-\\[0\\.1em\\] {\n    --tw-tracking: 0.1em;\n    letter-spacing: 0.1em;\n  }\n  .tracking-\\[0\\.2em\\] {\n    --tw-tracking: 0.2em;\n    letter-spacing: 0.2em;\n  }\n  .tracking-\\[0\\.3em\\] {\n    --tw-tracking: 0.3em;\n    letter-spacing: 0.3em;\n  }\n  .tracking-\\[0\\.4em\\] {\n    --tw-tracking: 0.4em;\n    letter-spacing: 0.4em;\n  }\n  .tracking-\\[0\\.5em\\] {\n    --tw-tracking: 0.5em;\n    letter-spacing: 0.5em;\n  }\n  .tracking-tight {\n    --tw-tracking: var(--tracking-tight);\n    letter-spacing: var(--tracking-tight);\n  }\n  .tracking-tighter {\n    --tw-tracking: var(--tracking-tighter);\n    letter-spacing: var(--tracking-tighter);\n  }\n  .tracking-wider {\n    --tw-tracking: var(--tracking-wider);\n    letter-spacing: var(--tracking-wider);\n  }\n  .tracking-widest {\n    --tw-tracking: var(--tracking-widest);\n    letter-spacing: var(--tracking-widest);\n  }\n  .whitespace-nowrap {\n    white-space: nowrap;\n  }\n  .text-amber-400 {\n    color: var(--color-amber-400);\n  }\n  .text-black {\n    color: var(--color-black);\n  }\n  .text-brand-emerald {\n    color: var(--color-brand-emerald);\n  }\n  .text-brand-red {\n    color: var(--color-brand-red);\n  }\n  .text-brand-red\\/70 {\n    color: color-mix(in srgb, #ef4444 70%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      color: color-mix(in oklab, var(--color-brand-red) 70%, transparent);\n    }\n  }\n  .text-red-500 {\n    color: var(--color-red-500);\n  }\n  .text-white {\n    color: var(--color-white);\n  }\n  .text-zinc-200 {\n    color: var(--color-zinc-200);\n  }\n  .text-zinc-300 {\n    color: var(--color-zinc-300);\n  }\n  .text-zinc-400 {\n    color: var(--color-zinc-400);\n  }\n  .text-zinc-500 {\n    color: var(--color-zinc-500);\n  }\n  .text-zinc-600 {\n    color: var(--color-zinc-600);\n  }\n  .uppercase {\n    text-transform: uppercase;\n  }\n  .opacity-10 {\n    opacity: 10%;\n  }\n  .opacity-20 {\n    opacity: 20%;\n  }\n  .opacity-40 {\n    opacity: 40%;\n  }\n  .opacity-50 {\n    opacity: 50%;\n  }\n  .opacity-60 {\n    opacity: 60%;\n  }\n  .opacity-80 {\n    opacity: 80%;\n  }\n  .opacity-\\[0\\.03\\] {\n    opacity: 0.03;\n  }\n  .opacity-\\[0\\.05\\] {\n    opacity: 0.05;\n  }\n  .shadow-2xl {\n    --tw-shadow: 0 25px 50px -12px var(--tw-shadow-color, rgb(0 0 0 / 0.25));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_8px_\\#10b981\\] {\n    --tw-shadow: 0 0 8px var(--tw-shadow-color, #10b981);\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_10px_\\#2e7d32\\] {\n    --tw-shadow: 0 0 10px var(--tw-shadow-color, #2e7d32);\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_10px_\\#10b981\\] {\n    --tw-shadow: 0 0 10px var(--tw-shadow-color, #10b981);\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_10px_\\#ef4444\\] {\n    --tw-shadow: 0 0 10px var(--tw-shadow-color, #ef4444);\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_10px_currentColor\\] {\n    --tw-shadow: 0 0 10px var(--tw-shadow-color, currentColor);\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_10px_rgba\\(46\\,125\\,50\\,0\\.3\\)\\] {\n    --tw-shadow: 0 0 10px var(--tw-shadow-color, rgba(46,125,50,0.3));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_10px_rgba\\(46\\,125\\,50\\,0\\.5\\)\\] {\n    --tw-shadow: 0 0 10px var(--tw-shadow-color, rgba(46,125,50,0.5));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_15px_rgba\\(46\\,125\\,50\\,0\\.4\\)\\] {\n    --tw-shadow: 0 0 15px var(--tw-shadow-color, rgba(46,125,50,0.4));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_15px_rgba\\(239\\,68\\,68\\,0\\.2\\)\\] {\n    --tw-shadow: 0 0 15px var(--tw-shadow-color, rgba(239,68,68,0.2));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_15px_rgba\\(239\\,68\\,68\\,0\\.8\\)\\] {\n    --tw-shadow: 0 0 15px var(--tw-shadow-color, rgba(239,68,68,0.8));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_20px_rgba\\(46\\,125\\,50\\,0\\.5\\)\\] {\n    --tw-shadow: 0 0 20px var(--tw-shadow-color, rgba(46,125,50,0.5));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_20px_rgba\\(46\\,125\\,50\\,0\\.6\\)\\] {\n    --tw-shadow: 0 0 20px var(--tw-shadow-color, rgba(46,125,50,0.6));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_20px_rgba\\(239\\,68\\,68\\,0\\.4\\)\\] {\n    --tw-shadow: 0 0 20px var(--tw-shadow-color, rgba(239,68,68,0.4));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_20px_rgba\\(239\\,68\\,68\\,0\\.5\\)\\] {\n    --tw-shadow: 0 0 20px var(--tw-shadow-color, rgba(239,68,68,0.5));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_30px_rgba\\(16\\,185\\,129\\,0\\.3\\)\\] {\n    --tw-shadow: 0 0 30px var(--tw-shadow-color, rgba(16,185,129,0.3));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_30px_rgba\\(16\\,185\\,129\\,0\\.15\\)\\] {\n    --tw-shadow: 0 0 30px var(--tw-shadow-color, rgba(16,185,129,0.15));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_30px_rgba\\(46\\,125\\,50\\,0\\.3\\)\\] {\n    --tw-shadow: 0 0 30px var(--tw-shadow-color, rgba(46,125,50,0.3));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_30px_rgba\\(239\\,68\\,68\\,0\\.6\\)\\] {\n    --tw-shadow: 0 0 30px var(--tw-shadow-color, rgba(239,68,68,0.6));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_40px_rgba\\(239\\,68\\,68\\,0\\.15\\)\\] {\n    --tw-shadow: 0 0 40px var(--tw-shadow-color, rgba(239,68,68,0.15));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_80px_rgba\\(46\\,125\\,50\\,0\\.2\\)\\] {\n    --tw-shadow: 0 0 80px var(--tw-shadow-color, rgba(46,125,50,0.2));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_100px_rgba\\(0\\,0\\,0\\,0\\.8\\)\\,0_0_40px_rgba\\(239\\,68\\,68\\,0\\.15\\)\\] {\n    --tw-shadow: 0 0 100px var(--tw-shadow-color, rgba(0,0,0,0.8)), 0 0 40px var(--tw-shadow-color, rgba(239,68,68,0.15));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[inset_0_0_20px_rgba\\(46\\,125\\,50\\,0\\.2\\)\\] {\n    --tw-shadow: inset 0 0 20px var(--tw-shadow-color, rgba(46,125,50,0.2));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-lg {\n    --tw-shadow: 0 10px 15px -3px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 4px 6px -4px var(--tw-shadow-color, rgb(0 0 0 / 0.1));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-black {\n    --tw-shadow-color: #000;\n    @supports (color: color-mix(in lab, red, red)) {\n      --tw-shadow-color: color-mix(in oklab, var(--color-black) var(--tw-shadow-alpha), transparent);\n    }\n  }\n  .drop-shadow-\\[0_0_8px_rgba\\(46\\,125\\,50\\,0\\.5\\)\\] {\n    --tw-drop-shadow-size: drop-shadow(0 0 8px var(--tw-drop-shadow-color, rgba(46,125,50,0.5)));\n    --tw-drop-shadow: var(--tw-drop-shadow-size);\n    filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);\n  }\n  .drop-shadow-\\[0_0_8px_rgba\\(239\\,68\\,68\\,0\\.5\\)\\] {\n    --tw-drop-shadow-size: drop-shadow(0 0 8px var(--tw-drop-shadow-color, rgba(239,68,68,0.5)));\n    --tw-drop-shadow: var(--tw-drop-shadow-size);\n    filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);\n  }\n  .drop-shadow-md {\n    --tw-drop-shadow-size: drop-shadow(0 3px 3px var(--tw-drop-shadow-color, rgb(0 0 0 / 0.12)));\n    --tw-drop-shadow: drop-shadow(var(--drop-shadow-md));\n    filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);\n  }\n  .filter {\n    filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);\n  }\n  .backdrop-blur-\\[2px\\] {\n    --tw-backdrop-blur: blur(2px);\n    -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);\n    backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);\n  }\n  .backdrop-blur-md {\n    --tw-backdrop-blur: blur(var(--blur-md));\n    -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);\n    backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);\n  }\n  .backdrop-blur-sm {\n    --tw-backdrop-blur: blur(var(--blur-sm));\n    -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);\n    backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);\n  }\n  .backdrop-blur-xl {\n    --tw-backdrop-blur: blur(var(--blur-xl));\n    -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);\n    backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);\n  }\n  .transition {\n    transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter, display, content-visibility, overlay, pointer-events;\n    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));\n    transition-duration: var(--tw-duration, var(--default-transition-duration));\n  }\n  .transition-all {\n    transition-property: all;\n    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));\n    transition-duration: var(--tw-duration, var(--default-transition-duration));\n  }\n  .transition-colors {\n    transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to;\n    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));\n    transition-duration: var(--tw-duration, var(--default-transition-duration));\n  }\n  .duration-300 {\n    --tw-duration: 300ms;\n    transition-duration: 300ms;\n  }\n  .duration-500 {\n    --tw-duration: 500ms;\n    transition-duration: 500ms;\n  }\n  .duration-700 {\n    --tw-duration: 700ms;\n    transition-duration: 700ms;\n  }\n  .ease-out {\n    --tw-ease: var(--ease-out);\n    transition-timing-function: var(--ease-out);\n  }\n  .select-none {\n    -webkit-user-select: none;\n    user-select: none;\n  }\n  .hover\\:bg-brand-red\\/90 {\n    &:hover {\n      @media (hover: hover) {\n        background-color: color-mix(in srgb, #ef4444 90%, transparent);\n        @supports (color: color-mix(in lab, red, red)) {\n          background-color: color-mix(in oklab, var(--color-brand-red) 90%, transparent);\n        }\n      }\n    }\n  }\n}\n:root {\n  --background: #0B0F19;\n  --foreground: #ededed;\n  --brand-primary: #2e7d32;\n  --accent-glow: rgba(46, 125, 50, 0.3);\n}\nbody {\n  background-color: var(--background);\n  color: var(--foreground);\n  font-family: var(--font-inter);\n  overflow: hidden;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n@layer utilities {\n  .glassmorphism {\n    backdrop-filter: blur(12px);\n    background-color: rgba(255, 255, 255, 0.05);\n    border: 1px solid rgba(255, 255, 255, 0.1);\n  }\n  .hud-scanline {\n    background: linear-gradient( to bottom, transparent 50%, rgba(0, 0, 0, 0.05) 50% );\n    background-size: 100% 4px;\n    pointer-events: none;\n  }\n  .glow-emerald {\n    box-shadow: 0 0 20px rgba(46, 125, 50, 0.2), 0 0 60px rgba(46, 125, 50, 0.1);\n  }\n  .glow-red {\n    box-shadow: 0 0 20px rgba(239, 68, 68, 0.2), 0 0 60px rgba(239, 68, 68, 0.1);\n  }\n  .glow-green-strong {\n    box-shadow: 0 0 30px rgba(0, 230, 118, 0.4), 0 0 80px rgba(0, 230, 118, 0.15);\n  }\n  @keyframes alert-border-pulse {\n    0%, 100% {\n      border-color: rgba(239, 68, 68, 0.3);\n      box-shadow: 0 0 10px rgba(239, 68, 68, 0.1);\n    }\n    50% {\n      border-color: rgba(239, 68, 68, 0.7);\n      box-shadow: 0 0 20px rgba(239, 68, 68, 0.25);\n    }\n  }\n  .alert-border {\n    animation: alert-border-pulse 3s ease-in-out infinite;\n    transition: all 0.5s ease-in-out;\n  }\n}\n@property --tw-translate-x {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0;\n}\n@property --tw-translate-y {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0;\n}\n@property --tw-translate-z {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0;\n}\n@property --tw-rotate-x {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-rotate-y {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-rotate-z {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-skew-x {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-skew-y {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-space-y-reverse {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0;\n}\n@property --tw-border-style {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: solid;\n}\n@property --tw-gradient-position {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-gradient-from {\n  syntax: \"<color>\";\n  inherits: false;\n  initial-value: #0000;\n}\n@property --tw-gradient-via {\n  syntax: \"<color>\";\n  inherits: false;\n  initial-value: #0000;\n}\n@property --tw-gradient-to {\n  syntax: \"<color>\";\n  inherits: false;\n  initial-value: #0000;\n}\n@property --tw-gradient-stops {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-gradient-via-stops {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-gradient-from-position {\n  syntax: \"<length-percentage>\";\n  inherits: false;\n  initial-value: 0%;\n}\n@property --tw-gradient-via-position {\n  syntax: \"<length-percentage>\";\n  inherits: false;\n  initial-value: 50%;\n}\n@property --tw-gradient-to-position {\n  syntax: \"<length-percentage>\";\n  inherits: false;\n  initial-value: 100%;\n}\n@property --tw-leading {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-font-weight {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-tracking {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-shadow {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0 0 #0000;\n}\n@property --tw-shadow-color {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-shadow-alpha {\n  syntax: \"<percentage>\";\n  inherits: false;\n  initial-value: 100%;\n}\n@property --tw-inset-shadow {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0 0 #0000;\n}\n@property --tw-inset-shadow-color {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-inset-shadow-alpha {\n  syntax: \"<percentage>\";\n  inherits: false;\n  initial-value: 100%;\n}\n@property --tw-ring-color {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-ring-shadow {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0 0 #0000;\n}\n@property --tw-inset-ring-color {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-inset-ring-shadow {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0 0 #0000;\n}\n@property --tw-ring-inset {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-ring-offset-width {\n  syntax: \"<length>\";\n  inherits: false;\n  initial-value: 0px;\n}\n@property --tw-ring-offset-color {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: #fff;\n}\n@property --tw-ring-offset-shadow {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0 0 #0000;\n}\n@property --tw-blur {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-brightness {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-contrast {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-grayscale {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-hue-rotate {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-invert {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-opacity {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-saturate {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-sepia {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-drop-shadow {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-drop-shadow-color {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-drop-shadow-alpha {\n  syntax: \"<percentage>\";\n  inherits: false;\n  initial-value: 100%;\n}\n@property --tw-drop-shadow-size {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-backdrop-blur {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-backdrop-brightness {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-backdrop-contrast {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-backdrop-grayscale {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-backdrop-hue-rotate {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-backdrop-invert {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-backdrop-opacity {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-backdrop-saturate {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-backdrop-sepia {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-duration {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-ease {\n  syntax: \"*\";\n  inherits: false;\n}\n@keyframes spin {\n  to {\n    transform: rotate(360deg);\n  }\n}\n@keyframes pulse {\n  50% {\n    opacity: 0.5;\n  }\n}\n@layer properties {\n  @supports ((-webkit-hyphens: none) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color:rgb(from red r g b)))) {\n    *, ::before, ::after, ::backdrop {\n      --tw-translate-x: 0;\n      --tw-translate-y: 0;\n      --tw-translate-z: 0;\n      --tw-rotate-x: initial;\n      --tw-rotate-y: initial;\n      --tw-rotate-z: initial;\n      --tw-skew-x: initial;\n      --tw-skew-y: initial;\n      --tw-space-y-reverse: 0;\n      --tw-border-style: solid;\n      --tw-gradient-position: initial;\n      --tw-gradient-from: #0000;\n      --tw-gradient-via: #0000;\n      --tw-gradient-to: #0000;\n      --tw-gradient-stops: initial;\n      --tw-gradient-via-stops: initial;\n      --tw-gradient-from-position: 0%;\n      --tw-gradient-via-position: 50%;\n      --tw-gradient-to-position: 100%;\n      --tw-leading: initial;\n      --tw-font-weight: initial;\n      --tw-tracking: initial;\n      --tw-shadow: 0 0 #0000;\n      --tw-shadow-color: initial;\n      --tw-shadow-alpha: 100%;\n      --tw-inset-shadow: 0 0 #0000;\n      --tw-inset-shadow-color: initial;\n      --tw-inset-shadow-alpha: 100%;\n      --tw-ring-color: initial;\n      --tw-ring-shadow: 0 0 #0000;\n      --tw-inset-ring-color: initial;\n      --tw-inset-ring-shadow: 0 0 #0000;\n      --tw-ring-inset: initial;\n      --tw-ring-offset-width: 0px;\n      --tw-ring-offset-color: #fff;\n      --tw-ring-offset-shadow: 0 0 #0000;\n      --tw-blur: initial;\n      --tw-brightness: initial;\n      --tw-contrast: initial;\n      --tw-grayscale: initial;\n      --tw-hue-rotate: initial;\n      --tw-invert: initial;\n      --tw-opacity: initial;\n      --tw-saturate: initial;\n      --tw-sepia: initial;\n      --tw-drop-shadow: initial;\n      --tw-drop-shadow-color: initial;\n      --tw-drop-shadow-alpha: 100%;\n      --tw-drop-shadow-size: initial;\n      --tw-backdrop-blur: initial;\n      --tw-backdrop-brightness: initial;\n      --tw-backdrop-contrast: initial;\n      --tw-backdrop-grayscale: initial;\n      --tw-backdrop-hue-rotate: initial;\n      --tw-backdrop-invert: initial;\n      --tw-backdrop-opacity: initial;\n      --tw-backdrop-saturate: initial;\n      --tw-backdrop-sepia: initial;\n      --tw-duration: initial;\n      --tw-ease: initial;\n    }\n  }\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -4984,7 +5733,10 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
     --color-black: #000;
     --color-white: #fff;
     --spacing: 0.25rem;
+    --container-xl: 36rem;
+    --container-2xl: 42rem;
     --container-4xl: 56rem;
+    --container-7xl: 80rem;
     --text-xs: 0.75rem;
     --text-xs--line-height: calc(1 / 0.75);
     --text-sm: 0.875rem;
@@ -4997,6 +5749,12 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
     --text-2xl--line-height: calc(2 / 1.5);
     --text-3xl: 1.875rem;
     --text-3xl--line-height: calc(2.25 / 1.875);
+    --text-4xl: 2.25rem;
+    --text-4xl--line-height: calc(2.5 / 2.25);
+    --text-5xl: 3rem;
+    --text-5xl--line-height: 1;
+    --text-6xl: 3.75rem;
+    --text-6xl--line-height: 1;
     --font-weight-bold: 700;
     --font-weight-black: 900;
     --tracking-tighter: -0.05em;
@@ -5005,6 +5763,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
     --tracking-widest: 0.1em;
     --leading-tight: 1.25;
     --leading-relaxed: 1.625;
+    --radius-sm: 0.25rem;
     --radius-lg: 0.5rem;
     --radius-xl: 0.75rem;
     --radius-2xl: 1rem;
@@ -5217,6 +5976,12 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
   .top-4 {
     top: calc(var(--spacing) * 4);
   }
+  .top-8 {
+    top: calc(var(--spacing) * 8);
+  }
+  .top-24 {
+    top: calc(var(--spacing) * 24);
+  }
   .top-\\[25\\%\\] {
     top: 25%;
   }
@@ -5226,6 +5991,9 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
   .right-4 {
     right: calc(var(--spacing) * 4);
   }
+  .right-8 {
+    right: calc(var(--spacing) * 8);
+  }
   .bottom-0 {
     bottom: calc(var(--spacing) * 0);
   }
@@ -5234,6 +6002,9 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
   }
   .bottom-6 {
     bottom: calc(var(--spacing) * 6);
+  }
+  .bottom-16 {
+    bottom: calc(var(--spacing) * 16);
   }
   .left-0 {
     left: calc(var(--spacing) * 0);
@@ -5274,8 +6045,14 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
   .z-\\[50\\] {
     z-index: 50;
   }
+  .col-span-3 {
+    grid-column: span 3 / span 3;
+  }
   .col-span-4 {
     grid-column: span 4 / span 4;
+  }
+  .col-span-6 {
+    grid-column: span 6 / span 6;
   }
   .col-span-8 {
     grid-column: span 8 / span 8;
@@ -5312,6 +6089,9 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
   }
   .mt-4 {
     margin-top: calc(var(--spacing) * 4);
+  }
+  .mt-12 {
+    margin-top: calc(var(--spacing) * 12);
   }
   .mt-auto {
     margin-top: auto;
@@ -5385,6 +6165,12 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
   .h-16 {
     height: calc(var(--spacing) * 16);
   }
+  .h-20 {
+    height: calc(var(--spacing) * 20);
+  }
+  .h-32 {
+    height: calc(var(--spacing) * 32);
+  }
   .h-40 {
     height: calc(var(--spacing) * 40);
   }
@@ -5433,8 +6219,17 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
   .w-12 {
     width: calc(var(--spacing) * 12);
   }
+  .w-16 {
+    width: calc(var(--spacing) * 16);
+  }
+  .w-20 {
+    width: calc(var(--spacing) * 20);
+  }
   .w-40 {
     width: calc(var(--spacing) * 40);
+  }
+  .w-64 {
+    width: calc(var(--spacing) * 64);
   }
   .w-\\[40\\%\\] {
     width: 40%;
@@ -5451,11 +6246,20 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
   .w-full {
     width: 100%;
   }
+  .max-w-2xl {
+    max-width: var(--container-2xl);
+  }
   .max-w-4xl {
     max-width: var(--container-4xl);
   }
+  .max-w-7xl {
+    max-width: var(--container-7xl);
+  }
   .max-w-\\[90\\%\\] {
     max-width: 90%;
+  }
+  .max-w-xl {
+    max-width: var(--container-xl);
   }
   .min-w-\\[140px\\] {
     min-width: 140px;
@@ -5489,11 +6293,17 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
   .grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+  .grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
   .grid-cols-9 {
     grid-template-columns: repeat(9, minmax(0, 1fr));
   }
   .grid-cols-12 {
     grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+  .grid-rows-2 {
+    grid-template-rows: repeat(2, minmax(0, 1fr));
   }
   .flex-col {
     flex-direction: column;
@@ -5590,6 +6400,9 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
   .rounded-3xl {
     border-radius: var(--radius-3xl);
   }
+  .rounded-\\[2rem\\] {
+    border-radius: 2rem;
+  }
   .rounded-full {
     border-radius: calc(infinity * 1px);
   }
@@ -5598,6 +6411,10 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
   }
   .rounded-xl {
     border-radius: var(--radius-xl);
+  }
+  .rounded-t-sm {
+    border-top-left-radius: var(--radius-sm);
+    border-top-right-radius: var(--radius-sm);
   }
   .border {
     border-style: var(--tw-border-style);
@@ -5770,8 +6587,26 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
       background-color: color-mix(in oklab, var(--color-zinc-900) 60%, transparent);
     }
   }
+  .bg-zinc-900\\/90 {
+    background-color: color-mix(in srgb, oklch(0.21 0.006 285.885) 90%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-zinc-900) 90%, transparent);
+    }
+  }
+  .bg-gradient-to-r {
+    --tw-gradient-position: to right in oklab;
+    background-image: linear-gradient(var(--tw-gradient-stops));
+  }
   .bg-\\[linear-gradient\\(to_right\\,\\#80808012_1px\\,transparent_1px\\)\\,linear-gradient\\(to_bottom\\,\\#80808012_1px\\,transparent_1px\\)\\] {
     background-image: linear-gradient(to right,#80808012 1px,transparent 1px),linear-gradient(to bottom,#80808012 1px,transparent 1px);
+  }
+  .from-transparent {
+    --tw-gradient-from: transparent;
+    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
+  }
+  .to-transparent {
+    --tw-gradient-to: transparent;
+    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
   }
   .bg-\\[size\\:32px_32px\\] {
     background-size: 32px 32px;
@@ -5794,6 +6629,12 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
   .p-6 {
     padding: calc(var(--spacing) * 6);
   }
+  .p-8 {
+    padding: calc(var(--spacing) * 8);
+  }
+  .p-16 {
+    padding: calc(var(--spacing) * 16);
+  }
   .px-2 {
     padding-inline: calc(var(--spacing) * 2);
   }
@@ -5808,6 +6649,18 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
   }
   .px-6 {
     padding-inline: calc(var(--spacing) * 6);
+  }
+  .px-8 {
+    padding-inline: calc(var(--spacing) * 8);
+  }
+  .px-10 {
+    padding-inline: calc(var(--spacing) * 10);
+  }
+  .px-12 {
+    padding-inline: calc(var(--spacing) * 12);
+  }
+  .px-16 {
+    padding-inline: calc(var(--spacing) * 16);
   }
   .py-0\\.5 {
     padding-block: calc(var(--spacing) * 0.5);
@@ -5824,8 +6677,17 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
   .py-3 {
     padding-block: calc(var(--spacing) * 3);
   }
+  .py-4 {
+    padding-block: calc(var(--spacing) * 4);
+  }
   .py-5 {
     padding-block: calc(var(--spacing) * 5);
+  }
+  .py-6 {
+    padding-block: calc(var(--spacing) * 6);
+  }
+  .py-12 {
+    padding-block: calc(var(--spacing) * 12);
   }
   .pt-2 {
     padding-top: calc(var(--spacing) * 2);
@@ -5858,6 +6720,18 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
   .text-3xl {
     font-size: var(--text-3xl);
     line-height: var(--tw-leading, var(--text-3xl--line-height));
+  }
+  .text-4xl {
+    font-size: var(--text-4xl);
+    line-height: var(--tw-leading, var(--text-4xl--line-height));
+  }
+  .text-5xl {
+    font-size: var(--text-5xl);
+    line-height: var(--tw-leading, var(--text-5xl--line-height));
+  }
+  .text-6xl {
+    font-size: var(--text-6xl);
+    line-height: var(--tw-leading, var(--text-6xl--line-height));
   }
   .text-lg {
     font-size: var(--text-lg);
@@ -5931,6 +6805,10 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
   .tracking-\\[0\\.4em\\] {
     --tw-tracking: 0.4em;
     letter-spacing: 0.4em;
+  }
+  .tracking-\\[0\\.5em\\] {
+    --tw-tracking: 0.5em;
+    letter-spacing: 0.5em;
   }
   .tracking-tight {
     --tw-tracking: var(--tracking-tight);
@@ -6009,6 +6887,18 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
     --tw-shadow: 0 25px 50px -12px var(--tw-shadow-color, rgb(0 0 0 / 0.25));
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   }
+  .shadow-\\[0_0_8px_\\#10b981\\] {
+    --tw-shadow: 0 0 8px var(--tw-shadow-color, #10b981);
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+  .shadow-\\[0_0_10px_\\#2e7d32\\] {
+    --tw-shadow: 0 0 10px var(--tw-shadow-color, #2e7d32);
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+  .shadow-\\[0_0_10px_\\#10b981\\] {
+    --tw-shadow: 0 0 10px var(--tw-shadow-color, #10b981);
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
   .shadow-\\[0_0_10px_\\#ef4444\\] {
     --tw-shadow: 0 0 10px var(--tw-shadow-color, #ef4444);
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
@@ -6053,12 +6943,36 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
     --tw-shadow: 0 0 20px var(--tw-shadow-color, rgba(239,68,68,0.5));
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   }
+  .shadow-\\[0_0_30px_rgba\\(16\\,185\\,129\\,0\\.3\\)\\] {
+    --tw-shadow: 0 0 30px var(--tw-shadow-color, rgba(16,185,129,0.3));
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+  .shadow-\\[0_0_30px_rgba\\(16\\,185\\,129\\,0\\.15\\)\\] {
+    --tw-shadow: 0 0 30px var(--tw-shadow-color, rgba(16,185,129,0.15));
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+  .shadow-\\[0_0_30px_rgba\\(46\\,125\\,50\\,0\\.3\\)\\] {
+    --tw-shadow: 0 0 30px var(--tw-shadow-color, rgba(46,125,50,0.3));
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
   .shadow-\\[0_0_30px_rgba\\(239\\,68\\,68\\,0\\.6\\)\\] {
     --tw-shadow: 0 0 30px var(--tw-shadow-color, rgba(239,68,68,0.6));
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   }
+  .shadow-\\[0_0_40px_rgba\\(239\\,68\\,68\\,0\\.15\\)\\] {
+    --tw-shadow: 0 0 40px var(--tw-shadow-color, rgba(239,68,68,0.15));
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+  .shadow-\\[0_0_80px_rgba\\(46\\,125\\,50\\,0\\.2\\)\\] {
+    --tw-shadow: 0 0 80px var(--tw-shadow-color, rgba(46,125,50,0.2));
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
   .shadow-\\[0_0_100px_rgba\\(0\\,0\\,0\\,0\\.8\\)\\,0_0_40px_rgba\\(239\\,68\\,68\\,0\\.15\\)\\] {
     --tw-shadow: 0 0 100px var(--tw-shadow-color, rgba(0,0,0,0.8)), 0 0 40px var(--tw-shadow-color, rgba(239,68,68,0.15));
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+  .shadow-\\[inset_0_0_20px_rgba\\(46\\,125\\,50\\,0\\.2\\)\\] {
+    --tw-shadow: inset 0 0 20px var(--tw-shadow-color, rgba(46,125,50,0.2));
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   }
   .shadow-lg {
@@ -6070,6 +6984,11 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
     @supports (color: color-mix(in lab, red, red)) {
       --tw-shadow-color: color-mix(in oklab, var(--color-black) var(--tw-shadow-alpha), transparent);
     }
+  }
+  .drop-shadow-\\[0_0_8px_rgba\\(46\\,125\\,50\\,0\\.5\\)\\] {
+    --tw-drop-shadow-size: drop-shadow(0 0 8px var(--tw-drop-shadow-color, rgba(46,125,50,0.5)));
+    --tw-drop-shadow: var(--tw-drop-shadow-size);
+    filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
   }
   .drop-shadow-\\[0_0_8px_rgba\\(239\\,68\\,68\\,0\\.5\\)\\] {
     --tw-drop-shadow-size: drop-shadow(0 0 8px var(--tw-drop-shadow-color, rgba(239,68,68,0.5)));
@@ -6118,6 +7037,10 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
     transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to;
     transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
     transition-duration: var(--tw-duration, var(--default-transition-duration));
+  }
+  .duration-300 {
+    --tw-duration: 300ms;
+    transition-duration: 300ms;
   }
   .duration-500 {
     --tw-duration: 500ms;
@@ -6180,6 +7103,48 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
   syntax: "*";
   inherits: false;
   initial-value: solid;
+}
+@property --tw-gradient-position {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-gradient-from {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #0000;
+}
+@property --tw-gradient-via {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #0000;
+}
+@property --tw-gradient-to {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #0000;
+}
+@property --tw-gradient-stops {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-gradient-via-stops {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-gradient-from-position {
+  syntax: "<length-percentage>";
+  inherits: false;
+  initial-value: 0%;
+}
+@property --tw-gradient-via-position {
+  syntax: "<length-percentage>";
+  inherits: false;
+  initial-value: 50%;
+}
+@property --tw-gradient-to-position {
+  syntax: "<length-percentage>";
+  inherits: false;
+  initial-value: 100%;
 }
 @property --tw-leading {
   syntax: "*";
@@ -6378,6 +7343,15 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
       --tw-skew-y: initial;
       --tw-space-y-reverse: 0;
       --tw-border-style: solid;
+      --tw-gradient-position: initial;
+      --tw-gradient-from: #0000;
+      --tw-gradient-via: #0000;
+      --tw-gradient-to: #0000;
+      --tw-gradient-stops: initial;
+      --tw-gradient-via-stops: initial;
+      --tw-gradient-from-position: 0%;
+      --tw-gradient-via-position: 50%;
+      --tw-gradient-to-position: 100%;
       --tw-leading: initial;
       --tw-font-weight: initial;
       --tw-tracking: initial;
@@ -6422,7 +7396,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*! tailwindcss v4.2.0 | MIT License |
     }
   }
 }
-`, "",{"version":3,"sources":["webpack://./src/index.css"],"names":[],"mappings":"AAAA,gEAAgE;AAChE,iBAAiB;AACjB,yCAAyC;AACzC;EACE;IACE;6DACyD;IACzD;iDAC6C;IAC7C,0CAA0C;IAC1C,0CAA0C;IAC1C,0CAA0C;IAC1C,4CAA4C;IAC5C,+CAA+C;IAC/C,0CAA0C;IAC1C,4CAA4C;IAC5C,4CAA4C;IAC5C,4CAA4C;IAC5C,4CAA4C;IAC5C,2CAA2C;IAC3C,4CAA4C;IAC5C,2CAA2C;IAC3C,mBAAmB;IACnB,mBAAmB;IACnB,kBAAkB;IAClB,sBAAsB;IACtB,kBAAkB;IAClB,sCAAsC;IACtC,mBAAmB;IACnB,0CAA0C;IAC1C,mBAAmB;IACnB,0CAA0C;IAC1C,kBAAkB;IAClB,yCAAyC;IACzC,kBAAkB;IAClB,sCAAsC;IACtC,oBAAoB;IACpB,2CAA2C;IAC3C,uBAAuB;IACvB,wBAAwB;IACxB,2BAA2B;IAC3B,0BAA0B;IAC1B,wBAAwB;IACxB,wBAAwB;IACxB,qBAAqB;IACrB,wBAAwB;IACxB,mBAAmB;IACnB,oBAAoB;IACpB,kBAAkB;IAClB,oBAAoB;IACpB,6CAA6C;IAC7C,sCAAsC;IACtC,uCAAuC;IACvC,+DAA+D;IAC/D,cAAc;IACd,eAAe;IACf,eAAe;IACf,sBAAsB;IACtB,oCAAoC;IACpC,kEAAkE;IAClE,uCAAuC;IACvC,wEAAwE;IACxE;;KAEC;IACD,4CAA4C;IAC5C;;KAEC;IACD;;KAEC;EACH;AACF;AACA;EACE;IACE,sBAAsB;IACtB,SAAS;IACT,UAAU;IACV,eAAe;EACjB;EACA;IACE,gBAAgB;IAChB,8BAA8B;IAC9B,WAAW;IACX,6JAA6J;IAC7J,mEAAmE;IACnE,yEAAyE;IACzE,wCAAwC;EAC1C;EACA;IACE,oBAAoB;EACtB;EACA;IACE,SAAS;IACT,cAAc;IACd,qBAAqB;EACvB;EACA;IACE,yCAAyC;IACzC,iCAAiC;EACnC;EACA;IACE,kBAAkB;IAClB,oBAAoB;EACtB;EACA;IACE,cAAc;IACd,gCAAgC;IAChC,wBAAwB;EAC1B;EACA;IACE,mBAAmB;EACrB;EACA;IACE,kJAAkJ;IAClJ,0EAA0E;IAC1E,8EAA8E;IAC9E,cAAc;EAChB;EACA;IACE,cAAc;EAChB;EACA;IACE,cAAc;IACd,cAAc;IACd,kBAAkB;IAClB,wBAAwB;EAC1B;EACA;IACE,eAAe;EACjB;EACA;IACE,WAAW;EACb;EACA;IACE,cAAc;IACd,qBAAqB;IACrB,yBAAyB;EAC3B;EACA;IACE,aAAa;EACf;EACA;IACE,wBAAwB;EAC1B;EACA;IACE,kBAAkB;EACpB;EACA;IACE,gBAAgB;EAClB;EACA;IACE,cAAc;IACd,sBAAsB;EACxB;EACA;IACE,eAAe;IACf,YAAY;EACd;EACA;IACE,aAAa;IACb,8BAA8B;IAC9B,gCAAgC;IAChC,uBAAuB;IACvB,cAAc;IACd,gBAAgB;IAChB,6BAA6B;IAC7B,UAAU;EACZ;EACA;IACE,mBAAmB;EACrB;EACA;IACE,0BAA0B;EAC5B;EACA;IACE,sBAAsB;EACxB;EACA;IACE,UAAU;IACV,mBAAmB;IACnB;MACE,yDAAyD;IAC3D;EACF;EACA;IACE,gBAAgB;EAClB;EACA;IACE,wBAAwB;EAC1B;EACA;IACE,eAAe;IACf,mBAAmB;EACrB;EACA;IACE,oBAAoB;EACtB;EACA;IACE,UAAU;EACZ;EACA;IACE,gBAAgB;EAClB;EACA;IACE,gBAAgB;EAClB;EACA;IACE,kBAAkB;EACpB;EACA;IACE,YAAY;EACd;EACA;IACE,wBAAwB;EAC1B;AACF;AACA;EACE;IACE,oBAAoB;EACtB;EACA;IACE,mBAAmB;EACrB;EACA;IACE,kBAAkB;EACpB;EACA;IACE,kBAAkB;EACpB;EACA;IACE,gBAAgB;EAClB;EACA;IACE,+BAA+B;EACjC;EACA;IACE,kCAAkC;EACpC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,8BAA8B;EAChC;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,uBAAuB;EACzB;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,QAAQ;EACV;EACA;IACE,+BAA+B;EACjC;EACA;IACE,+BAA+B;EACjC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,8BAA8B;EAChC;EACA;IACE,wBAAwB;EAC1B;EACA;IACE,8BAA8B;EAChC;EACA;IACE,8BAA8B;EAChC;EACA;IACE,UAAU;EACZ;EACA;IACE,SAAS;EACX;EACA;IACE,UAAU;EACZ;EACA;IACE,WAAW;EACb;EACA;IACE,WAAW;EACb;EACA;IACE,WAAW;EACb;EACA;IACE,WAAW;EACb;EACA;IACE,WAAW;EACb;EACA;IACE,WAAW;EACb;EACA;IACE,4BAA4B;EAC9B;EACA;IACE,4BAA4B;EAC9B;EACA;IACE,WAAW;IACX;MACE,gBAAgB;IAClB;IACA;MACE,gBAAgB;IAClB;IACA;MACE,gBAAgB;IAClB;IACA;MACE,gBAAgB;IAClB;IACA;MACE,gBAAgB;IAClB;EACF;EACA;IACE,mBAAmB;EACrB;EACA;IACE,sCAAsC;EACxC;EACA;IACE,oCAAoC;EACtC;EACA;IACE,oCAAoC;EACtC;EACA;IACE,oCAAoC;EACtC;EACA;IACE,gBAAgB;EAClB;EACA;IACE,sCAAsC;EACxC;EACA;IACE,uCAAuC;EACzC;EACA;IACE,uCAAuC;EACzC;EACA;IACE,uCAAuC;EACzC;EACA;IACE,uCAAuC;EACzC;EACA;IACE,uCAAuC;EACzC;EACA;IACE,uCAAuC;EACzC;EACA;IACE,cAAc;EAChB;EACA;IACE,aAAa;EACf;EACA;IACE,aAAa;EACf;EACA;IACE,aAAa;EACf;EACA;IACE,iCAAiC;EACnC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,kCAAkC;EACpC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,kCAAkC;EACpC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,iCAAiC;EACnC;EACA;IACE,iCAAiC;EACnC;EACA;IACE,iCAAiC;EACnC;EACA;IACE,iCAAiC;EACnC;EACA;IACE,WAAW;EACb;EACA;IACE,WAAW;EACb;EACA;IACE,YAAY;EACd;EACA;IACE,oCAAoC;EACtC;EACA;IACE,+BAA+B;EACjC;EACA;IACE,yBAAyB;EAC3B;EACA;IACE,+BAA+B;EACjC;EACA;IACE,iCAAiC;EACnC;EACA;IACE,+BAA+B;EACjC;EACA;IACE,+BAA+B;EACjC;EACA;IACE,+BAA+B;EACjC;EACA;IACE,+BAA+B;EACjC;EACA;IACE,+BAA+B;EACjC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,UAAU;EACZ;EACA;IACE,YAAY;EACd;EACA;IACE,YAAY;EACd;EACA;IACE,YAAY;EACd;EACA;IACE,WAAW;EACb;EACA;IACE,+BAA+B;EACjC;EACA;IACE,cAAc;EAChB;EACA;IACE,gBAAgB;EAClB;EACA;IACE,OAAO;EACT;EACA;IACE,cAAc;EAChB;EACA;IACE,+CAA+C;IAC/C,sDAAsD;EACxD;EACA;IACE,+CAA+C;IAC/C,sDAAsD;EACxD;EACA;IACE,WAAW;EACb;EACA;IACE,0GAA0G;EAC5G;EACA;IACE,+BAA+B;EACjC;EACA;IACE,8BAA8B;EAChC;EACA;IACE,gDAAgD;EAClD;EACA;IACE,gDAAgD;EAClD;EACA;IACE,iDAAiD;EACnD;EACA;IACE,sBAAsB;EACxB;EACA;IACE,mBAAmB;EACrB;EACA;IACE,qBAAqB;EACvB;EACA;IACE,mBAAmB;EACrB;EACA;IACE,qBAAqB;EACvB;EACA;IACE,uBAAuB;EACzB;EACA;IACE,8BAA8B;EAChC;EACA;IACE,uBAAuB;EACzB;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,6BAA6B;EAC/B;EACA;IACE;MACE,uBAAuB;MACvB,8EAA8E;MAC9E,sFAAsF;IACxF;EACF;EACA;IACE;MACE,uBAAuB;MACvB,8EAA8E;MAC9E,sFAAsF;IACxF;EACF;EACA;IACE;MACE,uBAAuB;MACvB,8EAA8E;MAC9E,sFAAsF;IACxF;EACF;EACA;IACE;MACE,uBAAuB;MACvB,8EAA8E;MAC9E,sFAAsF;IACxF;EACF;EACA;IACE;MACE,uBAAuB;MACvB,8EAA8E;MAC9E,sFAAsF;IACxF;EACF;EACA;IACE,gBAAgB;EAClB;EACA;IACE,gBAAgB;EAClB;EACA;IACE,sBAAsB;EACxB;EACA;IACE,gCAAgC;EAClC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,mCAAmC;EACrC;EACA;IACE,+BAA+B;EACjC;EACA;IACE,+BAA+B;EACjC;EACA;IACE,oCAAoC;IACpC,iBAAiB;EACnB;EACA;IACE,oCAAoC;IACpC,iBAAiB;EACnB;EACA;IACE,oCAAoC;IACpC,iBAAiB;EACnB;EACA;IACE,wCAAwC;IACxC,qBAAqB;EACvB;EACA;IACE,wCAAwC;IACxC,qBAAqB;EACvB;EACA;IACE,wCAAwC;IACxC,qBAAqB;EACvB;EACA;IACE,0CAA0C;IAC1C,uBAAuB;EACzB;EACA;IACE,0CAA0C;IAC1C,uBAAuB;EACzB;EACA;IACE,0CAA0C;IAC1C,uBAAuB;EACzB;EACA;IACE,2CAA2C;IAC3C,wBAAwB;EAC1B;EACA;IACE,2CAA2C;IAC3C,wBAAwB;EAC1B;EACA;IACE,2CAA2C;IAC3C,wBAAwB;EAC1B;EACA;IACE,yCAAyC;IACzC,sBAAsB;EACxB;EACA;IACE,yCAAyC;IACzC,sBAAsB;EACxB;EACA;IACE,yBAAyB;IACzB,oBAAoB;EACtB;EACA;IACE,kCAAkC;EACpC;EACA;IACE,kCAAkC;EACpC;EACA;IACE,sDAAsD;IACtD;MACE,qEAAqE;IACvE;EACF;EACA;IACE,uDAAuD;IACvD;MACE,sEAAsE;IACxE;EACF;EACA;IACE,uDAAuD;IACvD;MACE,sEAAsE;IACxE;EACF;EACA;IACE,4EAA4E;IAC5E;MACE,yEAAyE;IAC3E;EACF;EACA;IACE,yBAAyB;EAC3B;EACA;IACE,yBAAyB;EAC3B;EACA;IACE,oCAAoC;EACtC;EACA;IACE,2DAA2D;IAC3D;MACE,0EAA0E;IAC5E;EACF;EACA;IACE,2DAA2D;IAC3D;MACE,0EAA0E;IAC5E;EACF;EACA;IACE,2DAA2D;IAC3D;MACE,0EAA0E;IAC5E;EACF;EACA;IACE,2DAA2D;IAC3D;MACE,0EAA0E;IAC5E;EACF;EACA;IACE,2DAA2D;IAC3D;MACE,0EAA0E;IAC5E;EACF;EACA;IACE,0CAA0C;EAC5C;EACA;IACE,sCAAsC;EACxC;EACA;IACE,sCAAsC;EACxC;EACA;IACE,0DAA0D;IAC1D;MACE,yEAAyE;IAC3E;EACF;EACA;IACE,2DAA2D;IAC3D;MACE,0EAA0E;IAC5E;EACF;EACA;IACE,uCAAuC;EACzC;EACA;IACE,gFAAgF;IAChF;MACE,6EAA6E;IAC/E;EACF;EACA;IACE,gFAAgF;IAChF;MACE,6EAA6E;IAC/E;EACF;EACA;IACE,gFAAgF;IAChF;MACE,6EAA6E;IAC/E;EACF;EACA;IACE,kIAAkI;EACpI;EACA;IACE,0BAA0B;EAC5B;EACA;IACE,iCAAiC;EACnC;EACA;IACE,iCAAiC;EACnC;EACA;IACE,iCAAiC;EACnC;EACA;IACE,iCAAiC;EACnC;EACA;IACE,iCAAiC;EACnC;EACA;IACE,iCAAiC;EACnC;EACA;IACE,wCAAwC;EAC1C;EACA;IACE,wCAAwC;EAC1C;EACA;IACE,wCAAwC;EAC1C;EACA;IACE,wCAAwC;EAC1C;EACA;IACE,wCAAwC;EAC1C;EACA;IACE,yCAAyC;EAC3C;EACA;IACE,uCAAuC;EACzC;EACA;IACE,yCAAyC;EAC3C;EACA;IACE,uCAAuC;EACzC;EACA;IACE,uCAAuC;EACzC;EACA;IACE,uCAAuC;EACzC;EACA;IACE,qCAAqC;EACvC;EACA;IACE,uCAAuC;EACzC;EACA;IACE,wCAAwC;EAC1C;EACA;IACE,wCAAwC;EAC1C;EACA;IACE,kBAAkB;EACpB;EACA;IACE,iBAAiB;EACnB;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,0BAA0B;IAC1B,4DAA4D;EAC9D;EACA;IACE,0BAA0B;IAC1B,4DAA4D;EAC9D;EACA;IACE,yBAAyB;IACzB,2DAA2D;EAC7D;EACA;IACE,yBAAyB;IACzB,2DAA2D;EAC7D;EACA;IACE,yBAAyB;IACzB,2DAA2D;EAC7D;EACA;IACE,yBAAyB;IACzB,2DAA2D;EAC7D;EACA;IACE,iBAAiB;EACnB;EACA;IACE,cAAc;EAChB;EACA;IACE,cAAc;EAChB;EACA;IACE,eAAe;EACjB;EACA;IACE,eAAe;EACjB;EACA;IACE,eAAe;EACjB;EACA;IACE,eAAe;EACjB;EACA;IACE,eAAe;IACf,cAAc;EAChB;EACA;IACE,oCAAoC;IACpC,mCAAmC;EACrC;EACA;IACE,kCAAkC;IAClC,iCAAiC;EACnC;EACA;IACE,0CAA0C;IAC1C,qCAAqC;EACvC;EACA;IACE,yCAAyC;IACzC,oCAAoC;EACtC;EACA;IACE,oBAAoB;IACpB,qBAAqB;EACvB;EACA;IACE,oBAAoB;IACpB,qBAAqB;EACvB;EACA;IACE,oBAAoB;IACpB,qBAAqB;EACvB;EACA;IACE,oBAAoB;IACpB,qBAAqB;EACvB;EACA;IACE,oCAAoC;IACpC,qCAAqC;EACvC;EACA;IACE,sCAAsC;IACtC,uCAAuC;EACzC;EACA;IACE,oCAAoC;IACpC,qCAAqC;EACvC;EACA;IACE,qCAAqC;IACrC,sCAAsC;EACxC;EACA;IACE,mBAAmB;EACrB;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,yBAAyB;EAC3B;EACA;IACE,2BAA2B;EAC7B;EACA;IACE,yBAAyB;EAC3B;EACA;IACE,4BAA4B;EAC9B;EACA;IACE,4BAA4B;EAC9B;EACA;IACE,4BAA4B;EAC9B;EACA;IACE,4BAA4B;EAC9B;EACA;IACE,4BAA4B;EAC9B;EACA;IACE,yBAAyB;EAC3B;EACA;IACE,YAAY;EACd;EACA;IACE,YAAY;EACd;EACA;IACE,YAAY;EACd;EACA;IACE,YAAY;EACd;EACA;IACE,YAAY;EACd;EACA;IACE,YAAY;EACd;EACA;IACE,aAAa;EACf;EACA;IACE,aAAa;EACf;EACA;IACE,wEAAwE;IACxE,sIAAsI;EACxI;EACA;IACE,qDAAqD;IACrD,sIAAsI;EACxI;EACA;IACE,0DAA0D;IAC1D,sIAAsI;EACxI;EACA;IACE,iEAAiE;IACjE,sIAAsI;EACxI;EACA;IACE,iEAAiE;IACjE,sIAAsI;EACxI;EACA;IACE,iEAAiE;IACjE,sIAAsI;EACxI;EACA;IACE,iEAAiE;IACjE,sIAAsI;EACxI;EACA;IACE,iEAAiE;IACjE,sIAAsI;EACxI;EACA;IACE,iEAAiE;IACjE,sIAAsI;EACxI;EACA;IACE,iEAAiE;IACjE,sIAAsI;EACxI;EACA;IACE,iEAAiE;IACjE,sIAAsI;EACxI;EACA;IACE,iEAAiE;IACjE,sIAAsI;EACxI;EACA;IACE,iEAAiE;IACjE,sIAAsI;EACxI;EACA;IACE,qHAAqH;IACrH,sIAAsI;EACxI;EACA;IACE,+HAA+H;IAC/H,sIAAsI;EACxI;EACA;IACE,uBAAuB;IACvB;MACE,8FAA8F;IAChG;EACF;EACA;IACE,4FAA4F;IAC5F,4CAA4C;IAC5C,0LAA0L;EAC5L;EACA;IACE,4FAA4F;IAC5F,oDAAoD;IACpD,0LAA0L;EAC5L;EACA;IACE,0LAA0L;EAC5L;EACA;IACE,6BAA6B;IAC7B,wRAAwR;IACxR,gRAAgR;EAClR;EACA;IACE,wCAAwC;IACxC,wRAAwR;IACxR,gRAAgR;EAClR;EACA;IACE,wCAAwC;IACxC,wRAAwR;IACxR,gRAAgR;EAClR;EACA;IACE,wCAAwC;IACxC,wRAAwR;IACxR,gRAAgR;EAClR;EACA;IACE,yUAAyU;IACzU,qFAAqF;IACrF,2EAA2E;EAC7E;EACA;IACE,wBAAwB;IACxB,qFAAqF;IACrF,2EAA2E;EAC7E;EACA;IACE,uKAAuK;IACvK,qFAAqF;IACrF,2EAA2E;EAC7E;EACA;IACE,oBAAoB;IACpB,0BAA0B;EAC5B;EACA;IACE,oBAAoB;IACpB,0BAA0B;EAC5B;EACA;IACE,0BAA0B;IAC1B,2CAA2C;EAC7C;EACA;IACE,yBAAyB;IACzB,iBAAiB;EACnB;AACF;AACA;EACE,WAAW;EACX,eAAe;EACf,gBAAgB;AAClB;AACA;EACE,WAAW;EACX,eAAe;EACf,gBAAgB;AAClB;AACA;EACE,WAAW;EACX,eAAe;EACf,gBAAgB;AAClB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;EACf,gBAAgB;AAClB;AACA;EACE,WAAW;EACX,eAAe;EACf,oBAAoB;AACtB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;EACf,wBAAwB;AAC1B;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,sBAAsB;EACtB,eAAe;EACf,mBAAmB;AACrB;AACA;EACE,WAAW;EACX,eAAe;EACf,wBAAwB;AAC1B;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,sBAAsB;EACtB,eAAe;EACf,mBAAmB;AACrB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;EACf,wBAAwB;AAC1B;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;EACf,wBAAwB;AAC1B;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,kBAAkB;EAClB,eAAe;EACf,kBAAkB;AACpB;AACA;EACE,WAAW;EACX,eAAe;EACf,mBAAmB;AACrB;AACA;EACE,WAAW;EACX,eAAe;EACf,wBAAwB;AAC1B;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,sBAAsB;EACtB,eAAe;EACf,mBAAmB;AACrB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE;IACE,yBAAyB;EAC3B;AACF;AACA;EACE;IACE,YAAY;EACd;AACF;AACA;EACE;IACE;MACE,mBAAmB;MACnB,mBAAmB;MACnB,mBAAmB;MACnB,sBAAsB;MACtB,sBAAsB;MACtB,sBAAsB;MACtB,oBAAoB;MACpB,oBAAoB;MACpB,uBAAuB;MACvB,wBAAwB;MACxB,qBAAqB;MACrB,yBAAyB;MACzB,sBAAsB;MACtB,sBAAsB;MACtB,0BAA0B;MAC1B,uBAAuB;MACvB,4BAA4B;MAC5B,gCAAgC;MAChC,6BAA6B;MAC7B,wBAAwB;MACxB,2BAA2B;MAC3B,8BAA8B;MAC9B,iCAAiC;MACjC,wBAAwB;MACxB,2BAA2B;MAC3B,4BAA4B;MAC5B,kCAAkC;MAClC,kBAAkB;MAClB,wBAAwB;MACxB,sBAAsB;MACtB,uBAAuB;MACvB,wBAAwB;MACxB,oBAAoB;MACpB,qBAAqB;MACrB,sBAAsB;MACtB,mBAAmB;MACnB,yBAAyB;MACzB,+BAA+B;MAC/B,4BAA4B;MAC5B,8BAA8B;MAC9B,2BAA2B;MAC3B,iCAAiC;MACjC,+BAA+B;MAC/B,gCAAgC;MAChC,iCAAiC;MACjC,6BAA6B;MAC7B,8BAA8B;MAC9B,+BAA+B;MAC/B,4BAA4B;MAC5B,sBAAsB;MACtB,kBAAkB;IACpB;EACF;AACF","sourcesContent":["/*! tailwindcss v4.2.0 | MIT License | https://tailwindcss.com */\n@layer properties;\n@layer theme, base, components, utilities;\n@layer theme {\n  :root, :host {\n    --font-sans: ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\",\n      \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\";\n    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,\n      \"Liberation Mono\", \"Courier New\", monospace;\n    --color-red-400: oklch(0.704 0.191 22.216);\n    --color-red-500: oklch(0.637 0.237 25.331);\n    --color-red-600: oklch(0.577 0.245 27.325);\n    --color-amber-400: oklch(0.828 0.189 84.429);\n    --color-emerald-600: oklch(0.596 0.145 163.225);\n    --color-zinc-200: oklch(0.92 0.004 286.32);\n    --color-zinc-300: oklch(0.871 0.006 286.286);\n    --color-zinc-400: oklch(0.705 0.015 286.067);\n    --color-zinc-500: oklch(0.552 0.016 285.938);\n    --color-zinc-600: oklch(0.442 0.017 285.786);\n    --color-zinc-700: oklch(0.37 0.013 285.805);\n    --color-zinc-800: oklch(0.274 0.006 286.033);\n    --color-zinc-900: oklch(0.21 0.006 285.885);\n    --color-black: #000;\n    --color-white: #fff;\n    --spacing: 0.25rem;\n    --container-4xl: 56rem;\n    --text-xs: 0.75rem;\n    --text-xs--line-height: calc(1 / 0.75);\n    --text-sm: 0.875rem;\n    --text-sm--line-height: calc(1.25 / 0.875);\n    --text-lg: 1.125rem;\n    --text-lg--line-height: calc(1.75 / 1.125);\n    --text-xl: 1.25rem;\n    --text-xl--line-height: calc(1.75 / 1.25);\n    --text-2xl: 1.5rem;\n    --text-2xl--line-height: calc(2 / 1.5);\n    --text-3xl: 1.875rem;\n    --text-3xl--line-height: calc(2.25 / 1.875);\n    --font-weight-bold: 700;\n    --font-weight-black: 900;\n    --tracking-tighter: -0.05em;\n    --tracking-tight: -0.025em;\n    --tracking-wider: 0.05em;\n    --tracking-widest: 0.1em;\n    --leading-tight: 1.25;\n    --leading-relaxed: 1.625;\n    --radius-lg: 0.5rem;\n    --radius-xl: 0.75rem;\n    --radius-2xl: 1rem;\n    --radius-3xl: 1.5rem;\n    --drop-shadow-md: 0 3px 3px rgb(0 0 0 / 0.12);\n    --ease-out: cubic-bezier(0, 0, 0.2, 1);\n    --animate-spin: spin 1s linear infinite;\n    --animate-pulse: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;\n    --blur-sm: 8px;\n    --blur-md: 12px;\n    --blur-xl: 24px;\n    --aspect-video: 16 / 9;\n    --default-transition-duration: 150ms;\n    --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);\n    --default-font-family: var(--font-sans);\n    --default-font-feature-settings: var(--font-sans--font-feature-settings);\n    --default-font-variation-settings: var(\n      --font-sans--font-variation-settings\n    );\n    --default-mono-font-family: var(--font-mono);\n    --default-mono-font-feature-settings: var(\n      --font-mono--font-feature-settings\n    );\n    --default-mono-font-variation-settings: var(\n      --font-mono--font-variation-settings\n    );\n  }\n}\n@layer base {\n  *, ::after, ::before, ::backdrop, ::file-selector-button {\n    box-sizing: border-box;\n    margin: 0;\n    padding: 0;\n    border: 0 solid;\n  }\n  html, :host {\n    line-height: 1.5;\n    -webkit-text-size-adjust: 100%;\n    tab-size: 4;\n    font-family: var( --default-font-family, ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\" );\n    font-feature-settings: var(--default-font-feature-settings, normal);\n    font-variation-settings: var( --default-font-variation-settings, normal );\n    -webkit-tap-highlight-color: transparent;\n  }\n  body {\n    line-height: inherit;\n  }\n  hr {\n    height: 0;\n    color: inherit;\n    border-top-width: 1px;\n  }\n  abbr:where([title]) {\n    -webkit-text-decoration: underline dotted;\n    text-decoration: underline dotted;\n  }\n  h1, h2, h3, h4, h5, h6 {\n    font-size: inherit;\n    font-weight: inherit;\n  }\n  a {\n    color: inherit;\n    -webkit-text-decoration: inherit;\n    text-decoration: inherit;\n  }\n  b, strong {\n    font-weight: bolder;\n  }\n  code, kbd, samp, pre {\n    font-family: var( --default-mono-font-family, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace );\n    font-feature-settings: var( --default-mono-font-feature-settings, normal );\n    font-variation-settings: var( --default-mono-font-variation-settings, normal );\n    font-size: 1em;\n  }\n  small {\n    font-size: 80%;\n  }\n  sub, sup {\n    font-size: 75%;\n    line-height: 0;\n    position: relative;\n    vertical-align: baseline;\n  }\n  sub {\n    bottom: -0.25em;\n  }\n  sup {\n    top: -0.5em;\n  }\n  table {\n    text-indent: 0;\n    border-color: inherit;\n    border-collapse: collapse;\n  }\n  :-moz-focusring {\n    outline: auto;\n  }\n  progress {\n    vertical-align: baseline;\n  }\n  summary {\n    display: list-item;\n  }\n  ol, ul, menu {\n    list-style: none;\n  }\n  img, svg, video, canvas, audio, iframe, embed, object {\n    display: block;\n    vertical-align: middle;\n  }\n  img, video {\n    max-width: 100%;\n    height: auto;\n  }\n  button, input, select, optgroup, textarea, ::file-selector-button {\n    font: inherit;\n    font-feature-settings: inherit;\n    font-variation-settings: inherit;\n    letter-spacing: inherit;\n    color: inherit;\n    border-radius: 0;\n    background-color: transparent;\n    opacity: 1;\n  }\n  :where(select:is([multiple], [size])) optgroup {\n    font-weight: bolder;\n  }\n  :where(select:is([multiple], [size])) optgroup option {\n    padding-inline-start: 20px;\n  }\n  ::file-selector-button {\n    margin-inline-end: 4px;\n  }\n  ::placeholder {\n    opacity: 1;\n    color: currentColor;\n    @supports (color: color-mix(in lab, red, red)) {\n      color: color-mix(in oklab, currentColor 50%, transparent);\n    }\n  }\n  textarea {\n    resize: vertical;\n  }\n  ::-webkit-search-decoration {\n    -webkit-appearance: none;\n  }\n  ::-webkit-date-and-time-value {\n    min-height: 1lh;\n    text-align: inherit;\n  }\n  ::-webkit-datetime-edit {\n    display: inline-flex;\n  }\n  ::-webkit-datetime-edit-fields-wrapper {\n    padding: 0;\n  }\n  ::-webkit-datetime-edit, ::-webkit-datetime-edit-year-field, ::-webkit-datetime-edit-month-field, ::-webkit-datetime-edit-day-field, ::-webkit-datetime-edit-hour-field, ::-webkit-datetime-edit-minute-field, ::-webkit-datetime-edit-second-field, ::-webkit-datetime-edit-millisecond-field, ::-webkit-datetime-edit-meridiem-field {\n    padding-block: 0;\n  }\n  :-moz-ui-invalid {\n    box-shadow: none;\n  }\n  button, input:where([type=\"button\"], [type=\"reset\"], [type=\"submit\"]), ::file-selector-button {\n    appearance: button;\n  }\n  ::-webkit-inner-spin-button, ::-webkit-outer-spin-button {\n    height: auto;\n  }\n  [hidden]:where(:not([hidden=\"until-found\"])) {\n    display: none !important;\n  }\n}\n@layer utilities {\n  .pointer-events-none {\n    pointer-events: none;\n  }\n  .visible {\n    visibility: visible;\n  }\n  .absolute {\n    position: absolute;\n  }\n  .relative {\n    position: relative;\n  }\n  .static {\n    position: static;\n  }\n  .inset-0 {\n    inset: calc(var(--spacing) * 0);\n  }\n  .start {\n    inset-inline-start: var(--spacing);\n  }\n  .end {\n    inset-inline-end: var(--spacing);\n  }\n  .-top-8 {\n    top: calc(var(--spacing) * -8);\n  }\n  .top-0 {\n    top: calc(var(--spacing) * 0);\n  }\n  .top-1\\/2 {\n    top: calc(1 / 2 * 100%);\n  }\n  .top-2 {\n    top: calc(var(--spacing) * 2);\n  }\n  .top-4 {\n    top: calc(var(--spacing) * 4);\n  }\n  .top-\\[25\\%\\] {\n    top: 25%;\n  }\n  .right-0 {\n    right: calc(var(--spacing) * 0);\n  }\n  .right-4 {\n    right: calc(var(--spacing) * 4);\n  }\n  .bottom-0 {\n    bottom: calc(var(--spacing) * 0);\n  }\n  .bottom-4 {\n    bottom: calc(var(--spacing) * 4);\n  }\n  .bottom-6 {\n    bottom: calc(var(--spacing) * 6);\n  }\n  .left-0 {\n    left: calc(var(--spacing) * 0);\n  }\n  .left-1\\/2 {\n    left: calc(1 / 2 * 100%);\n  }\n  .left-2 {\n    left: calc(var(--spacing) * 2);\n  }\n  .left-4 {\n    left: calc(var(--spacing) * 4);\n  }\n  .left-\\[-2px\\] {\n    left: -2px;\n  }\n  .left-\\[30\\%\\] {\n    left: 30%;\n  }\n  .z-0 {\n    z-index: 0;\n  }\n  .z-10 {\n    z-index: 10;\n  }\n  .z-20 {\n    z-index: 20;\n  }\n  .z-30 {\n    z-index: 30;\n  }\n  .z-40 {\n    z-index: 40;\n  }\n  .z-50 {\n    z-index: 50;\n  }\n  .z-\\[50\\] {\n    z-index: 50;\n  }\n  .col-span-4 {\n    grid-column: span 4 / span 4;\n  }\n  .col-span-8 {\n    grid-column: span 8 / span 8;\n  }\n  .container {\n    width: 100%;\n    @media (width >= 40rem) {\n      max-width: 40rem;\n    }\n    @media (width >= 48rem) {\n      max-width: 48rem;\n    }\n    @media (width >= 64rem) {\n      max-width: 64rem;\n    }\n    @media (width >= 80rem) {\n      max-width: 80rem;\n    }\n    @media (width >= 96rem) {\n      max-width: 96rem;\n    }\n  }\n  .mx-auto {\n    margin-inline: auto;\n  }\n  .mt-0\\.5 {\n    margin-top: calc(var(--spacing) * 0.5);\n  }\n  .mt-1 {\n    margin-top: calc(var(--spacing) * 1);\n  }\n  .mt-2 {\n    margin-top: calc(var(--spacing) * 2);\n  }\n  .mt-4 {\n    margin-top: calc(var(--spacing) * 4);\n  }\n  .mt-auto {\n    margin-top: auto;\n  }\n  .mr-3 {\n    margin-right: calc(var(--spacing) * 3);\n  }\n  .mb-1 {\n    margin-bottom: calc(var(--spacing) * 1);\n  }\n  .mb-2 {\n    margin-bottom: calc(var(--spacing) * 2);\n  }\n  .mb-4 {\n    margin-bottom: calc(var(--spacing) * 4);\n  }\n  .mb-5 {\n    margin-bottom: calc(var(--spacing) * 5);\n  }\n  .mb-6 {\n    margin-bottom: calc(var(--spacing) * 6);\n  }\n  .mb-8 {\n    margin-bottom: calc(var(--spacing) * 8);\n  }\n  .block {\n    display: block;\n  }\n  .flex {\n    display: flex;\n  }\n  .grid {\n    display: grid;\n  }\n  .hidden {\n    display: none;\n  }\n  .aspect-video {\n    aspect-ratio: var(--aspect-video);\n  }\n  .h-1 {\n    height: calc(var(--spacing) * 1);\n  }\n  .h-1\\.5 {\n    height: calc(var(--spacing) * 1.5);\n  }\n  .h-2 {\n    height: calc(var(--spacing) * 2);\n  }\n  .h-2\\.5 {\n    height: calc(var(--spacing) * 2.5);\n  }\n  .h-3 {\n    height: calc(var(--spacing) * 3);\n  }\n  .h-4 {\n    height: calc(var(--spacing) * 4);\n  }\n  .h-5 {\n    height: calc(var(--spacing) * 5);\n  }\n  .h-6 {\n    height: calc(var(--spacing) * 6);\n  }\n  .h-7 {\n    height: calc(var(--spacing) * 7);\n  }\n  .h-12 {\n    height: calc(var(--spacing) * 12);\n  }\n  .h-16 {\n    height: calc(var(--spacing) * 16);\n  }\n  .h-40 {\n    height: calc(var(--spacing) * 40);\n  }\n  .h-48 {\n    height: calc(var(--spacing) * 48);\n  }\n  .h-\\[1px\\] {\n    height: 1px;\n  }\n  .h-\\[45\\%\\] {\n    height: 45%;\n  }\n  .h-full {\n    height: 100%;\n  }\n  .min-h-0 {\n    min-height: calc(var(--spacing) * 0);\n  }\n  .w-1 {\n    width: calc(var(--spacing) * 1);\n  }\n  .w-1\\/2 {\n    width: calc(1 / 2 * 100%);\n  }\n  .w-2 {\n    width: calc(var(--spacing) * 2);\n  }\n  .w-2\\.5 {\n    width: calc(var(--spacing) * 2.5);\n  }\n  .w-3 {\n    width: calc(var(--spacing) * 3);\n  }\n  .w-4 {\n    width: calc(var(--spacing) * 4);\n  }\n  .w-5 {\n    width: calc(var(--spacing) * 5);\n  }\n  .w-6 {\n    width: calc(var(--spacing) * 6);\n  }\n  .w-7 {\n    width: calc(var(--spacing) * 7);\n  }\n  .w-12 {\n    width: calc(var(--spacing) * 12);\n  }\n  .w-40 {\n    width: calc(var(--spacing) * 40);\n  }\n  .w-\\[40\\%\\] {\n    width: 40%;\n  }\n  .w-\\[320px\\] {\n    width: 320px;\n  }\n  .w-\\[420px\\] {\n    width: 420px;\n  }\n  .w-\\[480px\\] {\n    width: 480px;\n  }\n  .w-full {\n    width: 100%;\n  }\n  .max-w-4xl {\n    max-width: var(--container-4xl);\n  }\n  .max-w-\\[90\\%\\] {\n    max-width: 90%;\n  }\n  .min-w-\\[140px\\] {\n    min-width: 140px;\n  }\n  .flex-1 {\n    flex: 1;\n  }\n  .shrink-0 {\n    flex-shrink: 0;\n  }\n  .-translate-x-1\\/2 {\n    --tw-translate-x: calc(calc(1 / 2 * 100%) * -1);\n    translate: var(--tw-translate-x) var(--tw-translate-y);\n  }\n  .-translate-y-1\\/2 {\n    --tw-translate-y: calc(calc(1 / 2 * 100%) * -1);\n    translate: var(--tw-translate-x) var(--tw-translate-y);\n  }\n  .scale-\\[1\\.02\\] {\n    scale: 1.02;\n  }\n  .transform {\n    transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);\n  }\n  .animate-pulse {\n    animation: var(--animate-pulse);\n  }\n  .animate-spin {\n    animation: var(--animate-spin);\n  }\n  .grid-cols-2 {\n    grid-template-columns: repeat(2, minmax(0, 1fr));\n  }\n  .grid-cols-9 {\n    grid-template-columns: repeat(9, minmax(0, 1fr));\n  }\n  .grid-cols-12 {\n    grid-template-columns: repeat(12, minmax(0, 1fr));\n  }\n  .flex-col {\n    flex-direction: column;\n  }\n  .flex-row {\n    flex-direction: row;\n  }\n  .items-baseline {\n    align-items: baseline;\n  }\n  .items-center {\n    align-items: center;\n  }\n  .items-end {\n    align-items: flex-end;\n  }\n  .items-start {\n    align-items: flex-start;\n  }\n  .justify-between {\n    justify-content: space-between;\n  }\n  .justify-center {\n    justify-content: center;\n  }\n  .gap-1 {\n    gap: calc(var(--spacing) * 1);\n  }\n  .gap-2 {\n    gap: calc(var(--spacing) * 2);\n  }\n  .gap-3 {\n    gap: calc(var(--spacing) * 3);\n  }\n  .gap-4 {\n    gap: calc(var(--spacing) * 4);\n  }\n  .gap-5 {\n    gap: calc(var(--spacing) * 5);\n  }\n  .gap-6 {\n    gap: calc(var(--spacing) * 6);\n  }\n  .gap-8 {\n    gap: calc(var(--spacing) * 8);\n  }\n  .space-y-1 {\n    :where(& > :not(:last-child)) {\n      --tw-space-y-reverse: 0;\n      margin-block-start: calc(calc(var(--spacing) * 1) * var(--tw-space-y-reverse));\n      margin-block-end: calc(calc(var(--spacing) * 1) * calc(1 - var(--tw-space-y-reverse)));\n    }\n  }\n  .space-y-2 {\n    :where(& > :not(:last-child)) {\n      --tw-space-y-reverse: 0;\n      margin-block-start: calc(calc(var(--spacing) * 2) * var(--tw-space-y-reverse));\n      margin-block-end: calc(calc(var(--spacing) * 2) * calc(1 - var(--tw-space-y-reverse)));\n    }\n  }\n  .space-y-4 {\n    :where(& > :not(:last-child)) {\n      --tw-space-y-reverse: 0;\n      margin-block-start: calc(calc(var(--spacing) * 4) * var(--tw-space-y-reverse));\n      margin-block-end: calc(calc(var(--spacing) * 4) * calc(1 - var(--tw-space-y-reverse)));\n    }\n  }\n  .space-y-5 {\n    :where(& > :not(:last-child)) {\n      --tw-space-y-reverse: 0;\n      margin-block-start: calc(calc(var(--spacing) * 5) * var(--tw-space-y-reverse));\n      margin-block-end: calc(calc(var(--spacing) * 5) * calc(1 - var(--tw-space-y-reverse)));\n    }\n  }\n  .space-y-6 {\n    :where(& > :not(:last-child)) {\n      --tw-space-y-reverse: 0;\n      margin-block-start: calc(calc(var(--spacing) * 6) * var(--tw-space-y-reverse));\n      margin-block-end: calc(calc(var(--spacing) * 6) * calc(1 - var(--tw-space-y-reverse)));\n    }\n  }\n  .overflow-hidden {\n    overflow: hidden;\n  }\n  .overflow-y-auto {\n    overflow-y: auto;\n  }\n  .rounded {\n    border-radius: 0.25rem;\n  }\n  .rounded-2xl {\n    border-radius: var(--radius-2xl);\n  }\n  .rounded-3xl {\n    border-radius: var(--radius-3xl);\n  }\n  .rounded-full {\n    border-radius: calc(infinity * 1px);\n  }\n  .rounded-lg {\n    border-radius: var(--radius-lg);\n  }\n  .rounded-xl {\n    border-radius: var(--radius-xl);\n  }\n  .border {\n    border-style: var(--tw-border-style);\n    border-width: 1px;\n  }\n  .border-2 {\n    border-style: var(--tw-border-style);\n    border-width: 2px;\n  }\n  .border-\\[3px\\] {\n    border-style: var(--tw-border-style);\n    border-width: 3px;\n  }\n  .border-t {\n    border-top-style: var(--tw-border-style);\n    border-top-width: 1px;\n  }\n  .border-t-2 {\n    border-top-style: var(--tw-border-style);\n    border-top-width: 2px;\n  }\n  .border-t-\\[3px\\] {\n    border-top-style: var(--tw-border-style);\n    border-top-width: 3px;\n  }\n  .border-r {\n    border-right-style: var(--tw-border-style);\n    border-right-width: 1px;\n  }\n  .border-r-2 {\n    border-right-style: var(--tw-border-style);\n    border-right-width: 2px;\n  }\n  .border-r-\\[3px\\] {\n    border-right-style: var(--tw-border-style);\n    border-right-width: 3px;\n  }\n  .border-b {\n    border-bottom-style: var(--tw-border-style);\n    border-bottom-width: 1px;\n  }\n  .border-b-2 {\n    border-bottom-style: var(--tw-border-style);\n    border-bottom-width: 2px;\n  }\n  .border-b-\\[3px\\] {\n    border-bottom-style: var(--tw-border-style);\n    border-bottom-width: 3px;\n  }\n  .border-l-2 {\n    border-left-style: var(--tw-border-style);\n    border-left-width: 2px;\n  }\n  .border-l-\\[3px\\] {\n    border-left-style: var(--tw-border-style);\n    border-left-width: 3px;\n  }\n  .border-dashed {\n    --tw-border-style: dashed;\n    border-style: dashed;\n  }\n  .border-red-400 {\n    border-color: var(--color-red-400);\n  }\n  .border-red-500 {\n    border-color: var(--color-red-500);\n  }\n  .border-white\\/5 {\n    border-color: color-mix(in srgb, #fff 5%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      border-color: color-mix(in oklab, var(--color-white) 5%, transparent);\n    }\n  }\n  .border-white\\/10 {\n    border-color: color-mix(in srgb, #fff 10%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      border-color: color-mix(in oklab, var(--color-white) 10%, transparent);\n    }\n  }\n  .border-white\\/25 {\n    border-color: color-mix(in srgb, #fff 25%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      border-color: color-mix(in oklab, var(--color-white) 25%, transparent);\n    }\n  }\n  .border-zinc-700\\/50 {\n    border-color: color-mix(in srgb, oklch(0.37 0.013 285.805) 50%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      border-color: color-mix(in oklab, var(--color-zinc-700) 50%, transparent);\n    }\n  }\n  .bg-\\[\\#0B0F19\\] {\n    background-color: #0B0F19;\n  }\n  .bg-\\[\\#0a0a0a\\] {\n    background-color: #0a0a0a;\n  }\n  .bg-black {\n    background-color: var(--color-black);\n  }\n  .bg-black\\/10 {\n    background-color: color-mix(in srgb, #000 10%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-black) 10%, transparent);\n    }\n  }\n  .bg-black\\/20 {\n    background-color: color-mix(in srgb, #000 20%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-black) 20%, transparent);\n    }\n  }\n  .bg-black\\/40 {\n    background-color: color-mix(in srgb, #000 40%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-black) 40%, transparent);\n    }\n  }\n  .bg-black\\/60 {\n    background-color: color-mix(in srgb, #000 60%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-black) 60%, transparent);\n    }\n  }\n  .bg-black\\/80 {\n    background-color: color-mix(in srgb, #000 80%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-black) 80%, transparent);\n    }\n  }\n  .bg-emerald-600 {\n    background-color: var(--color-emerald-600);\n  }\n  .bg-red-500 {\n    background-color: var(--color-red-500);\n  }\n  .bg-red-600 {\n    background-color: var(--color-red-600);\n  }\n  .bg-white\\/5 {\n    background-color: color-mix(in srgb, #fff 5%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-white) 5%, transparent);\n    }\n  }\n  .bg-white\\/10 {\n    background-color: color-mix(in srgb, #fff 10%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-white) 10%, transparent);\n    }\n  }\n  .bg-zinc-800 {\n    background-color: var(--color-zinc-800);\n  }\n  .bg-zinc-900\\/40 {\n    background-color: color-mix(in srgb, oklch(0.21 0.006 285.885) 40%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-zinc-900) 40%, transparent);\n    }\n  }\n  .bg-zinc-900\\/50 {\n    background-color: color-mix(in srgb, oklch(0.21 0.006 285.885) 50%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-zinc-900) 50%, transparent);\n    }\n  }\n  .bg-zinc-900\\/60 {\n    background-color: color-mix(in srgb, oklch(0.21 0.006 285.885) 60%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-zinc-900) 60%, transparent);\n    }\n  }\n  .bg-\\[linear-gradient\\(to_right\\,\\#80808012_1px\\,transparent_1px\\)\\,linear-gradient\\(to_bottom\\,\\#80808012_1px\\,transparent_1px\\)\\] {\n    background-image: linear-gradient(to right,#80808012 1px,transparent 1px),linear-gradient(to bottom,#80808012 1px,transparent 1px);\n  }\n  .bg-\\[size\\:32px_32px\\] {\n    background-size: 32px 32px;\n  }\n  .p-1 {\n    padding: calc(var(--spacing) * 1);\n  }\n  .p-2 {\n    padding: calc(var(--spacing) * 2);\n  }\n  .p-3 {\n    padding: calc(var(--spacing) * 3);\n  }\n  .p-4 {\n    padding: calc(var(--spacing) * 4);\n  }\n  .p-5 {\n    padding: calc(var(--spacing) * 5);\n  }\n  .p-6 {\n    padding: calc(var(--spacing) * 6);\n  }\n  .px-2 {\n    padding-inline: calc(var(--spacing) * 2);\n  }\n  .px-3 {\n    padding-inline: calc(var(--spacing) * 3);\n  }\n  .px-4 {\n    padding-inline: calc(var(--spacing) * 4);\n  }\n  .px-5 {\n    padding-inline: calc(var(--spacing) * 5);\n  }\n  .px-6 {\n    padding-inline: calc(var(--spacing) * 6);\n  }\n  .py-0\\.5 {\n    padding-block: calc(var(--spacing) * 0.5);\n  }\n  .py-1 {\n    padding-block: calc(var(--spacing) * 1);\n  }\n  .py-1\\.5 {\n    padding-block: calc(var(--spacing) * 1.5);\n  }\n  .py-2 {\n    padding-block: calc(var(--spacing) * 2);\n  }\n  .py-3 {\n    padding-block: calc(var(--spacing) * 3);\n  }\n  .py-5 {\n    padding-block: calc(var(--spacing) * 5);\n  }\n  .pt-2 {\n    padding-top: calc(var(--spacing) * 2);\n  }\n  .pr-8 {\n    padding-right: calc(var(--spacing) * 8);\n  }\n  .pb-3 {\n    padding-bottom: calc(var(--spacing) * 3);\n  }\n  .pb-4 {\n    padding-bottom: calc(var(--spacing) * 4);\n  }\n  .text-center {\n    text-align: center;\n  }\n  .text-right {\n    text-align: right;\n  }\n  .font-mono {\n    font-family: var(--font-mono);\n  }\n  .font-sans {\n    font-family: var(--font-sans);\n  }\n  .text-2xl {\n    font-size: var(--text-2xl);\n    line-height: var(--tw-leading, var(--text-2xl--line-height));\n  }\n  .text-3xl {\n    font-size: var(--text-3xl);\n    line-height: var(--tw-leading, var(--text-3xl--line-height));\n  }\n  .text-lg {\n    font-size: var(--text-lg);\n    line-height: var(--tw-leading, var(--text-lg--line-height));\n  }\n  .text-sm {\n    font-size: var(--text-sm);\n    line-height: var(--tw-leading, var(--text-sm--line-height));\n  }\n  .text-xl {\n    font-size: var(--text-xl);\n    line-height: var(--tw-leading, var(--text-xl--line-height));\n  }\n  .text-xs {\n    font-size: var(--text-xs);\n    line-height: var(--tw-leading, var(--text-xs--line-height));\n  }\n  .text-\\[1\\.1rem\\] {\n    font-size: 1.1rem;\n  }\n  .text-\\[8px\\] {\n    font-size: 8px;\n  }\n  .text-\\[9px\\] {\n    font-size: 9px;\n  }\n  .text-\\[10px\\] {\n    font-size: 10px;\n  }\n  .text-\\[11px\\] {\n    font-size: 11px;\n  }\n  .text-\\[12px\\] {\n    font-size: 12px;\n  }\n  .text-\\[13px\\] {\n    font-size: 13px;\n  }\n  .leading-none {\n    --tw-leading: 1;\n    line-height: 1;\n  }\n  .leading-relaxed {\n    --tw-leading: var(--leading-relaxed);\n    line-height: var(--leading-relaxed);\n  }\n  .leading-tight {\n    --tw-leading: var(--leading-tight);\n    line-height: var(--leading-tight);\n  }\n  .font-black {\n    --tw-font-weight: var(--font-weight-black);\n    font-weight: var(--font-weight-black);\n  }\n  .font-bold {\n    --tw-font-weight: var(--font-weight-bold);\n    font-weight: var(--font-weight-bold);\n  }\n  .tracking-\\[0\\.1em\\] {\n    --tw-tracking: 0.1em;\n    letter-spacing: 0.1em;\n  }\n  .tracking-\\[0\\.2em\\] {\n    --tw-tracking: 0.2em;\n    letter-spacing: 0.2em;\n  }\n  .tracking-\\[0\\.3em\\] {\n    --tw-tracking: 0.3em;\n    letter-spacing: 0.3em;\n  }\n  .tracking-\\[0\\.4em\\] {\n    --tw-tracking: 0.4em;\n    letter-spacing: 0.4em;\n  }\n  .tracking-tight {\n    --tw-tracking: var(--tracking-tight);\n    letter-spacing: var(--tracking-tight);\n  }\n  .tracking-tighter {\n    --tw-tracking: var(--tracking-tighter);\n    letter-spacing: var(--tracking-tighter);\n  }\n  .tracking-wider {\n    --tw-tracking: var(--tracking-wider);\n    letter-spacing: var(--tracking-wider);\n  }\n  .tracking-widest {\n    --tw-tracking: var(--tracking-widest);\n    letter-spacing: var(--tracking-widest);\n  }\n  .whitespace-nowrap {\n    white-space: nowrap;\n  }\n  .text-amber-400 {\n    color: var(--color-amber-400);\n  }\n  .text-black {\n    color: var(--color-black);\n  }\n  .text-red-500 {\n    color: var(--color-red-500);\n  }\n  .text-white {\n    color: var(--color-white);\n  }\n  .text-zinc-200 {\n    color: var(--color-zinc-200);\n  }\n  .text-zinc-300 {\n    color: var(--color-zinc-300);\n  }\n  .text-zinc-400 {\n    color: var(--color-zinc-400);\n  }\n  .text-zinc-500 {\n    color: var(--color-zinc-500);\n  }\n  .text-zinc-600 {\n    color: var(--color-zinc-600);\n  }\n  .uppercase {\n    text-transform: uppercase;\n  }\n  .opacity-10 {\n    opacity: 10%;\n  }\n  .opacity-20 {\n    opacity: 20%;\n  }\n  .opacity-40 {\n    opacity: 40%;\n  }\n  .opacity-50 {\n    opacity: 50%;\n  }\n  .opacity-60 {\n    opacity: 60%;\n  }\n  .opacity-80 {\n    opacity: 80%;\n  }\n  .opacity-\\[0\\.03\\] {\n    opacity: 0.03;\n  }\n  .opacity-\\[0\\.05\\] {\n    opacity: 0.05;\n  }\n  .shadow-2xl {\n    --tw-shadow: 0 25px 50px -12px var(--tw-shadow-color, rgb(0 0 0 / 0.25));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_10px_\\#ef4444\\] {\n    --tw-shadow: 0 0 10px var(--tw-shadow-color, #ef4444);\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_10px_currentColor\\] {\n    --tw-shadow: 0 0 10px var(--tw-shadow-color, currentColor);\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_10px_rgba\\(46\\,125\\,50\\,0\\.3\\)\\] {\n    --tw-shadow: 0 0 10px var(--tw-shadow-color, rgba(46,125,50,0.3));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_10px_rgba\\(46\\,125\\,50\\,0\\.5\\)\\] {\n    --tw-shadow: 0 0 10px var(--tw-shadow-color, rgba(46,125,50,0.5));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_15px_rgba\\(46\\,125\\,50\\,0\\.4\\)\\] {\n    --tw-shadow: 0 0 15px var(--tw-shadow-color, rgba(46,125,50,0.4));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_15px_rgba\\(239\\,68\\,68\\,0\\.2\\)\\] {\n    --tw-shadow: 0 0 15px var(--tw-shadow-color, rgba(239,68,68,0.2));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_15px_rgba\\(239\\,68\\,68\\,0\\.8\\)\\] {\n    --tw-shadow: 0 0 15px var(--tw-shadow-color, rgba(239,68,68,0.8));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_20px_rgba\\(46\\,125\\,50\\,0\\.5\\)\\] {\n    --tw-shadow: 0 0 20px var(--tw-shadow-color, rgba(46,125,50,0.5));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_20px_rgba\\(46\\,125\\,50\\,0\\.6\\)\\] {\n    --tw-shadow: 0 0 20px var(--tw-shadow-color, rgba(46,125,50,0.6));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_20px_rgba\\(239\\,68\\,68\\,0\\.4\\)\\] {\n    --tw-shadow: 0 0 20px var(--tw-shadow-color, rgba(239,68,68,0.4));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_20px_rgba\\(239\\,68\\,68\\,0\\.5\\)\\] {\n    --tw-shadow: 0 0 20px var(--tw-shadow-color, rgba(239,68,68,0.5));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_30px_rgba\\(239\\,68\\,68\\,0\\.6\\)\\] {\n    --tw-shadow: 0 0 30px var(--tw-shadow-color, rgba(239,68,68,0.6));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_100px_rgba\\(0\\,0\\,0\\,0\\.8\\)\\,0_0_40px_rgba\\(239\\,68\\,68\\,0\\.15\\)\\] {\n    --tw-shadow: 0 0 100px var(--tw-shadow-color, rgba(0,0,0,0.8)), 0 0 40px var(--tw-shadow-color, rgba(239,68,68,0.15));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-lg {\n    --tw-shadow: 0 10px 15px -3px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 4px 6px -4px var(--tw-shadow-color, rgb(0 0 0 / 0.1));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-black {\n    --tw-shadow-color: #000;\n    @supports (color: color-mix(in lab, red, red)) {\n      --tw-shadow-color: color-mix(in oklab, var(--color-black) var(--tw-shadow-alpha), transparent);\n    }\n  }\n  .drop-shadow-\\[0_0_8px_rgba\\(239\\,68\\,68\\,0\\.5\\)\\] {\n    --tw-drop-shadow-size: drop-shadow(0 0 8px var(--tw-drop-shadow-color, rgba(239,68,68,0.5)));\n    --tw-drop-shadow: var(--tw-drop-shadow-size);\n    filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);\n  }\n  .drop-shadow-md {\n    --tw-drop-shadow-size: drop-shadow(0 3px 3px var(--tw-drop-shadow-color, rgb(0 0 0 / 0.12)));\n    --tw-drop-shadow: drop-shadow(var(--drop-shadow-md));\n    filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);\n  }\n  .filter {\n    filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);\n  }\n  .backdrop-blur-\\[2px\\] {\n    --tw-backdrop-blur: blur(2px);\n    -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);\n    backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);\n  }\n  .backdrop-blur-md {\n    --tw-backdrop-blur: blur(var(--blur-md));\n    -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);\n    backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);\n  }\n  .backdrop-blur-sm {\n    --tw-backdrop-blur: blur(var(--blur-sm));\n    -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);\n    backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);\n  }\n  .backdrop-blur-xl {\n    --tw-backdrop-blur: blur(var(--blur-xl));\n    -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);\n    backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);\n  }\n  .transition {\n    transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter, display, content-visibility, overlay, pointer-events;\n    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));\n    transition-duration: var(--tw-duration, var(--default-transition-duration));\n  }\n  .transition-all {\n    transition-property: all;\n    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));\n    transition-duration: var(--tw-duration, var(--default-transition-duration));\n  }\n  .transition-colors {\n    transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to;\n    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));\n    transition-duration: var(--tw-duration, var(--default-transition-duration));\n  }\n  .duration-500 {\n    --tw-duration: 500ms;\n    transition-duration: 500ms;\n  }\n  .duration-700 {\n    --tw-duration: 700ms;\n    transition-duration: 700ms;\n  }\n  .ease-out {\n    --tw-ease: var(--ease-out);\n    transition-timing-function: var(--ease-out);\n  }\n  .select-none {\n    -webkit-user-select: none;\n    user-select: none;\n  }\n}\n@property --tw-translate-x {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0;\n}\n@property --tw-translate-y {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0;\n}\n@property --tw-translate-z {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0;\n}\n@property --tw-rotate-x {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-rotate-y {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-rotate-z {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-skew-x {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-skew-y {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-space-y-reverse {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0;\n}\n@property --tw-border-style {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: solid;\n}\n@property --tw-leading {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-font-weight {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-tracking {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-shadow {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0 0 #0000;\n}\n@property --tw-shadow-color {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-shadow-alpha {\n  syntax: \"<percentage>\";\n  inherits: false;\n  initial-value: 100%;\n}\n@property --tw-inset-shadow {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0 0 #0000;\n}\n@property --tw-inset-shadow-color {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-inset-shadow-alpha {\n  syntax: \"<percentage>\";\n  inherits: false;\n  initial-value: 100%;\n}\n@property --tw-ring-color {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-ring-shadow {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0 0 #0000;\n}\n@property --tw-inset-ring-color {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-inset-ring-shadow {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0 0 #0000;\n}\n@property --tw-ring-inset {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-ring-offset-width {\n  syntax: \"<length>\";\n  inherits: false;\n  initial-value: 0px;\n}\n@property --tw-ring-offset-color {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: #fff;\n}\n@property --tw-ring-offset-shadow {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0 0 #0000;\n}\n@property --tw-blur {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-brightness {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-contrast {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-grayscale {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-hue-rotate {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-invert {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-opacity {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-saturate {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-sepia {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-drop-shadow {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-drop-shadow-color {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-drop-shadow-alpha {\n  syntax: \"<percentage>\";\n  inherits: false;\n  initial-value: 100%;\n}\n@property --tw-drop-shadow-size {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-backdrop-blur {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-backdrop-brightness {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-backdrop-contrast {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-backdrop-grayscale {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-backdrop-hue-rotate {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-backdrop-invert {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-backdrop-opacity {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-backdrop-saturate {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-backdrop-sepia {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-duration {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-ease {\n  syntax: \"*\";\n  inherits: false;\n}\n@keyframes spin {\n  to {\n    transform: rotate(360deg);\n  }\n}\n@keyframes pulse {\n  50% {\n    opacity: 0.5;\n  }\n}\n@layer properties {\n  @supports ((-webkit-hyphens: none) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color:rgb(from red r g b)))) {\n    *, ::before, ::after, ::backdrop {\n      --tw-translate-x: 0;\n      --tw-translate-y: 0;\n      --tw-translate-z: 0;\n      --tw-rotate-x: initial;\n      --tw-rotate-y: initial;\n      --tw-rotate-z: initial;\n      --tw-skew-x: initial;\n      --tw-skew-y: initial;\n      --tw-space-y-reverse: 0;\n      --tw-border-style: solid;\n      --tw-leading: initial;\n      --tw-font-weight: initial;\n      --tw-tracking: initial;\n      --tw-shadow: 0 0 #0000;\n      --tw-shadow-color: initial;\n      --tw-shadow-alpha: 100%;\n      --tw-inset-shadow: 0 0 #0000;\n      --tw-inset-shadow-color: initial;\n      --tw-inset-shadow-alpha: 100%;\n      --tw-ring-color: initial;\n      --tw-ring-shadow: 0 0 #0000;\n      --tw-inset-ring-color: initial;\n      --tw-inset-ring-shadow: 0 0 #0000;\n      --tw-ring-inset: initial;\n      --tw-ring-offset-width: 0px;\n      --tw-ring-offset-color: #fff;\n      --tw-ring-offset-shadow: 0 0 #0000;\n      --tw-blur: initial;\n      --tw-brightness: initial;\n      --tw-contrast: initial;\n      --tw-grayscale: initial;\n      --tw-hue-rotate: initial;\n      --tw-invert: initial;\n      --tw-opacity: initial;\n      --tw-saturate: initial;\n      --tw-sepia: initial;\n      --tw-drop-shadow: initial;\n      --tw-drop-shadow-color: initial;\n      --tw-drop-shadow-alpha: 100%;\n      --tw-drop-shadow-size: initial;\n      --tw-backdrop-blur: initial;\n      --tw-backdrop-brightness: initial;\n      --tw-backdrop-contrast: initial;\n      --tw-backdrop-grayscale: initial;\n      --tw-backdrop-hue-rotate: initial;\n      --tw-backdrop-invert: initial;\n      --tw-backdrop-opacity: initial;\n      --tw-backdrop-saturate: initial;\n      --tw-backdrop-sepia: initial;\n      --tw-duration: initial;\n      --tw-ease: initial;\n    }\n  }\n}\n"],"sourceRoot":""}]);
+`, "",{"version":3,"sources":["webpack://./src/index.css"],"names":[],"mappings":"AAAA,gEAAgE;AAChE,iBAAiB;AACjB,yCAAyC;AACzC;EACE;IACE;6DACyD;IACzD;iDAC6C;IAC7C,0CAA0C;IAC1C,0CAA0C;IAC1C,0CAA0C;IAC1C,4CAA4C;IAC5C,+CAA+C;IAC/C,0CAA0C;IAC1C,4CAA4C;IAC5C,4CAA4C;IAC5C,4CAA4C;IAC5C,4CAA4C;IAC5C,2CAA2C;IAC3C,4CAA4C;IAC5C,2CAA2C;IAC3C,mBAAmB;IACnB,mBAAmB;IACnB,kBAAkB;IAClB,qBAAqB;IACrB,sBAAsB;IACtB,sBAAsB;IACtB,sBAAsB;IACtB,kBAAkB;IAClB,sCAAsC;IACtC,mBAAmB;IACnB,0CAA0C;IAC1C,mBAAmB;IACnB,0CAA0C;IAC1C,kBAAkB;IAClB,yCAAyC;IACzC,kBAAkB;IAClB,sCAAsC;IACtC,oBAAoB;IACpB,2CAA2C;IAC3C,mBAAmB;IACnB,yCAAyC;IACzC,gBAAgB;IAChB,0BAA0B;IAC1B,mBAAmB;IACnB,0BAA0B;IAC1B,uBAAuB;IACvB,wBAAwB;IACxB,2BAA2B;IAC3B,0BAA0B;IAC1B,wBAAwB;IACxB,wBAAwB;IACxB,qBAAqB;IACrB,wBAAwB;IACxB,oBAAoB;IACpB,mBAAmB;IACnB,oBAAoB;IACpB,kBAAkB;IAClB,oBAAoB;IACpB,6CAA6C;IAC7C,sCAAsC;IACtC,uCAAuC;IACvC,+DAA+D;IAC/D,cAAc;IACd,eAAe;IACf,eAAe;IACf,sBAAsB;IACtB,oCAAoC;IACpC,kEAAkE;IAClE,uCAAuC;IACvC,wEAAwE;IACxE;;KAEC;IACD,4CAA4C;IAC5C;;KAEC;IACD;;KAEC;EACH;AACF;AACA;EACE;IACE,sBAAsB;IACtB,SAAS;IACT,UAAU;IACV,eAAe;EACjB;EACA;IACE,gBAAgB;IAChB,8BAA8B;IAC9B,WAAW;IACX,6JAA6J;IAC7J,mEAAmE;IACnE,yEAAyE;IACzE,wCAAwC;EAC1C;EACA;IACE,oBAAoB;EACtB;EACA;IACE,SAAS;IACT,cAAc;IACd,qBAAqB;EACvB;EACA;IACE,yCAAyC;IACzC,iCAAiC;EACnC;EACA;IACE,kBAAkB;IAClB,oBAAoB;EACtB;EACA;IACE,cAAc;IACd,gCAAgC;IAChC,wBAAwB;EAC1B;EACA;IACE,mBAAmB;EACrB;EACA;IACE,kJAAkJ;IAClJ,0EAA0E;IAC1E,8EAA8E;IAC9E,cAAc;EAChB;EACA;IACE,cAAc;EAChB;EACA;IACE,cAAc;IACd,cAAc;IACd,kBAAkB;IAClB,wBAAwB;EAC1B;EACA;IACE,eAAe;EACjB;EACA;IACE,WAAW;EACb;EACA;IACE,cAAc;IACd,qBAAqB;IACrB,yBAAyB;EAC3B;EACA;IACE,aAAa;EACf;EACA;IACE,wBAAwB;EAC1B;EACA;IACE,kBAAkB;EACpB;EACA;IACE,gBAAgB;EAClB;EACA;IACE,cAAc;IACd,sBAAsB;EACxB;EACA;IACE,eAAe;IACf,YAAY;EACd;EACA;IACE,aAAa;IACb,8BAA8B;IAC9B,gCAAgC;IAChC,uBAAuB;IACvB,cAAc;IACd,gBAAgB;IAChB,6BAA6B;IAC7B,UAAU;EACZ;EACA;IACE,mBAAmB;EACrB;EACA;IACE,0BAA0B;EAC5B;EACA;IACE,sBAAsB;EACxB;EACA;IACE,UAAU;IACV,mBAAmB;IACnB;MACE,yDAAyD;IAC3D;EACF;EACA;IACE,gBAAgB;EAClB;EACA;IACE,wBAAwB;EAC1B;EACA;IACE,eAAe;IACf,mBAAmB;EACrB;EACA;IACE,oBAAoB;EACtB;EACA;IACE,UAAU;EACZ;EACA;IACE,gBAAgB;EAClB;EACA;IACE,gBAAgB;EAClB;EACA;IACE,kBAAkB;EACpB;EACA;IACE,YAAY;EACd;EACA;IACE,wBAAwB;EAC1B;AACF;AACA;EACE;IACE,oBAAoB;EACtB;EACA;IACE,mBAAmB;EACrB;EACA;IACE,kBAAkB;EACpB;EACA;IACE,kBAAkB;EACpB;EACA;IACE,gBAAgB;EAClB;EACA;IACE,+BAA+B;EACjC;EACA;IACE,kCAAkC;EACpC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,8BAA8B;EAChC;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,uBAAuB;EACzB;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,8BAA8B;EAChC;EACA;IACE,QAAQ;EACV;EACA;IACE,+BAA+B;EACjC;EACA;IACE,+BAA+B;EACjC;EACA;IACE,+BAA+B;EACjC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,iCAAiC;EACnC;EACA;IACE,8BAA8B;EAChC;EACA;IACE,wBAAwB;EAC1B;EACA;IACE,8BAA8B;EAChC;EACA;IACE,8BAA8B;EAChC;EACA;IACE,UAAU;EACZ;EACA;IACE,SAAS;EACX;EACA;IACE,UAAU;EACZ;EACA;IACE,WAAW;EACb;EACA;IACE,WAAW;EACb;EACA;IACE,WAAW;EACb;EACA;IACE,WAAW;EACb;EACA;IACE,WAAW;EACb;EACA;IACE,WAAW;EACb;EACA;IACE,4BAA4B;EAC9B;EACA;IACE,4BAA4B;EAC9B;EACA;IACE,4BAA4B;EAC9B;EACA;IACE,4BAA4B;EAC9B;EACA;IACE,WAAW;IACX;MACE,gBAAgB;IAClB;IACA;MACE,gBAAgB;IAClB;IACA;MACE,gBAAgB;IAClB;IACA;MACE,gBAAgB;IAClB;IACA;MACE,gBAAgB;IAClB;EACF;EACA;IACE,mBAAmB;EACrB;EACA;IACE,sCAAsC;EACxC;EACA;IACE,oCAAoC;EACtC;EACA;IACE,oCAAoC;EACtC;EACA;IACE,oCAAoC;EACtC;EACA;IACE,qCAAqC;EACvC;EACA;IACE,gBAAgB;EAClB;EACA;IACE,sCAAsC;EACxC;EACA;IACE,uCAAuC;EACzC;EACA;IACE,uCAAuC;EACzC;EACA;IACE,uCAAuC;EACzC;EACA;IACE,uCAAuC;EACzC;EACA;IACE,uCAAuC;EACzC;EACA;IACE,uCAAuC;EACzC;EACA;IACE,cAAc;EAChB;EACA;IACE,aAAa;EACf;EACA;IACE,aAAa;EACf;EACA;IACE,aAAa;EACf;EACA;IACE,iCAAiC;EACnC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,kCAAkC;EACpC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,kCAAkC;EACpC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,iCAAiC;EACnC;EACA;IACE,iCAAiC;EACnC;EACA;IACE,iCAAiC;EACnC;EACA;IACE,iCAAiC;EACnC;EACA;IACE,iCAAiC;EACnC;EACA;IACE,iCAAiC;EACnC;EACA;IACE,WAAW;EACb;EACA;IACE,WAAW;EACb;EACA;IACE,YAAY;EACd;EACA;IACE,oCAAoC;EACtC;EACA;IACE,+BAA+B;EACjC;EACA;IACE,yBAAyB;EAC3B;EACA;IACE,+BAA+B;EACjC;EACA;IACE,iCAAiC;EACnC;EACA;IACE,+BAA+B;EACjC;EACA;IACE,+BAA+B;EACjC;EACA;IACE,+BAA+B;EACjC;EACA;IACE,+BAA+B;EACjC;EACA;IACE,+BAA+B;EACjC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,UAAU;EACZ;EACA;IACE,YAAY;EACd;EACA;IACE,YAAY;EACd;EACA;IACE,YAAY;EACd;EACA;IACE,WAAW;EACb;EACA;IACE,+BAA+B;EACjC;EACA;IACE,+BAA+B;EACjC;EACA;IACE,+BAA+B;EACjC;EACA;IACE,cAAc;EAChB;EACA;IACE,8BAA8B;EAChC;EACA;IACE,gBAAgB;EAClB;EACA;IACE,OAAO;EACT;EACA;IACE,cAAc;EAChB;EACA;IACE,+CAA+C;IAC/C,sDAAsD;EACxD;EACA;IACE,+CAA+C;IAC/C,sDAAsD;EACxD;EACA;IACE,WAAW;EACb;EACA;IACE,0GAA0G;EAC5G;EACA;IACE,+BAA+B;EACjC;EACA;IACE,8BAA8B;EAChC;EACA;IACE,gDAAgD;EAClD;EACA;IACE,gDAAgD;EAClD;EACA;IACE,gDAAgD;EAClD;EACA;IACE,iDAAiD;EACnD;EACA;IACE,6CAA6C;EAC/C;EACA;IACE,sBAAsB;EACxB;EACA;IACE,mBAAmB;EACrB;EACA;IACE,qBAAqB;EACvB;EACA;IACE,mBAAmB;EACrB;EACA;IACE,qBAAqB;EACvB;EACA;IACE,uBAAuB;EACzB;EACA;IACE,8BAA8B;EAChC;EACA;IACE,uBAAuB;EACzB;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,6BAA6B;EAC/B;EACA;IACE;MACE,uBAAuB;MACvB,8EAA8E;MAC9E,sFAAsF;IACxF;EACF;EACA;IACE;MACE,uBAAuB;MACvB,8EAA8E;MAC9E,sFAAsF;IACxF;EACF;EACA;IACE;MACE,uBAAuB;MACvB,8EAA8E;MAC9E,sFAAsF;IACxF;EACF;EACA;IACE;MACE,uBAAuB;MACvB,8EAA8E;MAC9E,sFAAsF;IACxF;EACF;EACA;IACE;MACE,uBAAuB;MACvB,8EAA8E;MAC9E,sFAAsF;IACxF;EACF;EACA;IACE,gBAAgB;EAClB;EACA;IACE,gBAAgB;EAClB;EACA;IACE,sBAAsB;EACxB;EACA;IACE,gCAAgC;EAClC;EACA;IACE,gCAAgC;EAClC;EACA;IACE,mBAAmB;EACrB;EACA;IACE,mCAAmC;EACrC;EACA;IACE,+BAA+B;EACjC;EACA;IACE,+BAA+B;EACjC;EACA;IACE,wCAAwC;IACxC,yCAAyC;EAC3C;EACA;IACE,oCAAoC;IACpC,iBAAiB;EACnB;EACA;IACE,oCAAoC;IACpC,iBAAiB;EACnB;EACA;IACE,oCAAoC;IACpC,iBAAiB;EACnB;EACA;IACE,wCAAwC;IACxC,qBAAqB;EACvB;EACA;IACE,wCAAwC;IACxC,qBAAqB;EACvB;EACA;IACE,wCAAwC;IACxC,qBAAqB;EACvB;EACA;IACE,0CAA0C;IAC1C,uBAAuB;EACzB;EACA;IACE,0CAA0C;IAC1C,uBAAuB;EACzB;EACA;IACE,0CAA0C;IAC1C,uBAAuB;EACzB;EACA;IACE,2CAA2C;IAC3C,wBAAwB;EAC1B;EACA;IACE,2CAA2C;IAC3C,wBAAwB;EAC1B;EACA;IACE,2CAA2C;IAC3C,wBAAwB;EAC1B;EACA;IACE,yCAAyC;IACzC,sBAAsB;EACxB;EACA;IACE,yCAAyC;IACzC,sBAAsB;EACxB;EACA;IACE,yBAAyB;IACzB,oBAAoB;EACtB;EACA;IACE,kCAAkC;EACpC;EACA;IACE,kCAAkC;EACpC;EACA;IACE,sDAAsD;IACtD;MACE,qEAAqE;IACvE;EACF;EACA;IACE,uDAAuD;IACvD;MACE,sEAAsE;IACxE;EACF;EACA;IACE,uDAAuD;IACvD;MACE,sEAAsE;IACxE;EACF;EACA;IACE,4EAA4E;IAC5E;MACE,yEAAyE;IAC3E;EACF;EACA;IACE,yBAAyB;EAC3B;EACA;IACE,yBAAyB;EAC3B;EACA;IACE,oCAAoC;EACtC;EACA;IACE,2DAA2D;IAC3D;MACE,0EAA0E;IAC5E;EACF;EACA;IACE,2DAA2D;IAC3D;MACE,0EAA0E;IAC5E;EACF;EACA;IACE,2DAA2D;IAC3D;MACE,0EAA0E;IAC5E;EACF;EACA;IACE,2DAA2D;IAC3D;MACE,0EAA0E;IAC5E;EACF;EACA;IACE,2DAA2D;IAC3D;MACE,0EAA0E;IAC5E;EACF;EACA;IACE,0CAA0C;EAC5C;EACA;IACE,sCAAsC;EACxC;EACA;IACE,sCAAsC;EACxC;EACA;IACE,0DAA0D;IAC1D;MACE,yEAAyE;IAC3E;EACF;EACA;IACE,2DAA2D;IAC3D;MACE,0EAA0E;IAC5E;EACF;EACA;IACE,uCAAuC;EACzC;EACA;IACE,gFAAgF;IAChF;MACE,6EAA6E;IAC/E;EACF;EACA;IACE,gFAAgF;IAChF;MACE,6EAA6E;IAC/E;EACF;EACA;IACE,gFAAgF;IAChF;MACE,6EAA6E;IAC/E;EACF;EACA;IACE,gFAAgF;IAChF;MACE,6EAA6E;IAC/E;EACF;EACA;IACE,yCAAyC;IACzC,2DAA2D;EAC7D;EACA;IACE,kIAAkI;EACpI;EACA;IACE,+BAA+B;IAC/B,8LAA8L;EAChM;EACA;IACE,6BAA6B;IAC7B,8LAA8L;EAChM;EACA;IACE,0BAA0B;EAC5B;EACA;IACE,iCAAiC;EACnC;EACA;IACE,iCAAiC;EACnC;EACA;IACE,iCAAiC;EACnC;EACA;IACE,iCAAiC;EACnC;EACA;IACE,iCAAiC;EACnC;EACA;IACE,iCAAiC;EACnC;EACA;IACE,iCAAiC;EACnC;EACA;IACE,kCAAkC;EACpC;EACA;IACE,wCAAwC;EAC1C;EACA;IACE,wCAAwC;EAC1C;EACA;IACE,wCAAwC;EAC1C;EACA;IACE,wCAAwC;EAC1C;EACA;IACE,wCAAwC;EAC1C;EACA;IACE,wCAAwC;EAC1C;EACA;IACE,yCAAyC;EAC3C;EACA;IACE,yCAAyC;EAC3C;EACA;IACE,yCAAyC;EAC3C;EACA;IACE,yCAAyC;EAC3C;EACA;IACE,uCAAuC;EACzC;EACA;IACE,yCAAyC;EAC3C;EACA;IACE,uCAAuC;EACzC;EACA;IACE,uCAAuC;EACzC;EACA;IACE,uCAAuC;EACzC;EACA;IACE,uCAAuC;EACzC;EACA;IACE,uCAAuC;EACzC;EACA;IACE,wCAAwC;EAC1C;EACA;IACE,qCAAqC;EACvC;EACA;IACE,uCAAuC;EACzC;EACA;IACE,wCAAwC;EAC1C;EACA;IACE,wCAAwC;EAC1C;EACA;IACE,kBAAkB;EACpB;EACA;IACE,iBAAiB;EACnB;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,0BAA0B;IAC1B,4DAA4D;EAC9D;EACA;IACE,0BAA0B;IAC1B,4DAA4D;EAC9D;EACA;IACE,0BAA0B;IAC1B,4DAA4D;EAC9D;EACA;IACE,0BAA0B;IAC1B,4DAA4D;EAC9D;EACA;IACE,0BAA0B;IAC1B,4DAA4D;EAC9D;EACA;IACE,yBAAyB;IACzB,2DAA2D;EAC7D;EACA;IACE,yBAAyB;IACzB,2DAA2D;EAC7D;EACA;IACE,yBAAyB;IACzB,2DAA2D;EAC7D;EACA;IACE,yBAAyB;IACzB,2DAA2D;EAC7D;EACA;IACE,iBAAiB;EACnB;EACA;IACE,cAAc;EAChB;EACA;IACE,cAAc;EAChB;EACA;IACE,eAAe;EACjB;EACA;IACE,eAAe;EACjB;EACA;IACE,eAAe;EACjB;EACA;IACE,eAAe;EACjB;EACA;IACE,eAAe;IACf,cAAc;EAChB;EACA;IACE,oCAAoC;IACpC,mCAAmC;EACrC;EACA;IACE,kCAAkC;IAClC,iCAAiC;EACnC;EACA;IACE,0CAA0C;IAC1C,qCAAqC;EACvC;EACA;IACE,yCAAyC;IACzC,oCAAoC;EACtC;EACA;IACE,oBAAoB;IACpB,qBAAqB;EACvB;EACA;IACE,oBAAoB;IACpB,qBAAqB;EACvB;EACA;IACE,oBAAoB;IACpB,qBAAqB;EACvB;EACA;IACE,oBAAoB;IACpB,qBAAqB;EACvB;EACA;IACE,oBAAoB;IACpB,qBAAqB;EACvB;EACA;IACE,oCAAoC;IACpC,qCAAqC;EACvC;EACA;IACE,sCAAsC;IACtC,uCAAuC;EACzC;EACA;IACE,oCAAoC;IACpC,qCAAqC;EACvC;EACA;IACE,qCAAqC;IACrC,sCAAsC;EACxC;EACA;IACE,mBAAmB;EACrB;EACA;IACE,6BAA6B;EAC/B;EACA;IACE,yBAAyB;EAC3B;EACA;IACE,2BAA2B;EAC7B;EACA;IACE,yBAAyB;EAC3B;EACA;IACE,4BAA4B;EAC9B;EACA;IACE,4BAA4B;EAC9B;EACA;IACE,4BAA4B;EAC9B;EACA;IACE,4BAA4B;EAC9B;EACA;IACE,4BAA4B;EAC9B;EACA;IACE,yBAAyB;EAC3B;EACA;IACE,YAAY;EACd;EACA;IACE,YAAY;EACd;EACA;IACE,YAAY;EACd;EACA;IACE,YAAY;EACd;EACA;IACE,YAAY;EACd;EACA;IACE,YAAY;EACd;EACA;IACE,aAAa;EACf;EACA;IACE,aAAa;EACf;EACA;IACE,wEAAwE;IACxE,sIAAsI;EACxI;EACA;IACE,oDAAoD;IACpD,sIAAsI;EACxI;EACA;IACE,qDAAqD;IACrD,sIAAsI;EACxI;EACA;IACE,qDAAqD;IACrD,sIAAsI;EACxI;EACA;IACE,qDAAqD;IACrD,sIAAsI;EACxI;EACA;IACE,0DAA0D;IAC1D,sIAAsI;EACxI;EACA;IACE,iEAAiE;IACjE,sIAAsI;EACxI;EACA;IACE,iEAAiE;IACjE,sIAAsI;EACxI;EACA;IACE,iEAAiE;IACjE,sIAAsI;EACxI;EACA;IACE,iEAAiE;IACjE,sIAAsI;EACxI;EACA;IACE,iEAAiE;IACjE,sIAAsI;EACxI;EACA;IACE,iEAAiE;IACjE,sIAAsI;EACxI;EACA;IACE,iEAAiE;IACjE,sIAAsI;EACxI;EACA;IACE,iEAAiE;IACjE,sIAAsI;EACxI;EACA;IACE,iEAAiE;IACjE,sIAAsI;EACxI;EACA;IACE,kEAAkE;IAClE,sIAAsI;EACxI;EACA;IACE,mEAAmE;IACnE,sIAAsI;EACxI;EACA;IACE,iEAAiE;IACjE,sIAAsI;EACxI;EACA;IACE,iEAAiE;IACjE,sIAAsI;EACxI;EACA;IACE,kEAAkE;IAClE,sIAAsI;EACxI;EACA;IACE,iEAAiE;IACjE,sIAAsI;EACxI;EACA;IACE,qHAAqH;IACrH,sIAAsI;EACxI;EACA;IACE,uEAAuE;IACvE,sIAAsI;EACxI;EACA;IACE,+HAA+H;IAC/H,sIAAsI;EACxI;EACA;IACE,uBAAuB;IACvB;MACE,8FAA8F;IAChG;EACF;EACA;IACE,4FAA4F;IAC5F,4CAA4C;IAC5C,0LAA0L;EAC5L;EACA;IACE,4FAA4F;IAC5F,4CAA4C;IAC5C,0LAA0L;EAC5L;EACA;IACE,4FAA4F;IAC5F,oDAAoD;IACpD,0LAA0L;EAC5L;EACA;IACE,0LAA0L;EAC5L;EACA;IACE,6BAA6B;IAC7B,wRAAwR;IACxR,gRAAgR;EAClR;EACA;IACE,wCAAwC;IACxC,wRAAwR;IACxR,gRAAgR;EAClR;EACA;IACE,wCAAwC;IACxC,wRAAwR;IACxR,gRAAgR;EAClR;EACA;IACE,wCAAwC;IACxC,wRAAwR;IACxR,gRAAgR;EAClR;EACA;IACE,yUAAyU;IACzU,qFAAqF;IACrF,2EAA2E;EAC7E;EACA;IACE,wBAAwB;IACxB,qFAAqF;IACrF,2EAA2E;EAC7E;EACA;IACE,uKAAuK;IACvK,qFAAqF;IACrF,2EAA2E;EAC7E;EACA;IACE,oBAAoB;IACpB,0BAA0B;EAC5B;EACA;IACE,oBAAoB;IACpB,0BAA0B;EAC5B;EACA;IACE,oBAAoB;IACpB,0BAA0B;EAC5B;EACA;IACE,0BAA0B;IAC1B,2CAA2C;EAC7C;EACA;IACE,yBAAyB;IACzB,iBAAiB;EACnB;AACF;AACA;EACE,WAAW;EACX,eAAe;EACf,gBAAgB;AAClB;AACA;EACE,WAAW;EACX,eAAe;EACf,gBAAgB;AAClB;AACA;EACE,WAAW;EACX,eAAe;EACf,gBAAgB;AAClB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;EACf,gBAAgB;AAClB;AACA;EACE,WAAW;EACX,eAAe;EACf,oBAAoB;AACtB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,iBAAiB;EACjB,eAAe;EACf,oBAAoB;AACtB;AACA;EACE,iBAAiB;EACjB,eAAe;EACf,oBAAoB;AACtB;AACA;EACE,iBAAiB;EACjB,eAAe;EACf,oBAAoB;AACtB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,6BAA6B;EAC7B,eAAe;EACf,iBAAiB;AACnB;AACA;EACE,6BAA6B;EAC7B,eAAe;EACf,kBAAkB;AACpB;AACA;EACE,6BAA6B;EAC7B,eAAe;EACf,mBAAmB;AACrB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;EACf,wBAAwB;AAC1B;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,sBAAsB;EACtB,eAAe;EACf,mBAAmB;AACrB;AACA;EACE,WAAW;EACX,eAAe;EACf,wBAAwB;AAC1B;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,sBAAsB;EACtB,eAAe;EACf,mBAAmB;AACrB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;EACf,wBAAwB;AAC1B;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;EACf,wBAAwB;AAC1B;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,kBAAkB;EAClB,eAAe;EACf,kBAAkB;AACpB;AACA;EACE,WAAW;EACX,eAAe;EACf,mBAAmB;AACrB;AACA;EACE,WAAW;EACX,eAAe;EACf,wBAAwB;AAC1B;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,sBAAsB;EACtB,eAAe;EACf,mBAAmB;AACrB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,eAAe;AACjB;AACA;EACE;IACE,yBAAyB;EAC3B;AACF;AACA;EACE;IACE,YAAY;EACd;AACF;AACA;EACE;IACE;MACE,mBAAmB;MACnB,mBAAmB;MACnB,mBAAmB;MACnB,sBAAsB;MACtB,sBAAsB;MACtB,sBAAsB;MACtB,oBAAoB;MACpB,oBAAoB;MACpB,uBAAuB;MACvB,wBAAwB;MACxB,+BAA+B;MAC/B,yBAAyB;MACzB,wBAAwB;MACxB,uBAAuB;MACvB,4BAA4B;MAC5B,gCAAgC;MAChC,+BAA+B;MAC/B,+BAA+B;MAC/B,+BAA+B;MAC/B,qBAAqB;MACrB,yBAAyB;MACzB,sBAAsB;MACtB,sBAAsB;MACtB,0BAA0B;MAC1B,uBAAuB;MACvB,4BAA4B;MAC5B,gCAAgC;MAChC,6BAA6B;MAC7B,wBAAwB;MACxB,2BAA2B;MAC3B,8BAA8B;MAC9B,iCAAiC;MACjC,wBAAwB;MACxB,2BAA2B;MAC3B,4BAA4B;MAC5B,kCAAkC;MAClC,kBAAkB;MAClB,wBAAwB;MACxB,sBAAsB;MACtB,uBAAuB;MACvB,wBAAwB;MACxB,oBAAoB;MACpB,qBAAqB;MACrB,sBAAsB;MACtB,mBAAmB;MACnB,yBAAyB;MACzB,+BAA+B;MAC/B,4BAA4B;MAC5B,8BAA8B;MAC9B,2BAA2B;MAC3B,iCAAiC;MACjC,+BAA+B;MAC/B,gCAAgC;MAChC,iCAAiC;MACjC,6BAA6B;MAC7B,8BAA8B;MAC9B,+BAA+B;MAC/B,4BAA4B;MAC5B,sBAAsB;MACtB,kBAAkB;IACpB;EACF;AACF","sourcesContent":["/*! tailwindcss v4.2.0 | MIT License | https://tailwindcss.com */\n@layer properties;\n@layer theme, base, components, utilities;\n@layer theme {\n  :root, :host {\n    --font-sans: ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\",\n      \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\";\n    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,\n      \"Liberation Mono\", \"Courier New\", monospace;\n    --color-red-400: oklch(0.704 0.191 22.216);\n    --color-red-500: oklch(0.637 0.237 25.331);\n    --color-red-600: oklch(0.577 0.245 27.325);\n    --color-amber-400: oklch(0.828 0.189 84.429);\n    --color-emerald-600: oklch(0.596 0.145 163.225);\n    --color-zinc-200: oklch(0.92 0.004 286.32);\n    --color-zinc-300: oklch(0.871 0.006 286.286);\n    --color-zinc-400: oklch(0.705 0.015 286.067);\n    --color-zinc-500: oklch(0.552 0.016 285.938);\n    --color-zinc-600: oklch(0.442 0.017 285.786);\n    --color-zinc-700: oklch(0.37 0.013 285.805);\n    --color-zinc-800: oklch(0.274 0.006 286.033);\n    --color-zinc-900: oklch(0.21 0.006 285.885);\n    --color-black: #000;\n    --color-white: #fff;\n    --spacing: 0.25rem;\n    --container-xl: 36rem;\n    --container-2xl: 42rem;\n    --container-4xl: 56rem;\n    --container-7xl: 80rem;\n    --text-xs: 0.75rem;\n    --text-xs--line-height: calc(1 / 0.75);\n    --text-sm: 0.875rem;\n    --text-sm--line-height: calc(1.25 / 0.875);\n    --text-lg: 1.125rem;\n    --text-lg--line-height: calc(1.75 / 1.125);\n    --text-xl: 1.25rem;\n    --text-xl--line-height: calc(1.75 / 1.25);\n    --text-2xl: 1.5rem;\n    --text-2xl--line-height: calc(2 / 1.5);\n    --text-3xl: 1.875rem;\n    --text-3xl--line-height: calc(2.25 / 1.875);\n    --text-4xl: 2.25rem;\n    --text-4xl--line-height: calc(2.5 / 2.25);\n    --text-5xl: 3rem;\n    --text-5xl--line-height: 1;\n    --text-6xl: 3.75rem;\n    --text-6xl--line-height: 1;\n    --font-weight-bold: 700;\n    --font-weight-black: 900;\n    --tracking-tighter: -0.05em;\n    --tracking-tight: -0.025em;\n    --tracking-wider: 0.05em;\n    --tracking-widest: 0.1em;\n    --leading-tight: 1.25;\n    --leading-relaxed: 1.625;\n    --radius-sm: 0.25rem;\n    --radius-lg: 0.5rem;\n    --radius-xl: 0.75rem;\n    --radius-2xl: 1rem;\n    --radius-3xl: 1.5rem;\n    --drop-shadow-md: 0 3px 3px rgb(0 0 0 / 0.12);\n    --ease-out: cubic-bezier(0, 0, 0.2, 1);\n    --animate-spin: spin 1s linear infinite;\n    --animate-pulse: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;\n    --blur-sm: 8px;\n    --blur-md: 12px;\n    --blur-xl: 24px;\n    --aspect-video: 16 / 9;\n    --default-transition-duration: 150ms;\n    --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);\n    --default-font-family: var(--font-sans);\n    --default-font-feature-settings: var(--font-sans--font-feature-settings);\n    --default-font-variation-settings: var(\n      --font-sans--font-variation-settings\n    );\n    --default-mono-font-family: var(--font-mono);\n    --default-mono-font-feature-settings: var(\n      --font-mono--font-feature-settings\n    );\n    --default-mono-font-variation-settings: var(\n      --font-mono--font-variation-settings\n    );\n  }\n}\n@layer base {\n  *, ::after, ::before, ::backdrop, ::file-selector-button {\n    box-sizing: border-box;\n    margin: 0;\n    padding: 0;\n    border: 0 solid;\n  }\n  html, :host {\n    line-height: 1.5;\n    -webkit-text-size-adjust: 100%;\n    tab-size: 4;\n    font-family: var( --default-font-family, ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\" );\n    font-feature-settings: var(--default-font-feature-settings, normal);\n    font-variation-settings: var( --default-font-variation-settings, normal );\n    -webkit-tap-highlight-color: transparent;\n  }\n  body {\n    line-height: inherit;\n  }\n  hr {\n    height: 0;\n    color: inherit;\n    border-top-width: 1px;\n  }\n  abbr:where([title]) {\n    -webkit-text-decoration: underline dotted;\n    text-decoration: underline dotted;\n  }\n  h1, h2, h3, h4, h5, h6 {\n    font-size: inherit;\n    font-weight: inherit;\n  }\n  a {\n    color: inherit;\n    -webkit-text-decoration: inherit;\n    text-decoration: inherit;\n  }\n  b, strong {\n    font-weight: bolder;\n  }\n  code, kbd, samp, pre {\n    font-family: var( --default-mono-font-family, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace );\n    font-feature-settings: var( --default-mono-font-feature-settings, normal );\n    font-variation-settings: var( --default-mono-font-variation-settings, normal );\n    font-size: 1em;\n  }\n  small {\n    font-size: 80%;\n  }\n  sub, sup {\n    font-size: 75%;\n    line-height: 0;\n    position: relative;\n    vertical-align: baseline;\n  }\n  sub {\n    bottom: -0.25em;\n  }\n  sup {\n    top: -0.5em;\n  }\n  table {\n    text-indent: 0;\n    border-color: inherit;\n    border-collapse: collapse;\n  }\n  :-moz-focusring {\n    outline: auto;\n  }\n  progress {\n    vertical-align: baseline;\n  }\n  summary {\n    display: list-item;\n  }\n  ol, ul, menu {\n    list-style: none;\n  }\n  img, svg, video, canvas, audio, iframe, embed, object {\n    display: block;\n    vertical-align: middle;\n  }\n  img, video {\n    max-width: 100%;\n    height: auto;\n  }\n  button, input, select, optgroup, textarea, ::file-selector-button {\n    font: inherit;\n    font-feature-settings: inherit;\n    font-variation-settings: inherit;\n    letter-spacing: inherit;\n    color: inherit;\n    border-radius: 0;\n    background-color: transparent;\n    opacity: 1;\n  }\n  :where(select:is([multiple], [size])) optgroup {\n    font-weight: bolder;\n  }\n  :where(select:is([multiple], [size])) optgroup option {\n    padding-inline-start: 20px;\n  }\n  ::file-selector-button {\n    margin-inline-end: 4px;\n  }\n  ::placeholder {\n    opacity: 1;\n    color: currentColor;\n    @supports (color: color-mix(in lab, red, red)) {\n      color: color-mix(in oklab, currentColor 50%, transparent);\n    }\n  }\n  textarea {\n    resize: vertical;\n  }\n  ::-webkit-search-decoration {\n    -webkit-appearance: none;\n  }\n  ::-webkit-date-and-time-value {\n    min-height: 1lh;\n    text-align: inherit;\n  }\n  ::-webkit-datetime-edit {\n    display: inline-flex;\n  }\n  ::-webkit-datetime-edit-fields-wrapper {\n    padding: 0;\n  }\n  ::-webkit-datetime-edit, ::-webkit-datetime-edit-year-field, ::-webkit-datetime-edit-month-field, ::-webkit-datetime-edit-day-field, ::-webkit-datetime-edit-hour-field, ::-webkit-datetime-edit-minute-field, ::-webkit-datetime-edit-second-field, ::-webkit-datetime-edit-millisecond-field, ::-webkit-datetime-edit-meridiem-field {\n    padding-block: 0;\n  }\n  :-moz-ui-invalid {\n    box-shadow: none;\n  }\n  button, input:where([type=\"button\"], [type=\"reset\"], [type=\"submit\"]), ::file-selector-button {\n    appearance: button;\n  }\n  ::-webkit-inner-spin-button, ::-webkit-outer-spin-button {\n    height: auto;\n  }\n  [hidden]:where(:not([hidden=\"until-found\"])) {\n    display: none !important;\n  }\n}\n@layer utilities {\n  .pointer-events-none {\n    pointer-events: none;\n  }\n  .visible {\n    visibility: visible;\n  }\n  .absolute {\n    position: absolute;\n  }\n  .relative {\n    position: relative;\n  }\n  .static {\n    position: static;\n  }\n  .inset-0 {\n    inset: calc(var(--spacing) * 0);\n  }\n  .start {\n    inset-inline-start: var(--spacing);\n  }\n  .end {\n    inset-inline-end: var(--spacing);\n  }\n  .-top-8 {\n    top: calc(var(--spacing) * -8);\n  }\n  .top-0 {\n    top: calc(var(--spacing) * 0);\n  }\n  .top-1\\/2 {\n    top: calc(1 / 2 * 100%);\n  }\n  .top-2 {\n    top: calc(var(--spacing) * 2);\n  }\n  .top-4 {\n    top: calc(var(--spacing) * 4);\n  }\n  .top-8 {\n    top: calc(var(--spacing) * 8);\n  }\n  .top-24 {\n    top: calc(var(--spacing) * 24);\n  }\n  .top-\\[25\\%\\] {\n    top: 25%;\n  }\n  .right-0 {\n    right: calc(var(--spacing) * 0);\n  }\n  .right-4 {\n    right: calc(var(--spacing) * 4);\n  }\n  .right-8 {\n    right: calc(var(--spacing) * 8);\n  }\n  .bottom-0 {\n    bottom: calc(var(--spacing) * 0);\n  }\n  .bottom-4 {\n    bottom: calc(var(--spacing) * 4);\n  }\n  .bottom-6 {\n    bottom: calc(var(--spacing) * 6);\n  }\n  .bottom-16 {\n    bottom: calc(var(--spacing) * 16);\n  }\n  .left-0 {\n    left: calc(var(--spacing) * 0);\n  }\n  .left-1\\/2 {\n    left: calc(1 / 2 * 100%);\n  }\n  .left-2 {\n    left: calc(var(--spacing) * 2);\n  }\n  .left-4 {\n    left: calc(var(--spacing) * 4);\n  }\n  .left-\\[-2px\\] {\n    left: -2px;\n  }\n  .left-\\[30\\%\\] {\n    left: 30%;\n  }\n  .z-0 {\n    z-index: 0;\n  }\n  .z-10 {\n    z-index: 10;\n  }\n  .z-20 {\n    z-index: 20;\n  }\n  .z-30 {\n    z-index: 30;\n  }\n  .z-40 {\n    z-index: 40;\n  }\n  .z-50 {\n    z-index: 50;\n  }\n  .z-\\[50\\] {\n    z-index: 50;\n  }\n  .col-span-3 {\n    grid-column: span 3 / span 3;\n  }\n  .col-span-4 {\n    grid-column: span 4 / span 4;\n  }\n  .col-span-6 {\n    grid-column: span 6 / span 6;\n  }\n  .col-span-8 {\n    grid-column: span 8 / span 8;\n  }\n  .container {\n    width: 100%;\n    @media (width >= 40rem) {\n      max-width: 40rem;\n    }\n    @media (width >= 48rem) {\n      max-width: 48rem;\n    }\n    @media (width >= 64rem) {\n      max-width: 64rem;\n    }\n    @media (width >= 80rem) {\n      max-width: 80rem;\n    }\n    @media (width >= 96rem) {\n      max-width: 96rem;\n    }\n  }\n  .mx-auto {\n    margin-inline: auto;\n  }\n  .mt-0\\.5 {\n    margin-top: calc(var(--spacing) * 0.5);\n  }\n  .mt-1 {\n    margin-top: calc(var(--spacing) * 1);\n  }\n  .mt-2 {\n    margin-top: calc(var(--spacing) * 2);\n  }\n  .mt-4 {\n    margin-top: calc(var(--spacing) * 4);\n  }\n  .mt-12 {\n    margin-top: calc(var(--spacing) * 12);\n  }\n  .mt-auto {\n    margin-top: auto;\n  }\n  .mr-3 {\n    margin-right: calc(var(--spacing) * 3);\n  }\n  .mb-1 {\n    margin-bottom: calc(var(--spacing) * 1);\n  }\n  .mb-2 {\n    margin-bottom: calc(var(--spacing) * 2);\n  }\n  .mb-4 {\n    margin-bottom: calc(var(--spacing) * 4);\n  }\n  .mb-5 {\n    margin-bottom: calc(var(--spacing) * 5);\n  }\n  .mb-6 {\n    margin-bottom: calc(var(--spacing) * 6);\n  }\n  .mb-8 {\n    margin-bottom: calc(var(--spacing) * 8);\n  }\n  .block {\n    display: block;\n  }\n  .flex {\n    display: flex;\n  }\n  .grid {\n    display: grid;\n  }\n  .hidden {\n    display: none;\n  }\n  .aspect-video {\n    aspect-ratio: var(--aspect-video);\n  }\n  .h-1 {\n    height: calc(var(--spacing) * 1);\n  }\n  .h-1\\.5 {\n    height: calc(var(--spacing) * 1.5);\n  }\n  .h-2 {\n    height: calc(var(--spacing) * 2);\n  }\n  .h-2\\.5 {\n    height: calc(var(--spacing) * 2.5);\n  }\n  .h-3 {\n    height: calc(var(--spacing) * 3);\n  }\n  .h-4 {\n    height: calc(var(--spacing) * 4);\n  }\n  .h-5 {\n    height: calc(var(--spacing) * 5);\n  }\n  .h-6 {\n    height: calc(var(--spacing) * 6);\n  }\n  .h-7 {\n    height: calc(var(--spacing) * 7);\n  }\n  .h-12 {\n    height: calc(var(--spacing) * 12);\n  }\n  .h-16 {\n    height: calc(var(--spacing) * 16);\n  }\n  .h-20 {\n    height: calc(var(--spacing) * 20);\n  }\n  .h-32 {\n    height: calc(var(--spacing) * 32);\n  }\n  .h-40 {\n    height: calc(var(--spacing) * 40);\n  }\n  .h-48 {\n    height: calc(var(--spacing) * 48);\n  }\n  .h-\\[1px\\] {\n    height: 1px;\n  }\n  .h-\\[45\\%\\] {\n    height: 45%;\n  }\n  .h-full {\n    height: 100%;\n  }\n  .min-h-0 {\n    min-height: calc(var(--spacing) * 0);\n  }\n  .w-1 {\n    width: calc(var(--spacing) * 1);\n  }\n  .w-1\\/2 {\n    width: calc(1 / 2 * 100%);\n  }\n  .w-2 {\n    width: calc(var(--spacing) * 2);\n  }\n  .w-2\\.5 {\n    width: calc(var(--spacing) * 2.5);\n  }\n  .w-3 {\n    width: calc(var(--spacing) * 3);\n  }\n  .w-4 {\n    width: calc(var(--spacing) * 4);\n  }\n  .w-5 {\n    width: calc(var(--spacing) * 5);\n  }\n  .w-6 {\n    width: calc(var(--spacing) * 6);\n  }\n  .w-7 {\n    width: calc(var(--spacing) * 7);\n  }\n  .w-12 {\n    width: calc(var(--spacing) * 12);\n  }\n  .w-16 {\n    width: calc(var(--spacing) * 16);\n  }\n  .w-20 {\n    width: calc(var(--spacing) * 20);\n  }\n  .w-40 {\n    width: calc(var(--spacing) * 40);\n  }\n  .w-64 {\n    width: calc(var(--spacing) * 64);\n  }\n  .w-\\[40\\%\\] {\n    width: 40%;\n  }\n  .w-\\[320px\\] {\n    width: 320px;\n  }\n  .w-\\[420px\\] {\n    width: 420px;\n  }\n  .w-\\[480px\\] {\n    width: 480px;\n  }\n  .w-full {\n    width: 100%;\n  }\n  .max-w-2xl {\n    max-width: var(--container-2xl);\n  }\n  .max-w-4xl {\n    max-width: var(--container-4xl);\n  }\n  .max-w-7xl {\n    max-width: var(--container-7xl);\n  }\n  .max-w-\\[90\\%\\] {\n    max-width: 90%;\n  }\n  .max-w-xl {\n    max-width: var(--container-xl);\n  }\n  .min-w-\\[140px\\] {\n    min-width: 140px;\n  }\n  .flex-1 {\n    flex: 1;\n  }\n  .shrink-0 {\n    flex-shrink: 0;\n  }\n  .-translate-x-1\\/2 {\n    --tw-translate-x: calc(calc(1 / 2 * 100%) * -1);\n    translate: var(--tw-translate-x) var(--tw-translate-y);\n  }\n  .-translate-y-1\\/2 {\n    --tw-translate-y: calc(calc(1 / 2 * 100%) * -1);\n    translate: var(--tw-translate-x) var(--tw-translate-y);\n  }\n  .scale-\\[1\\.02\\] {\n    scale: 1.02;\n  }\n  .transform {\n    transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);\n  }\n  .animate-pulse {\n    animation: var(--animate-pulse);\n  }\n  .animate-spin {\n    animation: var(--animate-spin);\n  }\n  .grid-cols-2 {\n    grid-template-columns: repeat(2, minmax(0, 1fr));\n  }\n  .grid-cols-3 {\n    grid-template-columns: repeat(3, minmax(0, 1fr));\n  }\n  .grid-cols-9 {\n    grid-template-columns: repeat(9, minmax(0, 1fr));\n  }\n  .grid-cols-12 {\n    grid-template-columns: repeat(12, minmax(0, 1fr));\n  }\n  .grid-rows-2 {\n    grid-template-rows: repeat(2, minmax(0, 1fr));\n  }\n  .flex-col {\n    flex-direction: column;\n  }\n  .flex-row {\n    flex-direction: row;\n  }\n  .items-baseline {\n    align-items: baseline;\n  }\n  .items-center {\n    align-items: center;\n  }\n  .items-end {\n    align-items: flex-end;\n  }\n  .items-start {\n    align-items: flex-start;\n  }\n  .justify-between {\n    justify-content: space-between;\n  }\n  .justify-center {\n    justify-content: center;\n  }\n  .gap-1 {\n    gap: calc(var(--spacing) * 1);\n  }\n  .gap-2 {\n    gap: calc(var(--spacing) * 2);\n  }\n  .gap-3 {\n    gap: calc(var(--spacing) * 3);\n  }\n  .gap-4 {\n    gap: calc(var(--spacing) * 4);\n  }\n  .gap-5 {\n    gap: calc(var(--spacing) * 5);\n  }\n  .gap-6 {\n    gap: calc(var(--spacing) * 6);\n  }\n  .gap-8 {\n    gap: calc(var(--spacing) * 8);\n  }\n  .space-y-1 {\n    :where(& > :not(:last-child)) {\n      --tw-space-y-reverse: 0;\n      margin-block-start: calc(calc(var(--spacing) * 1) * var(--tw-space-y-reverse));\n      margin-block-end: calc(calc(var(--spacing) * 1) * calc(1 - var(--tw-space-y-reverse)));\n    }\n  }\n  .space-y-2 {\n    :where(& > :not(:last-child)) {\n      --tw-space-y-reverse: 0;\n      margin-block-start: calc(calc(var(--spacing) * 2) * var(--tw-space-y-reverse));\n      margin-block-end: calc(calc(var(--spacing) * 2) * calc(1 - var(--tw-space-y-reverse)));\n    }\n  }\n  .space-y-4 {\n    :where(& > :not(:last-child)) {\n      --tw-space-y-reverse: 0;\n      margin-block-start: calc(calc(var(--spacing) * 4) * var(--tw-space-y-reverse));\n      margin-block-end: calc(calc(var(--spacing) * 4) * calc(1 - var(--tw-space-y-reverse)));\n    }\n  }\n  .space-y-5 {\n    :where(& > :not(:last-child)) {\n      --tw-space-y-reverse: 0;\n      margin-block-start: calc(calc(var(--spacing) * 5) * var(--tw-space-y-reverse));\n      margin-block-end: calc(calc(var(--spacing) * 5) * calc(1 - var(--tw-space-y-reverse)));\n    }\n  }\n  .space-y-6 {\n    :where(& > :not(:last-child)) {\n      --tw-space-y-reverse: 0;\n      margin-block-start: calc(calc(var(--spacing) * 6) * var(--tw-space-y-reverse));\n      margin-block-end: calc(calc(var(--spacing) * 6) * calc(1 - var(--tw-space-y-reverse)));\n    }\n  }\n  .overflow-hidden {\n    overflow: hidden;\n  }\n  .overflow-y-auto {\n    overflow-y: auto;\n  }\n  .rounded {\n    border-radius: 0.25rem;\n  }\n  .rounded-2xl {\n    border-radius: var(--radius-2xl);\n  }\n  .rounded-3xl {\n    border-radius: var(--radius-3xl);\n  }\n  .rounded-\\[2rem\\] {\n    border-radius: 2rem;\n  }\n  .rounded-full {\n    border-radius: calc(infinity * 1px);\n  }\n  .rounded-lg {\n    border-radius: var(--radius-lg);\n  }\n  .rounded-xl {\n    border-radius: var(--radius-xl);\n  }\n  .rounded-t-sm {\n    border-top-left-radius: var(--radius-sm);\n    border-top-right-radius: var(--radius-sm);\n  }\n  .border {\n    border-style: var(--tw-border-style);\n    border-width: 1px;\n  }\n  .border-2 {\n    border-style: var(--tw-border-style);\n    border-width: 2px;\n  }\n  .border-\\[3px\\] {\n    border-style: var(--tw-border-style);\n    border-width: 3px;\n  }\n  .border-t {\n    border-top-style: var(--tw-border-style);\n    border-top-width: 1px;\n  }\n  .border-t-2 {\n    border-top-style: var(--tw-border-style);\n    border-top-width: 2px;\n  }\n  .border-t-\\[3px\\] {\n    border-top-style: var(--tw-border-style);\n    border-top-width: 3px;\n  }\n  .border-r {\n    border-right-style: var(--tw-border-style);\n    border-right-width: 1px;\n  }\n  .border-r-2 {\n    border-right-style: var(--tw-border-style);\n    border-right-width: 2px;\n  }\n  .border-r-\\[3px\\] {\n    border-right-style: var(--tw-border-style);\n    border-right-width: 3px;\n  }\n  .border-b {\n    border-bottom-style: var(--tw-border-style);\n    border-bottom-width: 1px;\n  }\n  .border-b-2 {\n    border-bottom-style: var(--tw-border-style);\n    border-bottom-width: 2px;\n  }\n  .border-b-\\[3px\\] {\n    border-bottom-style: var(--tw-border-style);\n    border-bottom-width: 3px;\n  }\n  .border-l-2 {\n    border-left-style: var(--tw-border-style);\n    border-left-width: 2px;\n  }\n  .border-l-\\[3px\\] {\n    border-left-style: var(--tw-border-style);\n    border-left-width: 3px;\n  }\n  .border-dashed {\n    --tw-border-style: dashed;\n    border-style: dashed;\n  }\n  .border-red-400 {\n    border-color: var(--color-red-400);\n  }\n  .border-red-500 {\n    border-color: var(--color-red-500);\n  }\n  .border-white\\/5 {\n    border-color: color-mix(in srgb, #fff 5%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      border-color: color-mix(in oklab, var(--color-white) 5%, transparent);\n    }\n  }\n  .border-white\\/10 {\n    border-color: color-mix(in srgb, #fff 10%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      border-color: color-mix(in oklab, var(--color-white) 10%, transparent);\n    }\n  }\n  .border-white\\/25 {\n    border-color: color-mix(in srgb, #fff 25%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      border-color: color-mix(in oklab, var(--color-white) 25%, transparent);\n    }\n  }\n  .border-zinc-700\\/50 {\n    border-color: color-mix(in srgb, oklch(0.37 0.013 285.805) 50%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      border-color: color-mix(in oklab, var(--color-zinc-700) 50%, transparent);\n    }\n  }\n  .bg-\\[\\#0B0F19\\] {\n    background-color: #0B0F19;\n  }\n  .bg-\\[\\#0a0a0a\\] {\n    background-color: #0a0a0a;\n  }\n  .bg-black {\n    background-color: var(--color-black);\n  }\n  .bg-black\\/10 {\n    background-color: color-mix(in srgb, #000 10%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-black) 10%, transparent);\n    }\n  }\n  .bg-black\\/20 {\n    background-color: color-mix(in srgb, #000 20%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-black) 20%, transparent);\n    }\n  }\n  .bg-black\\/40 {\n    background-color: color-mix(in srgb, #000 40%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-black) 40%, transparent);\n    }\n  }\n  .bg-black\\/60 {\n    background-color: color-mix(in srgb, #000 60%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-black) 60%, transparent);\n    }\n  }\n  .bg-black\\/80 {\n    background-color: color-mix(in srgb, #000 80%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-black) 80%, transparent);\n    }\n  }\n  .bg-emerald-600 {\n    background-color: var(--color-emerald-600);\n  }\n  .bg-red-500 {\n    background-color: var(--color-red-500);\n  }\n  .bg-red-600 {\n    background-color: var(--color-red-600);\n  }\n  .bg-white\\/5 {\n    background-color: color-mix(in srgb, #fff 5%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-white) 5%, transparent);\n    }\n  }\n  .bg-white\\/10 {\n    background-color: color-mix(in srgb, #fff 10%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-white) 10%, transparent);\n    }\n  }\n  .bg-zinc-800 {\n    background-color: var(--color-zinc-800);\n  }\n  .bg-zinc-900\\/40 {\n    background-color: color-mix(in srgb, oklch(0.21 0.006 285.885) 40%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-zinc-900) 40%, transparent);\n    }\n  }\n  .bg-zinc-900\\/50 {\n    background-color: color-mix(in srgb, oklch(0.21 0.006 285.885) 50%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-zinc-900) 50%, transparent);\n    }\n  }\n  .bg-zinc-900\\/60 {\n    background-color: color-mix(in srgb, oklch(0.21 0.006 285.885) 60%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-zinc-900) 60%, transparent);\n    }\n  }\n  .bg-zinc-900\\/90 {\n    background-color: color-mix(in srgb, oklch(0.21 0.006 285.885) 90%, transparent);\n    @supports (color: color-mix(in lab, red, red)) {\n      background-color: color-mix(in oklab, var(--color-zinc-900) 90%, transparent);\n    }\n  }\n  .bg-gradient-to-r {\n    --tw-gradient-position: to right in oklab;\n    background-image: linear-gradient(var(--tw-gradient-stops));\n  }\n  .bg-\\[linear-gradient\\(to_right\\,\\#80808012_1px\\,transparent_1px\\)\\,linear-gradient\\(to_bottom\\,\\#80808012_1px\\,transparent_1px\\)\\] {\n    background-image: linear-gradient(to right,#80808012 1px,transparent 1px),linear-gradient(to bottom,#80808012 1px,transparent 1px);\n  }\n  .from-transparent {\n    --tw-gradient-from: transparent;\n    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));\n  }\n  .to-transparent {\n    --tw-gradient-to: transparent;\n    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));\n  }\n  .bg-\\[size\\:32px_32px\\] {\n    background-size: 32px 32px;\n  }\n  .p-1 {\n    padding: calc(var(--spacing) * 1);\n  }\n  .p-2 {\n    padding: calc(var(--spacing) * 2);\n  }\n  .p-3 {\n    padding: calc(var(--spacing) * 3);\n  }\n  .p-4 {\n    padding: calc(var(--spacing) * 4);\n  }\n  .p-5 {\n    padding: calc(var(--spacing) * 5);\n  }\n  .p-6 {\n    padding: calc(var(--spacing) * 6);\n  }\n  .p-8 {\n    padding: calc(var(--spacing) * 8);\n  }\n  .p-16 {\n    padding: calc(var(--spacing) * 16);\n  }\n  .px-2 {\n    padding-inline: calc(var(--spacing) * 2);\n  }\n  .px-3 {\n    padding-inline: calc(var(--spacing) * 3);\n  }\n  .px-4 {\n    padding-inline: calc(var(--spacing) * 4);\n  }\n  .px-5 {\n    padding-inline: calc(var(--spacing) * 5);\n  }\n  .px-6 {\n    padding-inline: calc(var(--spacing) * 6);\n  }\n  .px-8 {\n    padding-inline: calc(var(--spacing) * 8);\n  }\n  .px-10 {\n    padding-inline: calc(var(--spacing) * 10);\n  }\n  .px-12 {\n    padding-inline: calc(var(--spacing) * 12);\n  }\n  .px-16 {\n    padding-inline: calc(var(--spacing) * 16);\n  }\n  .py-0\\.5 {\n    padding-block: calc(var(--spacing) * 0.5);\n  }\n  .py-1 {\n    padding-block: calc(var(--spacing) * 1);\n  }\n  .py-1\\.5 {\n    padding-block: calc(var(--spacing) * 1.5);\n  }\n  .py-2 {\n    padding-block: calc(var(--spacing) * 2);\n  }\n  .py-3 {\n    padding-block: calc(var(--spacing) * 3);\n  }\n  .py-4 {\n    padding-block: calc(var(--spacing) * 4);\n  }\n  .py-5 {\n    padding-block: calc(var(--spacing) * 5);\n  }\n  .py-6 {\n    padding-block: calc(var(--spacing) * 6);\n  }\n  .py-12 {\n    padding-block: calc(var(--spacing) * 12);\n  }\n  .pt-2 {\n    padding-top: calc(var(--spacing) * 2);\n  }\n  .pr-8 {\n    padding-right: calc(var(--spacing) * 8);\n  }\n  .pb-3 {\n    padding-bottom: calc(var(--spacing) * 3);\n  }\n  .pb-4 {\n    padding-bottom: calc(var(--spacing) * 4);\n  }\n  .text-center {\n    text-align: center;\n  }\n  .text-right {\n    text-align: right;\n  }\n  .font-mono {\n    font-family: var(--font-mono);\n  }\n  .font-sans {\n    font-family: var(--font-sans);\n  }\n  .text-2xl {\n    font-size: var(--text-2xl);\n    line-height: var(--tw-leading, var(--text-2xl--line-height));\n  }\n  .text-3xl {\n    font-size: var(--text-3xl);\n    line-height: var(--tw-leading, var(--text-3xl--line-height));\n  }\n  .text-4xl {\n    font-size: var(--text-4xl);\n    line-height: var(--tw-leading, var(--text-4xl--line-height));\n  }\n  .text-5xl {\n    font-size: var(--text-5xl);\n    line-height: var(--tw-leading, var(--text-5xl--line-height));\n  }\n  .text-6xl {\n    font-size: var(--text-6xl);\n    line-height: var(--tw-leading, var(--text-6xl--line-height));\n  }\n  .text-lg {\n    font-size: var(--text-lg);\n    line-height: var(--tw-leading, var(--text-lg--line-height));\n  }\n  .text-sm {\n    font-size: var(--text-sm);\n    line-height: var(--tw-leading, var(--text-sm--line-height));\n  }\n  .text-xl {\n    font-size: var(--text-xl);\n    line-height: var(--tw-leading, var(--text-xl--line-height));\n  }\n  .text-xs {\n    font-size: var(--text-xs);\n    line-height: var(--tw-leading, var(--text-xs--line-height));\n  }\n  .text-\\[1\\.1rem\\] {\n    font-size: 1.1rem;\n  }\n  .text-\\[8px\\] {\n    font-size: 8px;\n  }\n  .text-\\[9px\\] {\n    font-size: 9px;\n  }\n  .text-\\[10px\\] {\n    font-size: 10px;\n  }\n  .text-\\[11px\\] {\n    font-size: 11px;\n  }\n  .text-\\[12px\\] {\n    font-size: 12px;\n  }\n  .text-\\[13px\\] {\n    font-size: 13px;\n  }\n  .leading-none {\n    --tw-leading: 1;\n    line-height: 1;\n  }\n  .leading-relaxed {\n    --tw-leading: var(--leading-relaxed);\n    line-height: var(--leading-relaxed);\n  }\n  .leading-tight {\n    --tw-leading: var(--leading-tight);\n    line-height: var(--leading-tight);\n  }\n  .font-black {\n    --tw-font-weight: var(--font-weight-black);\n    font-weight: var(--font-weight-black);\n  }\n  .font-bold {\n    --tw-font-weight: var(--font-weight-bold);\n    font-weight: var(--font-weight-bold);\n  }\n  .tracking-\\[0\\.1em\\] {\n    --tw-tracking: 0.1em;\n    letter-spacing: 0.1em;\n  }\n  .tracking-\\[0\\.2em\\] {\n    --tw-tracking: 0.2em;\n    letter-spacing: 0.2em;\n  }\n  .tracking-\\[0\\.3em\\] {\n    --tw-tracking: 0.3em;\n    letter-spacing: 0.3em;\n  }\n  .tracking-\\[0\\.4em\\] {\n    --tw-tracking: 0.4em;\n    letter-spacing: 0.4em;\n  }\n  .tracking-\\[0\\.5em\\] {\n    --tw-tracking: 0.5em;\n    letter-spacing: 0.5em;\n  }\n  .tracking-tight {\n    --tw-tracking: var(--tracking-tight);\n    letter-spacing: var(--tracking-tight);\n  }\n  .tracking-tighter {\n    --tw-tracking: var(--tracking-tighter);\n    letter-spacing: var(--tracking-tighter);\n  }\n  .tracking-wider {\n    --tw-tracking: var(--tracking-wider);\n    letter-spacing: var(--tracking-wider);\n  }\n  .tracking-widest {\n    --tw-tracking: var(--tracking-widest);\n    letter-spacing: var(--tracking-widest);\n  }\n  .whitespace-nowrap {\n    white-space: nowrap;\n  }\n  .text-amber-400 {\n    color: var(--color-amber-400);\n  }\n  .text-black {\n    color: var(--color-black);\n  }\n  .text-red-500 {\n    color: var(--color-red-500);\n  }\n  .text-white {\n    color: var(--color-white);\n  }\n  .text-zinc-200 {\n    color: var(--color-zinc-200);\n  }\n  .text-zinc-300 {\n    color: var(--color-zinc-300);\n  }\n  .text-zinc-400 {\n    color: var(--color-zinc-400);\n  }\n  .text-zinc-500 {\n    color: var(--color-zinc-500);\n  }\n  .text-zinc-600 {\n    color: var(--color-zinc-600);\n  }\n  .uppercase {\n    text-transform: uppercase;\n  }\n  .opacity-10 {\n    opacity: 10%;\n  }\n  .opacity-20 {\n    opacity: 20%;\n  }\n  .opacity-40 {\n    opacity: 40%;\n  }\n  .opacity-50 {\n    opacity: 50%;\n  }\n  .opacity-60 {\n    opacity: 60%;\n  }\n  .opacity-80 {\n    opacity: 80%;\n  }\n  .opacity-\\[0\\.03\\] {\n    opacity: 0.03;\n  }\n  .opacity-\\[0\\.05\\] {\n    opacity: 0.05;\n  }\n  .shadow-2xl {\n    --tw-shadow: 0 25px 50px -12px var(--tw-shadow-color, rgb(0 0 0 / 0.25));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_8px_\\#10b981\\] {\n    --tw-shadow: 0 0 8px var(--tw-shadow-color, #10b981);\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_10px_\\#2e7d32\\] {\n    --tw-shadow: 0 0 10px var(--tw-shadow-color, #2e7d32);\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_10px_\\#10b981\\] {\n    --tw-shadow: 0 0 10px var(--tw-shadow-color, #10b981);\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_10px_\\#ef4444\\] {\n    --tw-shadow: 0 0 10px var(--tw-shadow-color, #ef4444);\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_10px_currentColor\\] {\n    --tw-shadow: 0 0 10px var(--tw-shadow-color, currentColor);\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_10px_rgba\\(46\\,125\\,50\\,0\\.3\\)\\] {\n    --tw-shadow: 0 0 10px var(--tw-shadow-color, rgba(46,125,50,0.3));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_10px_rgba\\(46\\,125\\,50\\,0\\.5\\)\\] {\n    --tw-shadow: 0 0 10px var(--tw-shadow-color, rgba(46,125,50,0.5));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_15px_rgba\\(46\\,125\\,50\\,0\\.4\\)\\] {\n    --tw-shadow: 0 0 15px var(--tw-shadow-color, rgba(46,125,50,0.4));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_15px_rgba\\(239\\,68\\,68\\,0\\.2\\)\\] {\n    --tw-shadow: 0 0 15px var(--tw-shadow-color, rgba(239,68,68,0.2));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_15px_rgba\\(239\\,68\\,68\\,0\\.8\\)\\] {\n    --tw-shadow: 0 0 15px var(--tw-shadow-color, rgba(239,68,68,0.8));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_20px_rgba\\(46\\,125\\,50\\,0\\.5\\)\\] {\n    --tw-shadow: 0 0 20px var(--tw-shadow-color, rgba(46,125,50,0.5));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_20px_rgba\\(46\\,125\\,50\\,0\\.6\\)\\] {\n    --tw-shadow: 0 0 20px var(--tw-shadow-color, rgba(46,125,50,0.6));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_20px_rgba\\(239\\,68\\,68\\,0\\.4\\)\\] {\n    --tw-shadow: 0 0 20px var(--tw-shadow-color, rgba(239,68,68,0.4));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_20px_rgba\\(239\\,68\\,68\\,0\\.5\\)\\] {\n    --tw-shadow: 0 0 20px var(--tw-shadow-color, rgba(239,68,68,0.5));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_30px_rgba\\(16\\,185\\,129\\,0\\.3\\)\\] {\n    --tw-shadow: 0 0 30px var(--tw-shadow-color, rgba(16,185,129,0.3));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_30px_rgba\\(16\\,185\\,129\\,0\\.15\\)\\] {\n    --tw-shadow: 0 0 30px var(--tw-shadow-color, rgba(16,185,129,0.15));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_30px_rgba\\(46\\,125\\,50\\,0\\.3\\)\\] {\n    --tw-shadow: 0 0 30px var(--tw-shadow-color, rgba(46,125,50,0.3));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_30px_rgba\\(239\\,68\\,68\\,0\\.6\\)\\] {\n    --tw-shadow: 0 0 30px var(--tw-shadow-color, rgba(239,68,68,0.6));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_40px_rgba\\(239\\,68\\,68\\,0\\.15\\)\\] {\n    --tw-shadow: 0 0 40px var(--tw-shadow-color, rgba(239,68,68,0.15));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_80px_rgba\\(46\\,125\\,50\\,0\\.2\\)\\] {\n    --tw-shadow: 0 0 80px var(--tw-shadow-color, rgba(46,125,50,0.2));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[0_0_100px_rgba\\(0\\,0\\,0\\,0\\.8\\)\\,0_0_40px_rgba\\(239\\,68\\,68\\,0\\.15\\)\\] {\n    --tw-shadow: 0 0 100px var(--tw-shadow-color, rgba(0,0,0,0.8)), 0 0 40px var(--tw-shadow-color, rgba(239,68,68,0.15));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-\\[inset_0_0_20px_rgba\\(46\\,125\\,50\\,0\\.2\\)\\] {\n    --tw-shadow: inset 0 0 20px var(--tw-shadow-color, rgba(46,125,50,0.2));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-lg {\n    --tw-shadow: 0 10px 15px -3px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 4px 6px -4px var(--tw-shadow-color, rgb(0 0 0 / 0.1));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-black {\n    --tw-shadow-color: #000;\n    @supports (color: color-mix(in lab, red, red)) {\n      --tw-shadow-color: color-mix(in oklab, var(--color-black) var(--tw-shadow-alpha), transparent);\n    }\n  }\n  .drop-shadow-\\[0_0_8px_rgba\\(46\\,125\\,50\\,0\\.5\\)\\] {\n    --tw-drop-shadow-size: drop-shadow(0 0 8px var(--tw-drop-shadow-color, rgba(46,125,50,0.5)));\n    --tw-drop-shadow: var(--tw-drop-shadow-size);\n    filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);\n  }\n  .drop-shadow-\\[0_0_8px_rgba\\(239\\,68\\,68\\,0\\.5\\)\\] {\n    --tw-drop-shadow-size: drop-shadow(0 0 8px var(--tw-drop-shadow-color, rgba(239,68,68,0.5)));\n    --tw-drop-shadow: var(--tw-drop-shadow-size);\n    filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);\n  }\n  .drop-shadow-md {\n    --tw-drop-shadow-size: drop-shadow(0 3px 3px var(--tw-drop-shadow-color, rgb(0 0 0 / 0.12)));\n    --tw-drop-shadow: drop-shadow(var(--drop-shadow-md));\n    filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);\n  }\n  .filter {\n    filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);\n  }\n  .backdrop-blur-\\[2px\\] {\n    --tw-backdrop-blur: blur(2px);\n    -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);\n    backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);\n  }\n  .backdrop-blur-md {\n    --tw-backdrop-blur: blur(var(--blur-md));\n    -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);\n    backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);\n  }\n  .backdrop-blur-sm {\n    --tw-backdrop-blur: blur(var(--blur-sm));\n    -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);\n    backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);\n  }\n  .backdrop-blur-xl {\n    --tw-backdrop-blur: blur(var(--blur-xl));\n    -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);\n    backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);\n  }\n  .transition {\n    transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter, display, content-visibility, overlay, pointer-events;\n    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));\n    transition-duration: var(--tw-duration, var(--default-transition-duration));\n  }\n  .transition-all {\n    transition-property: all;\n    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));\n    transition-duration: var(--tw-duration, var(--default-transition-duration));\n  }\n  .transition-colors {\n    transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to;\n    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));\n    transition-duration: var(--tw-duration, var(--default-transition-duration));\n  }\n  .duration-300 {\n    --tw-duration: 300ms;\n    transition-duration: 300ms;\n  }\n  .duration-500 {\n    --tw-duration: 500ms;\n    transition-duration: 500ms;\n  }\n  .duration-700 {\n    --tw-duration: 700ms;\n    transition-duration: 700ms;\n  }\n  .ease-out {\n    --tw-ease: var(--ease-out);\n    transition-timing-function: var(--ease-out);\n  }\n  .select-none {\n    -webkit-user-select: none;\n    user-select: none;\n  }\n}\n@property --tw-translate-x {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0;\n}\n@property --tw-translate-y {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0;\n}\n@property --tw-translate-z {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0;\n}\n@property --tw-rotate-x {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-rotate-y {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-rotate-z {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-skew-x {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-skew-y {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-space-y-reverse {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0;\n}\n@property --tw-border-style {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: solid;\n}\n@property --tw-gradient-position {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-gradient-from {\n  syntax: \"<color>\";\n  inherits: false;\n  initial-value: #0000;\n}\n@property --tw-gradient-via {\n  syntax: \"<color>\";\n  inherits: false;\n  initial-value: #0000;\n}\n@property --tw-gradient-to {\n  syntax: \"<color>\";\n  inherits: false;\n  initial-value: #0000;\n}\n@property --tw-gradient-stops {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-gradient-via-stops {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-gradient-from-position {\n  syntax: \"<length-percentage>\";\n  inherits: false;\n  initial-value: 0%;\n}\n@property --tw-gradient-via-position {\n  syntax: \"<length-percentage>\";\n  inherits: false;\n  initial-value: 50%;\n}\n@property --tw-gradient-to-position {\n  syntax: \"<length-percentage>\";\n  inherits: false;\n  initial-value: 100%;\n}\n@property --tw-leading {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-font-weight {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-tracking {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-shadow {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0 0 #0000;\n}\n@property --tw-shadow-color {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-shadow-alpha {\n  syntax: \"<percentage>\";\n  inherits: false;\n  initial-value: 100%;\n}\n@property --tw-inset-shadow {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0 0 #0000;\n}\n@property --tw-inset-shadow-color {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-inset-shadow-alpha {\n  syntax: \"<percentage>\";\n  inherits: false;\n  initial-value: 100%;\n}\n@property --tw-ring-color {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-ring-shadow {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0 0 #0000;\n}\n@property --tw-inset-ring-color {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-inset-ring-shadow {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0 0 #0000;\n}\n@property --tw-ring-inset {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-ring-offset-width {\n  syntax: \"<length>\";\n  inherits: false;\n  initial-value: 0px;\n}\n@property --tw-ring-offset-color {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: #fff;\n}\n@property --tw-ring-offset-shadow {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0 0 #0000;\n}\n@property --tw-blur {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-brightness {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-contrast {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-grayscale {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-hue-rotate {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-invert {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-opacity {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-saturate {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-sepia {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-drop-shadow {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-drop-shadow-color {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-drop-shadow-alpha {\n  syntax: \"<percentage>\";\n  inherits: false;\n  initial-value: 100%;\n}\n@property --tw-drop-shadow-size {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-backdrop-blur {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-backdrop-brightness {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-backdrop-contrast {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-backdrop-grayscale {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-backdrop-hue-rotate {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-backdrop-invert {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-backdrop-opacity {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-backdrop-saturate {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-backdrop-sepia {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-duration {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-ease {\n  syntax: \"*\";\n  inherits: false;\n}\n@keyframes spin {\n  to {\n    transform: rotate(360deg);\n  }\n}\n@keyframes pulse {\n  50% {\n    opacity: 0.5;\n  }\n}\n@layer properties {\n  @supports ((-webkit-hyphens: none) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color:rgb(from red r g b)))) {\n    *, ::before, ::after, ::backdrop {\n      --tw-translate-x: 0;\n      --tw-translate-y: 0;\n      --tw-translate-z: 0;\n      --tw-rotate-x: initial;\n      --tw-rotate-y: initial;\n      --tw-rotate-z: initial;\n      --tw-skew-x: initial;\n      --tw-skew-y: initial;\n      --tw-space-y-reverse: 0;\n      --tw-border-style: solid;\n      --tw-gradient-position: initial;\n      --tw-gradient-from: #0000;\n      --tw-gradient-via: #0000;\n      --tw-gradient-to: #0000;\n      --tw-gradient-stops: initial;\n      --tw-gradient-via-stops: initial;\n      --tw-gradient-from-position: 0%;\n      --tw-gradient-via-position: 50%;\n      --tw-gradient-to-position: 100%;\n      --tw-leading: initial;\n      --tw-font-weight: initial;\n      --tw-tracking: initial;\n      --tw-shadow: 0 0 #0000;\n      --tw-shadow-color: initial;\n      --tw-shadow-alpha: 100%;\n      --tw-inset-shadow: 0 0 #0000;\n      --tw-inset-shadow-color: initial;\n      --tw-inset-shadow-alpha: 100%;\n      --tw-ring-color: initial;\n      --tw-ring-shadow: 0 0 #0000;\n      --tw-inset-ring-color: initial;\n      --tw-inset-ring-shadow: 0 0 #0000;\n      --tw-ring-inset: initial;\n      --tw-ring-offset-width: 0px;\n      --tw-ring-offset-color: #fff;\n      --tw-ring-offset-shadow: 0 0 #0000;\n      --tw-blur: initial;\n      --tw-brightness: initial;\n      --tw-contrast: initial;\n      --tw-grayscale: initial;\n      --tw-hue-rotate: initial;\n      --tw-invert: initial;\n      --tw-opacity: initial;\n      --tw-saturate: initial;\n      --tw-sepia: initial;\n      --tw-drop-shadow: initial;\n      --tw-drop-shadow-color: initial;\n      --tw-drop-shadow-alpha: 100%;\n      --tw-drop-shadow-size: initial;\n      --tw-backdrop-blur: initial;\n      --tw-backdrop-brightness: initial;\n      --tw-backdrop-contrast: initial;\n      --tw-backdrop-grayscale: initial;\n      --tw-backdrop-hue-rotate: initial;\n      --tw-backdrop-invert: initial;\n      --tw-backdrop-opacity: initial;\n      --tw-backdrop-saturate: initial;\n      --tw-backdrop-sepia: initial;\n      --tw-duration: initial;\n      --tw-ease: initial;\n    }\n  }\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -51504,7 +52478,7 @@ var NoReactInternals = {
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module is referenced by other modules so it can't be inlined
 /******/ 	__webpack_require__(6507);
-/******/ 	__webpack_require__(3368);
+/******/ 	__webpack_require__(4339);
 /******/ 	__webpack_require__(3610);
 /******/ 	var __webpack_exports__ = __webpack_require__(3482);
 /******/ 	

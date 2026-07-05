@@ -3,6 +3,9 @@ import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig, Img
 import { SceneTransition } from '../components/SceneTransition';
 import { AnimatedCursor } from '../components/AnimatedCursor';
 import { AlertPopup } from '../components/AlertPopup';
+import { DashboardHeader } from '../components/DashboardHeader';
+import { AnalyticsPanel } from '../components/AnalyticsPanel';
+import { TacticalSidebar } from '../components/TacticalSidebar';
 
 import { useCinematicCamera } from '../hooks/useCinematicCamera';
 
@@ -91,51 +94,86 @@ export const Scene2Reveal: React.FC = () => {
             height: '100%',
             position: 'relative'
           }}>
-            <Img 
-              src={staticFile('screenshot-1783164667772.png')} 
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                objectPosition: 'top center',
-              }}
-            />
+            {/* Real Dashboard UI Components */}
+            <div className="absolute inset-0 flex flex-col p-4 gap-4 bg-[#0B0F19] text-white font-inter">
+              <DashboardHeader isAutonomous={frame >= 140} />
+              <div className="flex-1 min-h-0 grid grid-cols-12 gap-4">
+                {/* Left Panel: Analytics */}
+                <div className="col-span-3 flex flex-col gap-4 h-full">
+                  <AnalyticsPanel 
+                    speedDropRatio={frame >= 140 ? 68 : 24}
+                    networkLoad={frame >= 140 ? 88 : 42}
+                    congestionLevel={frame >= 140 ? "SEVERE" : "LOW"}
+                    themeColor={frame >= 140 ? "rgba(239, 68, 68, 1)" : "rgba(46, 125, 50, 1)"}
+                  />
+                </div>
 
-            {/* Background 2: Activated Model Mode (Fades in at click 1: frame 140) */}
-            <Img 
-              src={staticFile('screenshot-1783164715936.png')} 
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                objectPosition: 'top center',
-                opacity: interpolate(frame, [140, 150], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' })
-              }}
-            />
+                {/* Center Panel: Main View (Video Feeds) */}
+                <div 
+                  className="col-span-6 flex flex-col gap-4 h-full relative"
+                  style={{ opacity: interpolate(frame, [280, 290], [1, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }) }}
+                >
+                  <div className="flex-1 grid grid-cols-2 grid-rows-2 gap-2 relative">
+                    <Video src={staticFile('Feed_01_Normal_Monitoring.mp4')} muted style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 8 }} />
+                    <Video src={staticFile('Node_02_Strategic_Urban_Flow.mp4')} muted style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 8 }} />
+                    <Video src={staticFile('Incident_Alpha_Detection.mp4')} muted style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 8 }} />
+                    <Video src={staticFile('Node_04_High_Density_Monitoring.mp4')} muted style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 8 }} />
+                  </div>
+                </div>
 
-            {/* Live Video Feeds Overlay */}
-            <div style={{
-              position: 'absolute',
-              top: '8%',
-              left: '19.5%',
-              width: '61%',
-              height: '89%',
-              display: 'grid',
-              gridTemplateColumns: '1fr 1fr',
-              gridTemplateRows: '1fr 1fr',
-              gap: '8px',
-              opacity: interpolate(frame, [280, 290], [1, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' })
-            }}>
-              <Video src={staticFile('Feed_01_Normal_Monitoring.mp4')} muted style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 8 }} />
-              <Video src={staticFile('Node_02_Strategic_Urban_Flow.mp4')} muted style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 8 }} />
-              <Video src={staticFile('Incident_Alpha_Detection.mp4')} muted style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 8 }} />
-              <Video src={staticFile('Node_04_High_Density_Monitoring.mp4')} muted style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 8 }} />
+                {/* Right Panel: Tactical Feed */}
+                <div className="col-span-3 flex flex-col gap-4 h-full">
+                  <TacticalSidebar />
+                </div>
+              </div>
             </div>
 
 
+
+            {/* Infrastructure Status Panel (Springs in at frame 140) */}
+            {(() => {
+              const statusEnter = spring({
+                frame: frame - 140,
+                fps,
+                config: { damping: 14, mass: 1 },
+              });
+
+              return (
+                <div
+                  style={{
+                    position: 'absolute',
+                    bottom: 40,
+                    left: 40,
+                    transform: `translateY(${interpolate(statusEnter, [0, 1], [40, 0])}px)`,
+                    opacity: interpolate(statusEnter, [0, 1], [0, 1]),
+                    zIndex: 40,
+                  }}
+                  className="bg-black/60 border border-brand-primary/50 p-6 rounded-2xl backdrop-blur-md shadow-[0_0_30px_rgba(16,185,129,0.15)] flex flex-col gap-4"
+                >
+                  <div className="flex items-center gap-3 border-b border-white/10 pb-3">
+                    <div className="w-2 h-2 rounded-full bg-brand-emerald shadow-[0_0_8px_#10b981]" />
+                    <h3 className="font-orbitron font-bold text-white text-sm tracking-widest uppercase">
+                      Infrastructure Status
+                    </h3>
+                  </div>
+                  
+                  <div className="flex flex-col gap-3 font-mono text-xs">
+                    <div className="flex justify-between items-center gap-8">
+                      <span className="text-zinc-400">NETWORK</span>
+                      <span className="text-brand-primary font-bold">EXISTING CCTV</span>
+                    </div>
+                    <div className="flex justify-between items-center gap-8">
+                      <span className="text-zinc-400">HARDWARE REQ</span>
+                      <span className="text-brand-primary font-bold">NONE</span>
+                    </div>
+                    <div className="flex justify-between items-center gap-8">
+                      <span className="text-zinc-400">DEPLOYMENT COST</span>
+                      <span className="text-brand-emerald font-bold text-sm">$0.00</span>
+                    </div>
+                  </div>
+                </div>
+              );
+            })()}
 
             {/* Alert Pop-up Overlay (Springs in at frame 155, fades out at frame 280) */}
             {frame >= 155 && (

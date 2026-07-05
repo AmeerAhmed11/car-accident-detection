@@ -16,12 +16,12 @@ const CRISIS_IMAGES = [
 ];
 
 const STATS = [
-  { text: '11,500', sub: 'Traffic Accidents Annually', delay: 90 },
-  { text: '3,000', sub: 'Fatalities on National Roads', delay: 170 },
-  { text: '5–10 Min', sub: 'Traditional Notification Delay', delay: 250 },
+  { text: '11,500', sub: 'Traffic Accidents Annually', delay: 45 },
+  { text: '3,000', sub: 'Fatalities on National Roads', delay: 125 },
+  { text: '5–10 Min', sub: 'Traditional Notification Delay', delay: 205 },
 ];
 
-const DURATION = 390;
+const DURATION = 331;
 
 export const Scene1Crisis: React.FC = () => {
   const frame = useCurrentFrame();
@@ -178,6 +178,57 @@ export const Scene1Crisis: React.FC = () => {
             );
           })}
         </AbsoluteFill>
+
+        {/* Animated Delay Chart */}
+        {(() => {
+          const chartEnter = spring({
+            frame: frame - 255,
+            fps,
+            config: { damping: 14, mass: 1 },
+          });
+
+          // Animate from 0 to 2.6
+          const deathPercentage = interpolate(frame, [255, 315], [0, 2.6], {
+            extrapolateLeft: 'clamp',
+            extrapolateRight: 'clamp',
+          });
+
+          return (
+            <AbsoluteFill
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'flex-end',
+                paddingBottom: 60,
+                opacity: interpolate(chartEnter, [0, 1], [0, 1]),
+                transform: `translateY(${interpolate(chartEnter, [0, 1], [20, 0])}px)`,
+                zIndex: 20,
+              }}
+            >
+              <div className="flex flex-col items-center gap-2 bg-brand-red/10 border border-brand-red/30 px-10 py-6 rounded-2xl backdrop-blur-md shadow-[0_0_40px_rgba(239,68,68,0.15)]">
+                <div className="text-brand-red font-orbitron font-bold tracking-widest uppercase text-sm">
+                  Fatality Rate Increase
+                </div>
+                <div className="flex items-end gap-4">
+                  <div className="text-6xl font-orbitron font-bold text-white" style={{ textShadow: '0 0 20px rgba(239,68,68,0.6)' }}>
+                    +{deathPercentage.toFixed(1)}%
+                  </div>
+                  <div className="text-zinc-400 font-inter text-lg mb-2 uppercase tracking-widest">
+                    per minute of delay
+                  </div>
+                </div>
+                
+                {/* Visual bar */}
+                <div className="w-full h-1.5 bg-zinc-800 rounded-full mt-4 overflow-hidden relative">
+                  <div 
+                    className="absolute top-0 left-0 h-full bg-brand-red shadow-[0_0_10px_#ef4444]"
+                    style={{ width: `${interpolate(deathPercentage, [0, 2.6], [0, 100])}%` }}
+                  />
+                </div>
+              </div>
+            </AbsoluteFill>
+          );
+        })()}
 
         {/* Subtle scanline texture */}
         <AbsoluteFill

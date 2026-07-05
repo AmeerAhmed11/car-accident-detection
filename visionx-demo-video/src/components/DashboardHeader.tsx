@@ -2,7 +2,7 @@ import React from 'react';
 import { Maximize2 } from 'lucide-react';
 import { interpolate, useCurrentFrame, useVideoConfig } from 'remotion';
 
-export const DashboardHeader: React.FC = () => {
+export const DashboardHeader: React.FC<{ isAutonomous?: boolean }> = ({ isAutonomous = true }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
@@ -18,11 +18,11 @@ export const DashboardHeader: React.FC = () => {
     <header className="h-16 flex items-center justify-between px-6 glassmorphism rounded-xl border border-white/10 shrink-0 shadow-2xl relative bg-zinc-900/60 backdrop-blur-md z-50">
       <div className="flex items-center gap-4">
         <div
-          style={{ transform: `scale(${pulseScale})` }}
-          className="w-3 h-3 rounded-full bg-brand-red shadow-[0_0_10px_#ef4444]"
+          style={{ transform: `scale(${isAutonomous ? pulseScale : 1})` }}
+          className={`w-3 h-3 rounded-full ${isAutonomous ? 'bg-brand-red shadow-[0_0_10px_#ef4444]' : 'bg-brand-primary shadow-[0_0_10px_#2e7d32]'}`}
         />
         <div className="flex flex-col">
-          <h1 className="text-2xl font-orbitron font-bold tracking-tighter uppercase text-brand-red leading-none">
+          <h1 className={`text-2xl font-orbitron font-bold tracking-tighter uppercase leading-none ${isAutonomous ? 'text-brand-red' : 'text-white'}`}>
             VISIONX IRAQ // AEOC-BGD
           </h1>
           <span className="text-[10px] font-orbitron text-zinc-500 uppercase tracking-[0.3em] mt-1">
@@ -31,22 +31,22 @@ export const DashboardHeader: React.FC = () => {
         </div>
       </div>
 
-      {/* Tactical Mode Toggle (Forced to Auto/Alert) */}
+      {/* Tactical Mode Toggle (Dynamic) */}
       <div className="flex items-center gap-4 px-5 py-2 rounded-xl border border-white/5 bg-zinc-900/40 backdrop-blur-md">
-        <span className="text-[10px] font-orbitron font-bold transition-all duration-500 text-zinc-600">
+        <span className={`text-[10px] font-orbitron font-bold transition-all duration-500 ${!isAutonomous ? 'text-brand-primary drop-shadow-[0_0_8px_rgba(46,125,50,0.5)]' : 'text-zinc-600'}`}>
           VIGILANCE (NORMAL)
         </span>
-        <button className="group relative w-12 h-6 rounded-full transition-all duration-700 p-1 border bg-brand-red/10 border-brand-red/40 shadow-[0_0_15px_rgba(239,68,68,0.2)]">
+        <button className={`group relative w-12 h-6 rounded-full transition-all duration-700 p-1 border ${isAutonomous ? 'bg-brand-red/10 border-brand-red/40 shadow-[0_0_15px_rgba(239,68,68,0.2)]' : 'bg-zinc-800 border-white/10'}`}>
           <div
-            className="w-4 h-4 rounded-full"
+            className="w-4 h-4 rounded-full transition-all duration-700"
             style={{
-              transform: 'translateX(24px)',
-              backgroundColor: '#ef4444',
-              boxShadow: '0 0 15px rgba(239,68,68,0.8)'
+              transform: isAutonomous ? 'translateX(24px)' : 'translateX(0px)',
+              backgroundColor: isAutonomous ? '#ef4444' : '#71717a',
+              boxShadow: isAutonomous ? '0 0 15px rgba(239,68,68,0.8)' : 'none'
             }}
           />
         </button>
-        <span className="text-[10px] font-orbitron font-bold transition-all duration-500 text-brand-red drop-shadow-[0_0_8px_rgba(239,68,68,0.5)]" style={{ opacity: pulseScale }}>
+        <span className={`text-[10px] font-orbitron font-bold transition-all duration-500 ${isAutonomous ? 'text-brand-red drop-shadow-[0_0_8px_rgba(239,68,68,0.5)]' : 'text-zinc-600'}`} style={{ opacity: isAutonomous ? pulseScale : 1 }}>
           AUTONOMOUS (AI)
         </span>
       </div>

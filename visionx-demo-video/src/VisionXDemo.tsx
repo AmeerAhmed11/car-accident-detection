@@ -3,6 +3,7 @@ import { AbsoluteFill, Audio, interpolate, Sequence, staticFile, useCurrentFrame
 import { Scene1Crisis } from './scenes/Scene1Crisis';
 import { Scene2Reveal } from './scenes/Scene2Reveal';
 import { Scene3GeoRouting } from './scenes/Scene3GeoRouting';
+import { Scene3bAlgorithms } from './scenes/Scene3bAlgorithms';
 import { Scene4Training } from './scenes/Scene4Training';
 import { Scene5Playground } from './scenes/Scene5Playground';
 
@@ -12,10 +13,11 @@ import { Scene5Playground } from './scenes/Scene5Playground';
  * Total: 1950 frames @ 30 FPS = 65 seconds
  * 
  * Scene 1: The Crisis           | Frames 0–390    | 13s
- * Scene 2: The Reveal            | Frames 391–710  | ~10s
- * Scene 3: Geospatial Routing    | Frames 711–1160 | 15s
- * Scene 4: Model Training        | Frames 1161–1460| 10s
- * Scene 5: AI Playground         | Frames 1461–1820| 12s
+ * Scene 2: The Reveal           | Frames 391–710  | ~10s
+ * Scene 3: Geospatial Routing   | Frames 711–1100 | 13s
+ * Scene 3b: Triple-Verification | Frames 1101–1460| 12s
+ * Scene 4: Model Training       | Frames 1461–1760| 10s
+ * Scene 5: AI Playground        | Frames 1761–2120| 12s
  */
 
 export const VisionXDemo: React.FC = () => {
@@ -24,7 +26,7 @@ export const VisionXDemo: React.FC = () => {
   // Volume: fade in over first 1s, sustain at 15% for voiceover headroom, fade out over last 2s
   const volume = interpolate(
     frame,
-    [0, 30, 1890, 1950],
+    [0, 30, 1860, 1890],
     [0, 0.15, 0.15, 0],
     { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
   );
@@ -33,24 +35,28 @@ export const VisionXDemo: React.FC = () => {
     <AbsoluteFill style={{ backgroundColor: '#0B0F19', fontFamily: 'Inter, sans-serif' }}>
       {/* Background Music */}
       <Audio src={staticFile('bgm.mp3')} volume={volume} />
-      {/* Scene 1: The Crisis (0–390) */}
-      <Sequence from={0} durationInFrames={391}>
+      {/* Scene 1: The Crisis (0–330) */}
+      <Sequence from={0} durationInFrames={331}>
         <Scene1Crisis />
       </Sequence>
-      {/* Scene 2: The Reveal & Activation (391–710) */}
-      <Sequence from={391} durationInFrames={320}>
+      {/* Scene 2: The Reveal & Activation (331–650) */}
+      <Sequence from={331} durationInFrames={320}>
         <Scene2Reveal />
       </Sequence>
-      {/* Scene 3: Geospatial Map Routing (711–1160) */}
-      <Sequence from={711} durationInFrames={450}>
+      {/* Scene 3: Geospatial Map Routing (651–860) */}
+      <Sequence from={651} durationInFrames={210}>
         <Scene3GeoRouting />
+      </Sequence>
+      {/* Scene 3b: Triple-Verification Algorithms (861–1160) */}
+      <Sequence from={861} durationInFrames={300}>
+        <Scene3bAlgorithms />
       </Sequence>
       {/* Scene 4: Model Training & Calibration (1161–1460) */}
       <Sequence from={1161} durationInFrames={300}>
         <Scene4Training />
       </Sequence>
-      {/* Scene 5: Interactive AI Playground (1461–1820) */}
-      <Sequence from={1461} durationInFrames={360}>
+      {/* Scene 5: Interactive AI Playground (1461–1890) */}
+      <Sequence from={1461} durationInFrames={429}>
         <Scene5Playground />
       </Sequence>
     </AbsoluteFill>

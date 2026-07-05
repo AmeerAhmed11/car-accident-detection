@@ -5,7 +5,7 @@ import { TacticalMap } from '../components/TacticalMap';
 import { DashboardHeader } from '../components/DashboardHeader';
 import { TacticalSidebar } from '../components/TacticalSidebar';
 
-const DURATION = 450; // frames 841–1290
+const DURATION = 210; // frames 841–1050
 
 export const Scene3GeoRouting: React.FC = () => {
   return (
