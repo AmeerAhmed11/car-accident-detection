@@ -20,7 +20,6 @@ const CURSOR_PATH = [
   { frame: 250, x: 830, y: 760 },   // Navigate to "Approve Intervention" button
   { frame: 280, x: 830, y: 760 },   // Click position
   { frame: 320, x: 960, y: 1200 },  // Move away off-screen
-  { frame: DURATION, x: 960, y: 1200 },
 ];
 
 const CLICK_FRAMES = [140, 280];

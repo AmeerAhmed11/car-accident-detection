@@ -37,22 +37,18 @@ export const VisionXDemo: React.FC = () => {
       <Sequence from={0} durationInFrames={391}>
         <Scene1Crisis />
       </Sequence>
-
       {/* Scene 2: The Reveal & Activation (391–710) */}
       <Sequence from={391} durationInFrames={320}>
         <Scene2Reveal />
       </Sequence>
-
       {/* Scene 3: Geospatial Map Routing (711–1160) */}
       <Sequence from={711} durationInFrames={450}>
         <Scene3GeoRouting />
       </Sequence>
-
       {/* Scene 4: Model Training & Calibration (1161–1460) */}
       <Sequence from={1161} durationInFrames={300}>
         <Scene4Training />
       </Sequence>
-
       {/* Scene 5: Interactive AI Playground (1461–1820) */}
       <Sequence from={1461} durationInFrames={360}>
         <Scene5Playground />

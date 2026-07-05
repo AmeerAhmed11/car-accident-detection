@@ -17,9 +17,9 @@ const CAROUSEL_IMAGES = [
 ];
 
 const TEXTS = [
-  { text: 'Local Environment Calibration', delay: 30 },
-  { text: 'Developed in Cooperation with the Ministry of Interior', delay: 120 },
-  { text: 'Neural Network Trained on Real National Vehicular & Road Dataset', delay: 200 },
+  { text: 'Model trained on a large dataset', delay: 30 },
+  { text: 'Including different environments like rain, dust, storms, & low light', delay: 120 },
+  { text: 'And real accident scenarios', delay: 200 },
 ];
 
 const IMAGE_DURATION = 28; // Each image visible for ~0.9s
@@ -48,7 +48,7 @@ export const Scene4Training: React.FC = () => {
           const imgOpacity = interpolate(
             frame,
             [imgStart, imgStart + 8, imgEnd - 8, imgEnd],
-            [0, 0.5, 0.5, 0],
+            [0, 0.9, 0.9, 0],
             { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
           );
 
@@ -76,7 +76,7 @@ export const Scene4Training: React.FC = () => {
                   width: '100%',
                   height: '100%',
                   objectFit: 'cover',
-                  filter: 'saturate(0.3) brightness(0.5)',
+                  filter: 'saturate(0.5) brightness(0.8)',
                 }}
               />
             </AbsoluteFill>
@@ -86,7 +86,7 @@ export const Scene4Training: React.FC = () => {
         {/* Dark Overlay */}
         <AbsoluteFill
           style={{
-            background: 'linear-gradient(180deg, rgba(11,15,25,0.7) 0%, rgba(11,15,25,0.9) 60%, #0B0F19 100%)',
+            background: 'linear-gradient(180deg, rgba(11,15,25,0.4) 0%, rgba(11,15,25,0.7) 60%, #0B0F19 100%)',
           }}
         />
 

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import L from 'leaflet';
-import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet';
-import 'leaflet-routing-machine';
+import { MapContainer, TileLayer, Marker, Polyline, useMap } from 'react-leaflet';
 import { useCurrentFrame, delayRender, continueRender, interpolate } from 'remotion';
+import 'leaflet/dist/leaflet.css';
 
 // ── Real Baghdad GPS Coordinates ──────────────────────────────
 const CAM_COORDS: Record<string, [number, number]> = {
@@ -32,7 +32,7 @@ function MapController({ markers, onMapReady }: { markers: [number, number][], o
       map.invalidateSize();
       if (markers.length > 0) {
         const bounds = L.latLngBounds(markers);
-        map.fitBounds(bounds, { padding: [60, 60] });
+        map.fitBounds(bounds, { padding: [160, 160] });
       }
       onMapReady(); // signal that map is loaded
     }, 500);
@@ -43,49 +43,71 @@ function MapController({ markers, onMapReady }: { markers: [number, number][], o
   return null;
 }
 
-function RoutingController({ ops, incident, hospital, onRouteReady }: { ops: [number, number], incident: [number, number], hospital: [number, number], onRouteReady: () => void }) {
+async function fetchOSRMRoute(start: [number, number], end: [number, number]): Promise<[number, number][]> {
+  const url = `http://router.project-osrm.org/route/v1/driving/${start[1]},${start[0]};${end[1]},${end[0]}?overview=full&geometries=geojson`;
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    if (data.routes && data.routes.length > 0) {
+      // GeoJSON coordinates are [lon, lat], Leaflet needs [lat, lon]
+      const mapped = data.routes[0].geometry.coordinates.map((c: [number, number]) => [c[1], c[0]] as [number, number]);
+      return [start, ...mapped, end];
+    }
+  } catch (err) {
+    console.error("OSRM Fetch Error:", err);
+  }
+  // Fallback to straight line if API fails
+  return [start, end];
+}
+
+function AnimatedRouteLabel({ routeCoords, text, delayFrame, color }: { routeCoords: [number, number][], text: string, delayFrame: number, color: string }) {
   const map = useMap();
+  const frame = useCurrentFrame();
 
-  useEffect(() => {
-    if (!map) return;
+  if (routeCoords.length === 0) return null;
 
-    let readyCount = 0;
-    const checkReady = () => {
-      readyCount++;
-      if (readyCount === 2) onRouteReady();
-    };
+  // Find the exact middle coordinate of the route to point to
+  const midPoint = routeCoords[Math.floor(routeCoords.length / 2)];
+  const point = map.latLngToContainerPoint(midPoint);
 
-    const routingControlA = L.Routing.control({
-      plan: L.Routing.plan([L.latLng(ops[0], ops[1]), L.latLng(incident[0], incident[1])], { createMarker: () => false }),
-      lineOptions: { styles: [{ color: '#00e676', weight: 4, opacity: 0.9, className: 'route-segment-1' }], extendToWaypoints: true, missingRouteTolerance: 0 },
-      show: false, addWaypoints: false, fitSelectedRoutes: false, showAlternatives: false,
-    }).addTo(map);
+  // Fade in starts at delayFrame and takes 15 frames
+  const opacity = interpolate(frame, [delayFrame, delayFrame + 15], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
+  const yOffset = interpolate(frame, [delayFrame, delayFrame + 15], [10, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
 
-    const routingControlB = L.Routing.control({
-      plan: L.Routing.plan([L.latLng(incident[0], incident[1]), L.latLng(hospital[0], hospital[1])], { createMarker: () => false }),
-      lineOptions: { styles: [{ color: '#3b82f6', weight: 4, opacity: 0.9, className: 'route-segment-2' }], extendToWaypoints: true, missingRouteTolerance: 0 },
-      show: false, addWaypoints: false, fitSelectedRoutes: false, showAlternatives: false,
-    }).addTo(map);
+  if (opacity === 0) return null;
 
-    routingControlA.on('routesfound', checkReady);
-    routingControlB.on('routesfound', checkReady);
-
-    return () => {
-      try {
-        if (!map) return;
-        // Prevent async routing callbacks from crashing after unmount
-        // @ts-ignore
-        if (routingControlA._clearLines) routingControlA._clearLines = () => {};
-        // @ts-ignore
-        if (routingControlB._clearLines) routingControlB._clearLines = () => {};
-        
-        map.removeControl(routingControlA);
-        map.removeControl(routingControlB);
-      } catch (e) {}
-    };
-  }, [map, ops, incident, hospital, onRouteReady]);
-
-  return null;
+  return (
+    <div style={{
+      position: 'absolute',
+      left: point.x,
+      top: point.y,
+      zIndex: 1000,
+      opacity,
+      transform: `translate(20px, calc(-50% + ${yOffset}px))`,
+      pointerEvents: 'none',
+      display: 'flex',
+      alignItems: 'center',
+    }}>
+      <svg width="40" height="10" style={{ marginRight: '10px', overflow: 'visible' }}>
+        <line x1="0" y1="5" x2="40" y2="5" stroke={color} strokeWidth="2" strokeDasharray="4 2" />
+        <circle cx="0" cy="5" r="3" fill={color} />
+      </svg>
+      <div style={{
+        background: 'rgba(11, 15, 25, 0.9)',
+        border: `2px solid ${color}`,
+        padding: '12px 20px',
+        color: '#fff',
+        fontSize: '16px',
+        fontWeight: '900',
+        textTransform: 'uppercase',
+        letterSpacing: '1.5px',
+        boxShadow: `0 0 20px ${color}80`,
+        whiteSpace: 'nowrap',
+      }}>
+        {text}
+      </div>
+    </div>
+  );
 }
 
 interface TacticalMapProps {
@@ -97,33 +119,42 @@ export const TacticalMap: React.FC<TacticalMapProps> = ({ animationStartFrame = 
   const [handle] = useState(() => delayRender());
 
   const [mapReady, setMapReady] = useState(false);
-  const [routeReady, setRouteReady] = useState(false);
+  const [route1Coords, setRoute1Coords] = useState<[number, number][]>([]);
+  const [route2Coords, setRoute2Coords] = useState<[number, number][]>([]);
 
   useEffect(() => {
-    if (mapReady && routeReady) {
+    let mounted = true;
+    async function loadRoutes() {
+      const r1 = await fetchOSRMRoute(OPS_CENTER, INCIDENT_SITE);
+      const r2 = await fetchOSRMRoute(INCIDENT_SITE, MEDICAL_CITY);
+      if (mounted) {
+        setRoute1Coords(r1);
+        setRoute2Coords(r2);
+      }
+    }
+    loadRoutes();
+    return () => { mounted = false; };
+  }, []);
+
+  useEffect(() => {
+    if (mapReady && route1Coords.length > 0 && route2Coords.length > 0) {
       continueRender(handle);
     }
-  }, [mapReady, routeReady, handle]);
+  }, [mapReady, route1Coords, route2Coords, handle]);
 
-  // Animate the routes drawing in
-  // Route 1 (Green) draws from animationStartFrame to animationStartFrame + 40
-  // Route 2 (Blue) draws from animationStartFrame + 40 to animationStartFrame + 80
-  const route1Draw = interpolate(frame, [animationStartFrame, animationStartFrame + 40], [2000, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
-  const route2Draw = interpolate(frame, [animationStartFrame + 40, animationStartFrame + 80], [2000, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
+  // Determine how many coordinates to draw based on frame interpolation
+  const route1Progress = interpolate(frame, [animationStartFrame, animationStartFrame + 40], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
+  const route2Progress = interpolate(frame, [animationStartFrame + 40, animationStartFrame + 80], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
+
+  const currentRoute1 = route1Coords.slice(0, Math.max(1, Math.floor(route1Progress * route1Coords.length)));
+  const currentRoute2 = route2Coords.slice(0, Math.max(1, Math.floor(route2Progress * route2Coords.length)));
 
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative', overflow: 'hidden' }}>
       <style>
         {`
-          .route-segment-1 {
-            stroke-dasharray: 2000;
-            stroke-dashoffset: ${route1Draw};
-            transition: stroke-dashoffset 0.1s linear;
-          }
-          .route-segment-2 {
-            stroke-dasharray: 2000;
-            stroke-dashoffset: ${route2Draw};
-            transition: stroke-dashoffset 0.1s linear;
+          .leaflet-container {
+            background: #0B0F19 !important;
           }
         `}
       </style>
@@ -135,13 +166,33 @@ export const TacticalMap: React.FC<TacticalMapProps> = ({ animationStartFrame = 
         style={{ width: '100%', height: '100%' }}
       >
         <TileLayer url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png" />
-        
-        <RoutingController ops={OPS_CENTER} incident={INCIDENT_SITE} hospital={MEDICAL_CITY} onRouteReady={() => setRouteReady(true)} />
-        
+
+        {/* Draw the sliced route polylines deterministically */}
+        {route1Progress > 0 && (
+          <Polyline positions={currentRoute1} pathOptions={{ color: '#00e676', weight: 4, opacity: 0.9 }} />
+        )}
+        {route2Progress > 0 && (
+          <Polyline positions={currentRoute2} pathOptions={{ color: '#3b82f6', weight: 4, opacity: 0.9 }} />
+        )}
+
         <Marker position={OPS_CENTER} icon={customMarkerIcon('#00e676')} />
         <Marker position={INCIDENT_SITE} icon={customMarkerIcon('#ef4444')} />
         <Marker position={MEDICAL_CITY} icon={customMarkerIcon('#3b82f6')} />
-        
+
+        <AnimatedRouteLabel
+          routeCoords={route1Coords}
+          text="ROUTE: OPERATIONAL CENTER TO ACCIDENT LOCATION"
+          delayFrame={animationStartFrame + 40}
+          color="#00e676"
+        />
+
+        <AnimatedRouteLabel
+          routeCoords={route2Coords}
+          text="ROUTE: ACCIDENT LOCATION TO NEAREST HOSPITAL"
+          delayFrame={animationStartFrame + 80}
+          color="#3b82f6"
+        />
+
         <MapController markers={[OPS_CENTER, INCIDENT_SITE, MEDICAL_CITY]} onMapReady={() => setMapReady(true)} />
       </MapContainer>
     </div>

@@ -28,6 +28,8 @@ const TacticalMap = dynamic(() => import('@/components/surveillance/tactical-map
   loading: () => <div className="w-full h-full bg-black/50 animate-pulse flex items-center justify-center font-orbitron text-zinc-500">INITIALIZING TACTICAL OVERLAY...</div>
 });
 
+const DashboardMap = dynamic(() => import('@/components/dashboard-map'), { ssr: false });
+
 export default function Home() {
   const { mode, setMode, isAutoMode, setIsAutoMode, incidentStatus, setIncidentStatus } = useTheme();
   const [activeTab, setActiveTab] = useState<'surveillance' | 'ai-prediction'>('surveillance');
@@ -505,41 +507,10 @@ export default function Home() {
                       </div>
                     </div>
 
-                    <div className="h-32 bg-black rounded-lg border border-white/10 relative overflow-hidden group">
+                    <div className="h-48 bg-black rounded-lg border border-white/10 relative overflow-hidden group">
                        <div className="absolute inset-0 opacity-10 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]" />
-                       <div className="absolute inset-0 grid grid-cols-10 grid-rows-10 opacity-5">
-                          {Array.from({length: 100}).map((_, i) => <div key={i} className="border-[0.5px] border-white/20" />)}
-                       </div>
-
-                       {/* Pathfinding Simulation SVG */}
-                       <svg className="absolute inset-0 w-full h-full p-4 pointer-events-none" viewBox="0 0 200 100">
-                          <AnimatePresence>
-                            {mode === 'alert' && (
-                              <>
-                                <motion.path
-                                  d="M 20 20 Q 50 20 80 50"
-                                  fill="none"
-                                  stroke="#f59e0b"
-                                  strokeWidth="1"
-                                  strokeDasharray="2,2"
-                                  initial={{ pathLength: 0 }}
-                                  animate={{ pathLength: 1 }}
-                                  transition={{ duration: 1.5 }}
-                                />
-                                <motion.path
-                                  d="M 80 50 Q 130 50 180 20"
-                                  fill="none"
-                                  stroke="#ef4444"
-                                  strokeWidth="3"
-                                  strokeDasharray="4,4"
-                                  initial={{ pathLength: 0 }}
-                                  animate={{ pathLength: 1 }}
-                                  transition={{ duration: 2, delay: 1, repeat: Infinity }}
-                                />
-                              </>
-                            )}
-                          </AnimatePresence>
-                       </svg>
+                       
+                       <DashboardMap mode={mode as 'normal' | 'alert'} />
                        
                        <div className="absolute bottom-2 left-2 bg-black/60 p-2 border border-white/5 rounded text-[7px] font-mono leading-tight z-10">
                           ALGORITHM: DIJKSTRA_OPTIMIZED <br />
