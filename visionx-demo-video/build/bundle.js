@@ -2888,6 +2888,7 @@ const VisionXDemo = () => {
   );
   return /* @__PURE__ */ (0,jsx_runtime.jsxs)(esm.AbsoluteFill, { style: { backgroundColor: "#0B0F19", fontFamily: "Inter, sans-serif" }, children: [
     /* @__PURE__ */ (0,jsx_runtime.jsx)(esm.Audio, { src: (0,esm.staticFile)("bgm.mp3"), volume }),
+    /* @__PURE__ */ (0,jsx_runtime.jsx)(esm.Audio, { src: (0,esm.staticFile)("voice_final.mp4") }),
     /* @__PURE__ */ (0,jsx_runtime.jsx)(esm.Sequence, { from: 0, durationInFrames: 331, children: /* @__PURE__ */ (0,jsx_runtime.jsx)(Scene1Crisis, {}) }),
     /* @__PURE__ */ (0,jsx_runtime.jsx)(esm.Sequence, { from: 331, durationInFrames: 320, children: /* @__PURE__ */ (0,jsx_runtime.jsx)(Scene2Reveal, {}) }),
     /* @__PURE__ */ (0,jsx_runtime.jsx)(esm.Sequence, { from: 651, durationInFrames: 210, children: /* @__PURE__ */ (0,jsx_runtime.jsx)(Scene3GeoRouting, {}) }),

@@ -27,7 +27,7 @@ export const VisionXDemo: React.FC = () => {
   const volume = interpolate(
     frame,
     [0, 30, 1860, 1890],
-    [0, 0.15, 0.15, 0],
+    [0, 0.14, 0.14, 0],
     { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
   );
 
@@ -35,6 +35,8 @@ export const VisionXDemo: React.FC = () => {
     <AbsoluteFill style={{ backgroundColor: '#0B0F19', fontFamily: 'Inter, sans-serif' }}>
       {/* Background Music */}
       <Audio src={staticFile('bgm.mp3')} volume={volume} />
+      {/* Voiceover Track */}
+      <Audio src={staticFile('voice_final.mp4')} />
       {/* Scene 1: The Crisis (0–330) */}
       <Sequence from={0} durationInFrames={331}>
         <Scene1Crisis />
