@@ -7,10 +7,20 @@ import { AlertTriangle } from 'lucide-react';
 
 const VideoFeed = React.memo(({ cam, mainCameraRef }: { cam: any, mainCameraRef: React.RefObject<HTMLVideoElement | null> }) => {
   const [hasError, setHasError] = useState(false);
+  const [isReadyToLoad, setIsReadyToLoad] = useState(cam.isMain ? true : false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   // Assign the ref conditionally
   const refToUse = cam.isMain ? mainCameraRef : videoRef;
+
+  // Staggered loading for non-main cameras to prevent bandwidth saturation
+  useEffect(() => {
+    if (cam.isMain) return;
+    // Stagger load time between 1.5s and 3s after mount
+    const delay = 1500 + Math.random() * 1500;
+    const timer = setTimeout(() => setIsReadyToLoad(true), delay);
+    return () => clearTimeout(timer);
+  }, [cam.isMain]);
 
   // Auto-retry: if there is a true error, reload the video
   useEffect(() => {
@@ -35,26 +45,33 @@ const VideoFeed = React.memo(({ cam, mainCameraRef }: { cam: any, mainCameraRef:
         }}
       />
 
-      <video
-        ref={refToUse}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="metadata"
-        onError={(e) => {
-          console.error(`[NURAI] CODEC_ERR CAM_${cam.id}:`, e);
-          setHasError(true);
-        }}
-        onPlaying={() => setHasError(false)}
-        onCanPlayThrough={() => setHasError(false)}
-        className={`w-full h-full object-cover transition-opacity duration-700 ${hasError ? 'opacity-0' : 'opacity-90 group-hover:opacity-100'}`}
-      >
-        {/* Primary H.264 source with explicit codec */}
-        <source src={cam.src} type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' />
-        {/* Fallback: generic mp4 */}
-        <source src={cam.src} type="video/mp4" />
-      </video>
+      {isReadyToLoad ? (
+        <video
+          ref={refToUse}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          onError={(e) => {
+            console.error(`[NURAI] CODEC_ERR CAM_${cam.id}:`, e);
+            setHasError(true);
+          }}
+          onPlaying={() => setHasError(false)}
+          onCanPlayThrough={() => setHasError(false)}
+          className={`w-full h-full object-cover transition-opacity duration-700 ${hasError ? 'opacity-0' : 'opacity-90 group-hover:opacity-100'}`}
+        >
+          {/* Primary H.264 source with explicit codec */}
+          <source src={cam.src} type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' />
+          {/* Fallback: generic mp4 */}
+          <source src={cam.src} type="video/mp4" />
+        </video>
+      ) : (
+        <div className="absolute inset-0 flex flex-col items-center justify-center z-20">
+          <div className="w-8 h-8 rounded-full border-2 border-zinc-800 border-t-brand-primary animate-spin mb-2" />
+          <span className="text-[9px] font-orbitron text-zinc-500 tracking-widest uppercase animate-pulse">CONNECTING...</span>
+        </div>
+      )}
 
       {/* Debug Overlay for Codec Issues */}
       {hasError && (

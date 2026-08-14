@@ -10,8 +10,8 @@ for filename in os.listdir(video_dir):
         filepath = os.path.join(video_dir, filename)
         temp_filepath = os.path.join(video_dir, "cut_" + filename)
         
-        cmd = [ffmpeg_exe, "-y", "-i", filepath, "-t", "30", "-c", "copy", temp_filepath]
-        print(f"Cutting {filename} to 30 seconds...")
+        cmd = [ffmpeg_exe, "-y", "-i", filepath, "-vcodec", "libx264", "-crf", "28", "-preset", "fast", temp_filepath]
+        print(f"Compressing {filename}...")
         subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
         
         os.replace(temp_filepath, filepath)
